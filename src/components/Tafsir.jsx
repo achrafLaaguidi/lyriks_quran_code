@@ -37,14 +37,8 @@ const Tafasir = () => {
   const dispatch = useDispatch();
   const { surahId, activeTafsir, isPlaying, language } = useSelector((state) => state.player);
   const { data, isFetching, error } = useGetTafsirBySuraQuery(surahId || activeTafsir.sura_id);
-  const tafsirListRef = useRef();
 
-  useEffect(() => {
-    if (tafsirListRef.current) {
-      tafsirListRef.current.scrollIntoView({ behavior: 'smooth' });
-    }
 
-  }, [surahId || activeTafsir.sura_id]);
 
   const handlePauseClick = () => {
     dispatch(playPause(false));
@@ -64,7 +58,7 @@ const Tafasir = () => {
         <h2 className="text-white font-bold text-xl">{data.tafasir.name}</h2>
       </div>
 
-      <div ref={tafsirListRef} className="mt-4 flex flex-col gap-1">
+      <div className="mt-4 flex flex-col gap-1">
         {surahId || activeTafsir.sura_id ? data?.tafasir?.soar[surahId || activeTafsir.sura_id]?.map((tafsir, i) => (
           <TafsirCard
             key={tafsir.id}

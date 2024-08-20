@@ -1,10 +1,9 @@
-import React, { useEffect, useState } from 'react';
+import React, { useEffect, useRef, useState } from 'react';
 import { useDispatch, useSelector } from 'react-redux';
 import { Error, Loader, SongCard } from '../components';
 import {
     useGetLanguageQuery,
     useGetMushafByLanguageQuery,
-    useGetRecentReadsByLanguageQuery,
     useGetRecitersByLanguageQuery,
     useGetSuwarByLanguageQuery,
 } from '../redux/services/quranApi';
@@ -22,17 +21,13 @@ const Discover = () => {
 
     useEffect(() => {
         if (riwaya && readers) {
-
-            // Filtrer les récitateurs qui possèdent le mushaf correspondant à la riwaya sélectionnée
             const filteredReaders = readers.reciters.filter((reciter) =>
-                reciter.moshaf.find((moshaf) => moshaf.moshaf_type == riwaya)
-            ) || []
-
-            setAvailableReaders(filteredReaders);
-
-
+                reciter.moshaf.some((moshaf) => moshaf.moshaf_type == riwaya)
+            );
+            setAvailableReaders(filteredReaders || []);
         }
-    }, [riwaya, riwayat, readers]);
+    }, [riwaya, readers]);
+
 
     const handleLanguageChange = (selectedLanguage) => {
         dispatch(setLanguage(selectedLanguage));
@@ -46,21 +41,26 @@ const Discover = () => {
         dispatch(setRiwaya(selectedRiwaya));
     };
 
-    if (suwarIsFetching || languageIsFetching || readersIsFetching || riwayatIsFetching)
+    if (suwarIsFetching || languageIsFetching || readersIsFetching || riwayatIsFetching) {
         return <Loader title="Loading Quran..." />;
-    if (suwarError || languageError || readersError || riwayatError) return <Error language={language} />;
+    }
+    if (suwarError || languageError || readersError || riwayatError) {
+        return <Error language={language} />;
+    }
 
     return (
         <div className="flex flex-col">
-            <div className=" w-full flex justify-between items-center sm:flex-row flex-col mt-4 mb-10">
+            <div className="w-full flex justify-between items-center sm:flex-row flex-col mt-4 mb-10">
                 <h2 className="font-bold text-3xl text-white text-left">Discover</h2>
-                <div className=" w-fit flex justify-between items-center sm:flex-row flex-col mt-4 mb-10">
+                <div className="w-fit flex justify-between items-center sm:flex-row flex-col mt-4 mb-10">
                     <select
                         onChange={(e) => handleRiwayaChange(e.target.value)}
                         value={riwaya}
                         className="bg-black text-gray-300 p-3 text-sm rounded-lg outline-none sm:mt-0 mt-5"
                     >
-                        <option key="0" value=''>{language === 'ar' ? 'اختر روايتك' : 'Choose your riwaya'}</option>
+                        <option key="0" value="">
+                            {language === 'ar' ? 'اختر روايتك' : 'Choose your riwaya'}
+                        </option>
                         {riwayat.riwayat.map((riwayaOption) => (
                             <option key={riwayaOption.id} value={riwayaOption.id}>
                                 {riwayaOption.name}
@@ -72,9 +72,11 @@ const Discover = () => {
                         value={reader}
                         className="bg-black text-gray-300 p-3 text-sm rounded-lg outline-none sm:mt-0 mt-5"
                     >
-                        <option key="0">{language === 'ar' ? 'اختر قارئك' : 'Choose your reader'}</option>
-                        {availableReaders.map((readerOption, i) => (
-                            <option key={i} value={readerOption.id}>
+                        <option key="0" value="">
+                            {language === 'ar' ? 'اختر قارئك' : 'Choose your reader'}
+                        </option>
+                        {availableReaders.map((readerOption) => (
+                            <option key={readerOption.id} value={readerOption.id}>
                                 {readerOption.name}
                             </option>
                         ))}
@@ -108,6 +110,7 @@ const Discover = () => {
                     />
                 ))}
             </div>
+
         </div>
     );
 };

@@ -3,7 +3,6 @@ import { HiOutlineClipboardList, HiOutlineHome, HiOutlineMenu, HiOutlineUserGrou
 import { RiCloseLine } from 'react-icons/ri';
 import { NavLink } from 'react-router-dom';
 
-
 const links = [
   { name: 'Discover', to: '/', icon: HiOutlineHome },
   { name: 'Quran', to: '/quran', icon: HiOutlineClipboardList },
@@ -28,27 +27,28 @@ const NavLinks = ({ handleClick }) => (
 );
 
 const Sidebar = () => {
-
   const [mobileMenuOpen, setMobileMenuOpen] = useState(false);
 
   return (
     <>
+      {/* Desktop Sidebar */}
       <div className="md:flex hidden flex-col w-[240px] py-10 px-4 bg-[#191624]">
-        <h3 className='text-white text-center text-2xl'>اَلْقُرْآنُ اُلْكَرِيمُ</h3>
+        <h3 className="text-white text-center text-2xl">اَلْقُرْآنُ اُلْكَرِيمُ</h3>
         <NavLinks />
       </div>
 
-      {/* Mobile sidebar */}
+      {/* Mobile Menu Button */}
       <div className="absolute md:hidden block top-6 right-3">
         {!mobileMenuOpen ? (
-          <HiOutlineMenu className="w-6 h-6 mr-2 text-white" onClick={() => setMobileMenuOpen(true)} />
+          <HiOutlineMenu className="w-6 h-6 text-white cursor-pointer" onClick={() => setMobileMenuOpen(true)} />
         ) : (
-          <RiCloseLine className="w-6 h-6 mr-2 text-white" onClick={() => setMobileMenuOpen(false)} />
+          <RiCloseLine className="w-6 h-6 text-white cursor-pointer" onClick={() => setMobileMenuOpen(false)} />
         )}
       </div>
 
-      <div className={`absolute top-0 h-screen w-2/3 bg-gradient-to-tl from-white/10 to-[#483D8B] backdrop-blur-lg z-10 p-6 md:hidden smooth-transition ${mobileMenuOpen ? 'left-0' : '-left-full'}`}>
-        <h3 className='text-white text-center text-2xl'>اَلْقُرْآنُ اُلْكَرِيمُ</h3>
+      {/* Mobile Sidebar */}
+      <div className={`absolute top-0 h-screen w-2/3 bg-gradient-to-tl from-white/10 to-[#483D8B] backdrop-blur-lg z-10 p-6 md:hidden transform transition-transform duration-300 ${mobileMenuOpen ? 'left-0' : '-left-full'}`}>
+        <h3 className="text-white text-center text-2xl">اَلْقُرْآنُ اُلْكَرِيمُ</h3>
         <NavLinks handleClick={() => setMobileMenuOpen(false)} />
       </div>
     </>
