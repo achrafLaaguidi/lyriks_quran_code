@@ -55,8 +55,8 @@ const Player = ({
   // Fonction pour afficher une notification
   const notifyDownloadStarted = () => {
     if (Notification.permission === 'granted') {
-      new Notification('Download started', {
-        body: 'The file is being downloaded. Please check your downloads folder.'
+      new Notification('Download finished', {
+        body: 'The file is downloaded. Please check your downloads folder.'
       });
     }
   };
@@ -76,8 +76,8 @@ const Player = ({
         if (!response.ok) {
           throw new Error('Network response was not ok');
         }
-        notifyDownloadStarted();
         const blob = await response.blob();
+        notifyDownloadStarted();
         const link = document.createElement('a');
         link.href = URL.createObjectURL(blob);
         link.download = activeSong?.name || activeTafsir?.name; // Nom du fichier basé sur l'URL
