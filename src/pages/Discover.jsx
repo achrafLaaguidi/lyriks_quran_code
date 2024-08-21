@@ -1,14 +1,14 @@
 import React, { useEffect, useRef, useState } from 'react';
+import { HiArrowCircleUp } from 'react-icons/hi';
 import { useDispatch, useSelector } from 'react-redux';
 import { Error, Loader, SongCard } from '../components';
+import { setLanguage, setReader, setRiwaya } from '../redux/features/playerSlice';
 import {
     useGetLanguageQuery,
     useGetMushafByLanguageQuery,
     useGetRecitersByLanguageQuery,
     useGetSuwarByLanguageQuery,
 } from '../redux/services/quranApi';
-import { setLanguage, setReader, setRiwaya } from '../redux/features/playerSlice';
-import { HiAdjustments, HiArrowCircleUp, HiOutlineAdjustments } from 'react-icons/hi';
 
 const Discover = () => {
     const dispatch = useDispatch();
@@ -130,7 +130,7 @@ const Discover = () => {
                 </div>
             </div>
 
-            <div ref={scrollContainerRef} className="flex flex-wrap sm:justify-start justify-center gap-8 h-[calc(100vh-40vh)] overflow-y-scroll hide-scrollbar">
+            <div ref={scrollContainerRef} className="flex flex-wrap sm:justify-between justify-center gap-8 h-[calc(100vh-40vh)] overflow-y-scroll hide-scrollbar">
                 {suwars.suwar.map((song, i) => (
                     <SongCard
                         key={song.id}
