@@ -10,6 +10,7 @@ import VolumeBar from './VolumeBar';
 import { useGetRecitersByLanguageAndIdAndRewayaQuery } from '../../redux/services/quranApi';
 import Loader from '../Loader';
 import Error from '../Error';
+import { HiDownload } from 'react-icons/hi'; // Import the download icon
 
 const MusicPlayer = () => {
   const {
@@ -47,7 +48,6 @@ const MusicPlayer = () => {
   };
 
   const handleNextSong = () => {
-
     if (currentIndex === currentSongs.length - 1) {
       dispatch(nextSong(0));
     } else if (!shuffle) {
@@ -59,7 +59,6 @@ const MusicPlayer = () => {
   };
 
   const handlePrevSong = () => {
-
     if (currentIndex === 0) {
       dispatch(prevSong(currentSongs.length - 1));
     } else if (shuffle) {
@@ -71,6 +70,7 @@ const MusicPlayer = () => {
 
   if (isFetching) return <Loader />;
   if (error) return <Error language={language} />;
+
 
   return (
     <div className="relative sm:px-12 px-8 w-full flex items-center justify-between">

@@ -22,7 +22,7 @@ const Search = () => {
         {language === 'ar' ? 'عرض النتائج ' : 'Showing results '}
       </h2>
 
-      <div className="flex flex-wrap sm:justify-start justify-center gap-8">
+      <div className="flex flex-wrap sm:justify-start justify-center gap-8  h-[calc(100vh-35vh)] overflow-y-scroll hide-scrollbar">
         {songs.length > 0 ? (
           songs.map((song) => (
             <SongCard

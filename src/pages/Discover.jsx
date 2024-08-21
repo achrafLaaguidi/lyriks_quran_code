@@ -34,6 +34,10 @@ const Discover = () => {
 
     // Gérer l'affichage du bouton "Scroll to Top"
     useEffect(() => {
+
+        if (scrollContainerRef.current) {
+            scrollContainerRef.current.scrollTo({ top: 0, behavior: 'smooth' });
+        }
         const refCurrent = scrollContainerRef.current;
         const handleScroll = () => {
             if (refCurrent.scrollTop > 300) {

@@ -7,7 +7,7 @@ const Track = ({ isPlaying, isActive, activeSong, activeTafsir, language, active
       <img src={quran} alt={activeSong.name || activeTafsir.name} className="rounded-full" />
     </div>
 
-    <div className="sm:w-[50%] w-[75%]">
+    <div className="sm:w-[50%] w-[100%]">
       <p className="truncate text-white font-bold sm:text-lg">
         {language === 'ar' ?
           `${activeSurah || activeTafsir?.id ? `${!activeTafsir?.id ? `سورة ${activeSong?.name}` : `${activeTafsir.name} `}` : 'لا يوجد تسجيل '} `
