@@ -9,20 +9,20 @@ import {
     useGetRecitersByLanguageQuery,
     useGetSuwarByLanguageQuery,
 } from '../redux/services/quranApi';
+import useScrollToTopButton from '../assets/useScrollToTop';
 
 const Discover = () => {
     const dispatch = useDispatch();
     const { activeSong, isPlaying, language, reader, riwaya } = useSelector((state) => state.player);
     const [availableReaders, setAvailableReaders] = useState([]);
-    const [showScrollButton, setShowScrollButton] = useState(false);
-    const scrollContainerRef = useRef();
+    const { scrollContainerRef, showScrollButton, handleScrollToTop } = useScrollToTopButton();
+
 
     const { data: suwars, isFetching: suwarIsFetching, error: suwarError } = useGetSuwarByLanguageQuery(language);
     const { data: languages, isFetching: languageIsFetching, error: languageError } = useGetLanguageQuery();
     const { data: readers, isFetching: readersIsFetching, error: readersError } = useGetRecitersByLanguageQuery(language);
     const { data: riwayat, isFetching: riwayatIsFetching, error: riwayatError } = useGetMushafByLanguageQuery(language);
 
-    // Filtrer les lecteurs en fonction de la riwaya sélectionnée
     useEffect(() => {
         if (riwaya && readers) {
             const filteredReaders = readers.reciters.filter((reciter) =>
@@ -32,38 +32,7 @@ const Discover = () => {
         }
     }, [riwaya, readers]);
 
-    // Gérer l'affichage du bouton "Scroll to Top"
-    useEffect(() => {
 
-        if (scrollContainerRef.current) {
-            scrollContainerRef.current.scrollTo({ top: 0, behavior: 'smooth' });
-        }
-        const refCurrent = scrollContainerRef.current;
-        const handleScroll = () => {
-            if (refCurrent.scrollTop > 300) {
-                setShowScrollButton(true);
-            } else {
-                setShowScrollButton(false);
-            }
-        };
-
-        if (refCurrent) {
-            refCurrent.addEventListener('scroll', handleScroll);
-        }
-
-        // Nettoyage de l'événement lors du démontage
-        return () => {
-            if (refCurrent) {
-                refCurrent.removeEventListener('scroll', handleScroll);
-            }
-        };
-    }, []);
-
-    const handleScrollToTop = () => {
-        if (scrollContainerRef.current) {
-            scrollContainerRef.current.scrollTo({ top: 0, behavior: 'smooth' });
-        }
-    };
 
     const handleLanguageChange = (selectedLanguage) => {
         dispatch(setLanguage(selectedLanguage));

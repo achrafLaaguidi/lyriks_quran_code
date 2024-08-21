@@ -14,6 +14,7 @@ const Player = ({
   repeat,
 }) => {
   const [audio, setAudio] = useState('');
+  const [isDownloading, setIsDownloading] = useState(false); // État pour l'alerte
   const ref = useRef(null);
 
   // Gestion de la source audio selon activeTafsir ou activeSong
@@ -28,7 +29,6 @@ const Player = ({
       setAudio(audioUrl);
     }
   }, [activeSong, activeTafsir, currentSong]);
-
 
   if (ref.current) {
     if (isPlaying) {
@@ -52,27 +52,46 @@ const Player = ({
     }
   }, [seekTime]);
 
+  // Fonction pour afficher une notification
+  const notifyDownloadStarted = () => {
+    if (Notification.permission === 'granted') {
+      new Notification('Download started', {
+        body: 'The file is being downloaded. Please check your downloads folder.'
+      });
+    }
+  };
+
   // Fonction pour le téléchargement
   const handleDownload = async () => {
     if (audio) {
+      setIsDownloading(true); // Afficher l'alerte
+
+      // Demander la permission pour les notifications
+      if (Notification.permission !== 'granted') {
+        await Notification.requestPermission();
+      }
 
       try {
         const response = await fetch(audio);
         if (!response.ok) {
           throw new Error('Network response was not ok');
         }
+        notifyDownloadStarted();
         const blob = await response.blob();
         const link = document.createElement('a');
         link.href = URL.createObjectURL(blob);
-        link.download = audio.split('/').pop(); // Nom du fichier basé sur l'URL
+        link.download = activeSong?.name || activeTafsir?.name; // Nom du fichier basé sur l'URL
         document.body.appendChild(link);
         link.click();
         document.body.removeChild(link);
+
+        // Afficher la notification
       } catch (error) {
         console.error('Error downloading the file:', error);
+      } finally {
+        setIsDownloading(false); // Masquer l'alerte
       }
-    };
-
+    }
   };
 
   return (
@@ -89,7 +108,7 @@ const Player = ({
       <button
         className='bg-white p-2 rounded-full text-2xl sm:bottom-11 bottom-10 sm:right-1/3 right-2 absolute'
         onClick={handleDownload}
-        disabled={!audio}
+        disabled={!audio || isDownloading} // Désactiver le bouton pendant le téléchargement
         aria-label="Download audio"
       >
         <HiDownload />

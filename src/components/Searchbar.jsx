@@ -2,16 +2,18 @@ import React, { useState } from 'react';
 import { useNavigate } from 'react-router-dom';
 
 import { FiSearch } from 'react-icons/fi';
-import { useSelector } from 'react-redux';
+import { useDispatch, useSelector } from 'react-redux';
+import { setSurahId } from '../redux/features/playerSlice';
 
 const Searchbar = () => {
   const navigate = useNavigate();
+  const dispatch = useDispatch()
   const [searchTerm, setSearchTerm] = useState('');
   const { language } = useSelector((state) => state.player)
 
   const handleSubmit = (e) => {
     e.preventDefault();
-
+    dispatch(setSurahId(null))
     navigate(`/search/${searchTerm}`);
   };
 
