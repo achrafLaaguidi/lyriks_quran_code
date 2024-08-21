@@ -15,7 +15,7 @@ const Discover = () => {
     const { activeSong, isPlaying, language, reader, riwaya } = useSelector((state) => state.player);
     const [availableReaders, setAvailableReaders] = useState([]);
     const [showScrollButton, setShowScrollButton] = useState(false);
-    const scrollContainerRef = useRef(null);
+    const scrollContainerRef = useRef();
 
     const { data: suwars, isFetching: suwarIsFetching, error: suwarError } = useGetSuwarByLanguageQuery(language);
     const { data: languages, isFetching: languageIsFetching, error: languageError } = useGetLanguageQuery();
@@ -26,7 +26,7 @@ const Discover = () => {
     useEffect(() => {
         if (riwaya && readers) {
             const filteredReaders = readers.reciters.filter((reciter) =>
-                reciter.moshaf.some((moshaf) => moshaf.moshaf_type === riwaya)
+                reciter.moshaf.some((moshaf) => moshaf.moshaf_type == riwaya)
             );
             setAvailableReaders(filteredReaders || []);
         }

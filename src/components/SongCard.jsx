@@ -47,7 +47,7 @@ const SongCard = ({ song, isPlaying, activeSong, data, i }) => {
         </p>
         <div className='flex flex-row justify-between'>
           <p className='text-sm truncate text-white  border border-white rounded-full p-1'>
-            {i + 1}
+            {song.id}
           </p>
           <p className="text-sm truncate text-gray-300 mt-1">
             <Link to={`/surah/${song?.number}`}>
