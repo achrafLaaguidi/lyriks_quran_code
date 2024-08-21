@@ -8,26 +8,58 @@ import {
     useGetSuwarByLanguageQuery,
 } from '../redux/services/quranApi';
 import { setLanguage, setReader, setRiwaya } from '../redux/features/playerSlice';
+import { HiAdjustments, HiArrowCircleUp, HiOutlineAdjustments } from 'react-icons/hi';
 
 const Discover = () => {
     const dispatch = useDispatch();
     const { activeSong, isPlaying, language, reader, riwaya } = useSelector((state) => state.player);
     const [availableReaders, setAvailableReaders] = useState([]);
+    const [showScrollButton, setShowScrollButton] = useState(false);
+    const scrollContainerRef = useRef(null);
 
     const { data: suwars, isFetching: suwarIsFetching, error: suwarError } = useGetSuwarByLanguageQuery(language);
     const { data: languages, isFetching: languageIsFetching, error: languageError } = useGetLanguageQuery();
     const { data: readers, isFetching: readersIsFetching, error: readersError } = useGetRecitersByLanguageQuery(language);
     const { data: riwayat, isFetching: riwayatIsFetching, error: riwayatError } = useGetMushafByLanguageQuery(language);
 
+    // Filtrer les lecteurs en fonction de la riwaya sélectionnée
     useEffect(() => {
         if (riwaya && readers) {
             const filteredReaders = readers.reciters.filter((reciter) =>
-                reciter.moshaf.some((moshaf) => moshaf.moshaf_type == riwaya)
+                reciter.moshaf.some((moshaf) => moshaf.moshaf_type === riwaya)
             );
             setAvailableReaders(filteredReaders || []);
         }
     }, [riwaya, readers]);
 
+    // Gérer l'affichage du bouton "Scroll to Top"
+    useEffect(() => {
+        const handleScroll = () => {
+            if (scrollContainerRef.current.scrollTop > 500) {
+                setShowScrollButton(true);
+            } else {
+                setShowScrollButton(false);
+            }
+        };
+
+        const refCurrent = scrollContainerRef.current;
+        if (refCurrent) {
+            refCurrent.addEventListener('scroll', handleScroll);
+        }
+
+        // Nettoyage de l'événement lors du démontage
+        return () => {
+            if (refCurrent) {
+                refCurrent.removeEventListener('scroll', handleScroll);
+            }
+        };
+    }, []);
+
+    const handleScrollToTop = () => {
+        if (scrollContainerRef.current) {
+            scrollContainerRef.current.scrollTo({ top: 0, behavior: 'smooth' });
+        }
+    };
 
     const handleLanguageChange = (selectedLanguage) => {
         dispatch(setLanguage(selectedLanguage));
@@ -98,7 +130,7 @@ const Discover = () => {
                 </div>
             </div>
 
-            <div className="flex flex-wrap sm:justify-start justify-center gap-8">
+            <div ref={scrollContainerRef} className="flex flex-wrap sm:justify-start justify-center gap-8 h-[calc(100vh-40vh)] overflow-y-scroll hide-scrollbar">
                 {suwars.suwar.map((song, i) => (
                     <SongCard
                         key={song.id}
@@ -109,7 +141,16 @@ const Discover = () => {
                         i={i}
                     />
                 ))}
+                {showScrollButton && (
+                    <button
+                        className="absolute  left-25 bottom-1/4 text-6xl bg-white rounded-full animate-pulse "
+                        onClick={handleScrollToTop}
+                    >
+                        <HiArrowCircleUp />
+                    </button>
+                )}
             </div>
+
 
         </div>
     );
