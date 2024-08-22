@@ -38,7 +38,7 @@ const App = () => {
       </div>
 
       {(activeSong?.id || activeTafsir?.id) && (
-        <div className="absolute h-28 md:bottom-0 sm:bottom-12 bottom-0  left-0 right-0 flex animate-slideup bg-gradient-to-br from-white/10 to-[#2a2a80] backdrop-blur-lg rounded-3xl z-50">
+        <div className="absolute h-28 sd:bottom-0  bottom-12  left-0 right-0 flex animate-slideup bg-gradient-to-br from-white/10 to-[#2a2a80] backdrop-blur-lg rounded-3xl z-50">
           <MusicPlayer />
         </div>
       )}
