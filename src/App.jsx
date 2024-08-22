@@ -6,7 +6,7 @@ import Radio from './pages/Radio';
 import { useState } from 'react';
 
 const App = () => {
-  const { surahId } = useSelector((state) => state.player);
+  const { activeSong, surahId, activeTafsir } = useSelector((state) => state.player);
   const [searchTerm, setSearchTerm] = useState('');
 
   const handleChange = (event) => {
@@ -38,8 +38,8 @@ const App = () => {
         </div>
       </div>
 
-      {surahId && (
-        <div className="absolute h-28 sm:bottom-0 bottom-12 left-0 right-0 flex animate-slideup bg-gradient-to-br from-white/10 to-[#2a2a80] backdrop-blur-lg rounded-3xl z-50">
+      {(activeSong?.id || activeTafsir?.id) && (
+        <div className="absolute h-28 md:bottom-0 bottom-12 left-0 right-0 flex animate-slideup bg-gradient-to-br from-white/10 to-[#2a2a80] backdrop-blur-lg rounded-3xl z-50">
           <MusicPlayer />
         </div>
       )}

@@ -104,6 +104,7 @@ const MusicPlayer = () => {
           appTime={appTime}
         />
         <Player
+          language={language}
           reader={reader}
           currentSong={data}
           activeSong={activeSong}

@@ -1,5 +1,6 @@
 import React, { useEffect, useRef, useState } from 'react';
 import { HiDownload } from 'react-icons/hi';
+import Swal from 'sweetalert2';
 
 const Player = ({
   activeSong,
@@ -12,12 +13,12 @@ const Player = ({
   currentSong,
   activeTafsir,
   repeat,
+  language
 }) => {
   const [audio, setAudio] = useState('');
-  const [isDownloading, setIsDownloading] = useState(false); // État pour l'alerte
+  const [isDownloading, setIsDownloading] = useState(false);
   const ref = useRef(null);
 
-  // Gestion de la source audio selon activeTafsir ou activeSong
   useEffect(() => {
     if (activeTafsir?.id) {
       setAudio(activeTafsir.url);
@@ -38,58 +39,93 @@ const Player = ({
     }
   }
 
-  // Mise à jour du volume
   useEffect(() => {
     if (ref.current) {
       ref.current.volume = volume;
     }
   }, [volume]);
 
-  // Gestion du temps de lecture
   useEffect(() => {
     if (ref.current) {
       ref.current.currentTime = seekTime;
     }
   }, [seekTime]);
 
-  // Fonction pour afficher une notification
-  const notifyDownloadStarted = () => {
-    if (Notification.permission === 'granted') {
-      new Notification('Download finished', {
-        body: 'The file is downloaded. Please check your downloads folder.'
-      });
-    }
-  };
-
-  // Fonction pour le téléchargement
   const handleDownload = async () => {
     if (audio) {
-      setIsDownloading(true); // Afficher l'alerte
+      setIsDownloading(true);
 
-      // Demander la permission pour les notifications
-      if (Notification.permission !== 'granted') {
-        await Notification.requestPermission();
-      }
+      // Initialiser l'alerte avec une barre de progression et un timer automatique
+      let timerInterval;
+      Swal.fire({
+        title: `${language !== 'ar' ? 'Téléchargement en cours...' : '...جاري التحميل'}`,
+        html: 'Progression : <b>0%</b>',
+        allowOutsideClick: false,
+        showConfirmButton: false,
+        position: 'top',
+        didOpen: () => {
+          Swal.showLoading();
+        }
+      });
 
       try {
         const response = await fetch(audio);
-        if (!response.ok) {
-          throw new Error('Network response was not ok');
-        }
-        const blob = await response.blob();
-        notifyDownloadStarted();
+        if (!response.ok) throw new Error('Erreur réseau');
+
+        const total = parseInt(response.headers.get('content-length'), 10); // Taille totale du fichier
+        let loaded = 0; // Octets téléchargés
+
+        const reader = response.body.getReader();
+        const stream = new ReadableStream({
+          start(controller) {
+            function push() {
+              reader.read().then(({ done, value }) => {
+                if (done) {
+                  controller.close();
+                  return;
+                }
+                loaded += value.length;
+                controller.enqueue(value);
+
+                // Mettre à jour la progression dans l'alerte
+                const progress = loaded / total;
+                Swal.getHtmlContainer().querySelector('b').textContent = `${Math.round(progress * 100)}%`;
+
+                push();
+              });
+            }
+            push();
+          },
+        });
+
+        const blob = await new Response(stream).blob();
+
+        // Télécharger le fichier après téléchargement complet
         const link = document.createElement('a');
         link.href = URL.createObjectURL(blob);
-        link.download = activeSong?.name || activeTafsir?.name; // Nom du fichier basé sur l'URL
+        link.download = (activeSong?.name || activeTafsir?.name) + '.mp3';
         document.body.appendChild(link);
         link.click();
         document.body.removeChild(link);
 
-        // Afficher la notification
+        // Fermer l'alerte et afficher une notification de succès
+        Swal.close();
+        Swal.fire({
+          icon: 'success',
+          title: language !== 'ar' ? 'Téléchargement terminé' : 'اكتمل التحميل',
+          showConfirmButton: false,
+          timer: 1500,
+        });
       } catch (error) {
-        console.error('Error downloading the file:', error);
+        console.error('Erreur lors du téléchargement du fichier :', error);
+        Swal.close();
+        Swal.fire({
+          icon: 'error',
+          title: 'Erreur',
+          text: "Le téléchargement a échoué.",
+        });
       } finally {
-        setIsDownloading(false); // Masquer l'alerte
+        setIsDownloading(false);
       }
     }
   };
@@ -103,12 +139,12 @@ const Player = ({
         onEnded={onEnded}
         onTimeUpdate={onTimeUpdate}
         onLoadedData={onLoadedData}
-        aria-label="Audio player" // Ajouter un label accessible
+        aria-label="Audio player"
       />
       <button
-        className=' bg-white p-2 rounded-md md:text-3xl text-2xl bottom-8 sm:right-4 right-2 absolute'
+        className="bg-white p-2 rounded-md md:text-3xl text-2xl bottom-8 sm:right-4 right-2 absolute"
         onClick={handleDownload}
-        disabled={!audio || isDownloading} // Désactiver le bouton pendant le téléchargement
+        disabled={!audio || isDownloading}
         aria-label="Download audio"
       >
         <HiDownload />
