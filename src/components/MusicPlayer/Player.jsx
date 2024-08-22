@@ -54,7 +54,7 @@ const Player = ({
 
   // Fonction pour afficher une notification
   const notifyDownloadStarted = () => {
-    if (Notification.permission === 'granted') {
+    if (Notification.permission == 'granted') {
       new Notification('Download finished', {
         body: 'The file is downloaded. Please check your downloads folder.'
       });
@@ -67,7 +67,7 @@ const Player = ({
       setIsDownloading(true); // Afficher l'alerte
 
       // Demander la permission pour les notifications
-      if (Notification.permission !== 'granted') {
+      if (Notification.permission != 'granted') {
         await Notification.requestPermission();
       }
 
@@ -106,7 +106,7 @@ const Player = ({
         aria-label="Audio player" // Ajouter un label accessible
       />
       <button
-        className='bg-white p-2 rounded-full text-2xl sm:bottom-11 bottom-10 sm:right-1/3 right-2 absolute'
+        className=' bg-white p-2 rounded-md text-3xl bottom-8 right-4 absolute'
         onClick={handleDownload}
         disabled={!audio || isDownloading} // Désactiver le bouton pendant le téléchargement
         aria-label="Download audio"

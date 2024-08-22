@@ -1,24 +1,15 @@
-import React, { useState } from 'react';
-import { useNavigate } from 'react-router-dom';
+import React from 'react';
 
 import { FiSearch } from 'react-icons/fi';
-import { useDispatch, useSelector } from 'react-redux';
-import { setSurahId } from '../redux/features/playerSlice';
+import { useSelector } from 'react-redux';
 
-const Searchbar = () => {
-  const navigate = useNavigate();
-  const dispatch = useDispatch()
-  const [searchTerm, setSearchTerm] = useState('');
+const Searchbar = ({ handleChange, searchTerm }) => {
   const { language } = useSelector((state) => state.player)
 
-  const handleSubmit = (e) => {
-    e.preventDefault();
-    dispatch(setSurahId(null))
-    navigate(`/search/${searchTerm}`);
-  };
+
 
   return (
-    <form onSubmit={handleSubmit} autoComplete="off" className="p-2 text-gray-400 focus-within:text-gray-600">
+    <div autoComplete="off" className="w-[25%] p-2 text-gray-400 focus-within:text-gray-600">
       <label htmlFor="search-field" className="sr-only">
         {language == 'ar' ? 'بحث' : 'Search'}
       </label>
@@ -32,10 +23,10 @@ const Searchbar = () => {
           placeholder={language == 'ar' ? 'بحث' : 'Search'}
           type="search"
           value={searchTerm}
-          onChange={(e) => setSearchTerm(e.target.value)}
+          onChange={(e) => handleChange(e)}
         />
       </div>
-    </form>
+    </div>
   );
 };
 

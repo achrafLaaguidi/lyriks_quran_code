@@ -11,26 +11,31 @@ import {
 } from '../redux/services/quranApi';
 import useScrollToTopButton from '../assets/useScrollToTop';
 
-const Discover = () => {
+const Discover = ({ searchTerm }) => {
     const dispatch = useDispatch();
     const { activeSong, isPlaying, language, reader, riwaya } = useSelector((state) => state.player);
     const [availableReaders, setAvailableReaders] = useState([]);
     const { scrollContainerRef, showScrollButton, handleScrollToTop } = useScrollToTopButton();
 
-
+    const [suwarsFiltred, setSuwarsFiltred] = useState({})
     const { data: suwars, isFetching: suwarIsFetching, error: suwarError } = useGetSuwarByLanguageQuery(language);
     const { data: languages, isFetching: languageIsFetching, error: languageError } = useGetLanguageQuery();
     const { data: readers, isFetching: readersIsFetching, error: readersError } = useGetRecitersByLanguageQuery(language);
     const { data: riwayat, isFetching: riwayatIsFetching, error: riwayatError } = useGetMushafByLanguageQuery(language);
 
     useEffect(() => {
+        if (suwars)
+            setSuwarsFiltred(suwars.suwar)
+        if (searchTerm) {
+            setSuwarsFiltred(suwars.suwar.filter((surah) => surah.name.includes(searchTerm)));
+        }
         if (riwaya && readers) {
             const filteredReaders = readers.reciters.filter((reciter) =>
                 reciter.moshaf.some((moshaf) => moshaf.moshaf_type == riwaya)
             );
             setAvailableReaders(filteredReaders || []);
         }
-    }, [riwaya, readers]);
+    }, [suwars, riwaya, readers, searchTerm]);
 
 
 
@@ -54,14 +59,15 @@ const Discover = () => {
     }
 
     return (
-        <div className="flex flex-col">
-            <div className="w-full flex justify-between items-center sm:flex-row flex-col mt-4 mb-10">
+        <div className="flex flex-col  ">
+            <div className="w-full flex  justify-between  items-center sm:flex-row flex-col mt-4 mb-10 h-full overflow-y-scroll hide-scrollbar">
+
                 <h2 className="font-bold text-3xl text-white text-left">Discover</h2>
-                <div className="w-fit flex justify-between items-center sm:flex-row flex-col mt-4 mb-10">
+                <div className="w-fit flex justify-between items-center sm:flex-row flex-col ">
                     <select
                         onChange={(e) => handleRiwayaChange(e.target.value)}
                         value={riwaya}
-                        className="bg-black text-gray-300 p-3 text-sm rounded-lg outline-none sm:mt-0 mt-5"
+                        className="bg-black text-gray-300 p-3 text-sm rounded-lg outline-none sm:mb-0 mb-4"
                     >
                         <option key="0" value="">
                             {language === 'ar' ? 'اختر روايتك' : 'Choose your riwaya'}
@@ -75,7 +81,7 @@ const Discover = () => {
                     <select
                         onChange={(e) => handleReaderChange(e.target.value)}
                         value={reader}
-                        className="bg-black text-gray-300 p-3 text-sm rounded-lg outline-none sm:mt-0 mt-5"
+                        className="bg-black text-gray-300 p-3 text-sm rounded-lg outline-none sm:mb-0 mb-4"
                     >
                         <option key="0" value="">
                             {language === 'ar' ? 'اختر قارئك' : 'Choose your reader'}
@@ -89,7 +95,7 @@ const Discover = () => {
                     <select
                         onChange={(e) => handleLanguageChange(e.target.value)}
                         value={language}
-                        className="bg-black text-gray-300 p-3 text-sm rounded-lg outline-none sm:mt-0 mt-5"
+                        className="bg-black text-gray-300 p-3 text-sm rounded-lg outline-none mb-0"
                     >
                         <option key="0" value="">
                             {language === 'ar' ? 'اختر لغتك' : 'Choose your language'}
@@ -103,8 +109,8 @@ const Discover = () => {
                 </div>
             </div>
 
-            <div ref={scrollContainerRef} className="flex flex-wrap sm:justify-between justify-center gap-8 h-[calc(100vh-40vh)] overflow-y-scroll hide-scrollbar">
-                {suwars.suwar.map((song, i) => (
+            <div ref={scrollContainerRef} className={`flex flex-wrap sm:justify-between justify-center gap-8 ${!activeSong?.id ? 'h-[calc(100vh-20vh)]' : `${suwarsFiltred.length <= 4 ? 'h-[calc(100vh-60vh)]' : 'h-[calc(100vh-40vh)]'}`} overflow-y-scroll hide-scrollbar`}>
+                {suwarsFiltred?.map((song, i) => (
                     <SongCard
                         key={song.id}
                         song={song}
@@ -116,7 +122,7 @@ const Discover = () => {
                 ))}
                 {showScrollButton && (
                     <button
-                        className="absolute  left-25 bottom-1/4 text-6xl bg-white rounded-full animate-pulse "
+                        className="absolute left-25   bottom-1/4 text-6xl bg-white rounded-full animate-pulse "
                         onClick={handleScrollToTop}
                     >
                         <HiArrowCircleUp />

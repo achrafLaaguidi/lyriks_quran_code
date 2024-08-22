@@ -26,7 +26,8 @@ const playerSlice = createSlice({
       state.currentSongs = action.payload.data;
 
 
-      state.currentIndex = action.payload.i;
+      state.currentIndex = action.payload.song.id - 1;
+
       state.isActive = true;
 
     },
@@ -45,11 +46,13 @@ const playerSlice = createSlice({
       if (state.activeSong?.id) {
         state.activeSong = state.currentSongs[action.payload];
         state.currentIndex = action.payload;
+        state.surahId = action.payload + 1;
       }
       else {
         state.activeTafsir = state.currentSongs[action.payload]
         state.currentIndex = action.payload;
       }
+
       state.isActive = true;
     },
 
@@ -57,6 +60,8 @@ const playerSlice = createSlice({
       if (state.activeSong?.id) {
         state.activeSong = state.currentSongs[action.payload];
         state.currentIndex = action.payload;
+        state.surahId = action.payload + 1;
+
       }
       else {
         state.activeTafsir = state.currentSongs[action.payload]
