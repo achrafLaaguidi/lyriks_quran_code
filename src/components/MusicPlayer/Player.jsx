@@ -54,7 +54,7 @@ const Player = ({
 
   // Fonction pour afficher une notification
   const notifyDownloadStarted = () => {
-    if (Notification.permission == 'granted') {
+    if (Notification.permission === 'granted') {
       new Notification('Download finished', {
         body: 'The file is downloaded. Please check your downloads folder.'
       });
@@ -67,7 +67,7 @@ const Player = ({
       setIsDownloading(true); // Afficher l'alerte
 
       // Demander la permission pour les notifications
-      if (Notification.permission != 'granted') {
+      if (Notification.permission !== 'granted') {
         await Notification.requestPermission();
       }
 

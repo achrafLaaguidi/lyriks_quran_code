@@ -9,7 +9,7 @@ const Searchbar = ({ handleChange, searchTerm }) => {
 
 
   return (
-    <div autoComplete="off" className="w-[25%] p-2 text-gray-400 focus-within:text-gray-600">
+    <div autoComplete="off" className=" p-2 text-gray-400 focus-within:text-gray-600">
       <label htmlFor="search-field" className="sr-only">
         {language == 'ar' ? 'بحث' : 'Search'}
       </label>
