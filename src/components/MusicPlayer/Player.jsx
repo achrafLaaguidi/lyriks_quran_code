@@ -106,7 +106,7 @@ const Player = ({
         aria-label="Audio player" // Ajouter un label accessible
       />
       <button
-        className=' bg-white p-2 rounded-md text-3xl bottom-8 sm:right-4 right-1 absolute'
+        className=' bg-white p-2 rounded-md md:text-3xl text-2xl bottom-8 sm:right-4 right-2 absolute'
         onClick={handleDownload}
         disabled={!audio || isDownloading} // Désactiver le bouton pendant le téléchargement
         aria-label="Download audio"

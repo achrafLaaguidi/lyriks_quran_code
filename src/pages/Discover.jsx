@@ -109,7 +109,7 @@ const Discover = ({ searchTerm }) => {
                 </div>
             </div>
 
-            <div ref={scrollContainerRef} className={`flex flex-wrap sm:justify-between justify-center gap-8 ${!activeSong?.id ? 'h-[calc(100vh-20vh)]' : `${suwarsFiltred.length <= 4 ? 'h-[calc(100vh-60vh)]' : 'h-[calc(100vh-40vh)]'}`} overflow-y-scroll hide-scrollbar`}>
+            <div ref={scrollContainerRef} className={`flex flex-wrap sm:justify-between justify-center gap-8 ${activeSong?.id ? `${suwarsFiltred.length <= 4 ? 'h-[calc(100vh-60vh)]' : 'h-[calc(100vh-40vh)]'}` : 'h-[calc(100vh-20vh)]'} overflow-y-scroll hide-scrollbar`}>
                 {suwarsFiltred?.map((song, i) => (
                     <SongCard
                         key={song.id}
