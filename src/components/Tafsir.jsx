@@ -63,7 +63,7 @@ const Tafasir = () => {
         <h2 className="text-white font-bold text-xl">{data?.tafasir?.name}</h2>
       </div>
 
-      <div className="mt-4 flex flex-col gap-1 h-[calc(100vh-25vh)] overflow-y-scroll hide-scrollbar">
+      <div className={`mt-4 flex flex-col gap-1 ${data?.tafasir?.soar[surahId || activeTafsir?.sura_id]?.length > 4 ? ' h-[calc(100vh-25vh)]' : 'h-fit'} overflow-y-scroll hide-scrollbar`}>
         {surahId || activeTafsir?.sura_id ? (
           data?.tafasir?.soar[surahId || activeTafsir?.sura_id]?.map((tafsir, i) => (
             <TafsirCard
