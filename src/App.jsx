@@ -1,7 +1,7 @@
 import { useSelector } from 'react-redux';
 import { Route, Routes } from 'react-router-dom';
 import { MusicPlayer, Searchbar, Sidebar, TopPlay } from './components';
-import { AroundYou, ArtistDetails, Discover, Search, SongDetails, AyatTiming } from './pages';
+import { AroundYou, ArtistDetails, Discover, Search, SongDetails, Surah, Quran } from './pages';
 import Radio from './pages/Radio';
 import { useState } from 'react';
 
@@ -19,11 +19,12 @@ const App = () => {
       <div className="flex-1 flex flex-col bg-gradient-to-br from-black to-[#121286]">
         <Searchbar handleChange={handleChange} searchTerm={searchTerm} />
 
-        <div className="px-6 h-[calc(100vh-72px)] sm:overflow-y-hidden overflow-y-scroll hide-scrollbar flex xl:flex-row flex-col-reverse">
+        <div className="px-6 h-[calc(100vh-72px)]  overflow-y-scroll hide-scrollbar flex xl:flex-row flex-col-reverse">
           <div className="flex-1 h-fit pb-40">
             <Routes>
               <Route path="/" element={<Discover searchTerm={searchTerm} />} />
-              <Route path="/ayat_timing" element={<AyatTiming />} />
+              <Route path="/quran" element={<Quran searchTerm={searchTerm} />} />
+              <Route path="/surah/:surah/:id" element={<Surah />} />
               <Route path="/radio" element={<Radio />} />
               <Route path="/around-you" element={<AroundYou />} />
               <Route path="/artists/:id" element={<ArtistDetails />} />

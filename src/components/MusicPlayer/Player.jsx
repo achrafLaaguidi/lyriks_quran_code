@@ -55,8 +55,6 @@ const Player = ({
     if (audio) {
       setIsDownloading(true);
 
-      // Initialiser l'alerte avec une barre de progression et un timer automatique
-      let timerInterval;
       Swal.fire({
         title: `${language !== 'ar' ? 'Téléchargement en cours...' : '...جاري التحميل'}`,
         html: 'Progression : <b>0%</b>',

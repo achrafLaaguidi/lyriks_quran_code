@@ -12,7 +12,7 @@ export const quranApi = createApi({
         getRecitersByLanguageAndIdAndRewaya: builder.query({ query: ({ lang, id, riwaya }) => `reciters?language=${lang}&reciter=${id}&rewaya=${riwaya}` }),
         getRiwayatByLanguage: builder.query({ query: (lang) => `riwayat?language=${lang}` }),
         getRecentReadsByLanguage: builder.query({ query: (lang) => `recent_reads?language=${lang}` }),
-        getAyatsBySurahAndReader: builder.query({ query: ({ surah, reader }) => `yat_timing?surah=${surah}&read=${reader}` }),
+        getAyatsBySurahAndReader: builder.query({ query: ({ surahId, reader }) => `ayat_timing?surah=${surahId}&read=${reader}` }),
         getTafsirBySura: builder.query({ query: (sura_id) => `tafsir?sura=${sura_id}` }),
         getMushafByLanguage: builder.query({ query: (lang) => `moshaf?language=${lang}` }),
         getVideoType: builder.query({ query: () => 'viedo_types' }),

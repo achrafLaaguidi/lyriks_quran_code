@@ -41,8 +41,8 @@ const SongCard = ({ song, isPlaying, activeSong, data, i }) => {
 
       <div className="mt-4 flex flex-col text-right">
         <p className="font-semibold text-base text-white truncate">
-          {!song.name.includes('سورة') && <> {(language === 'ar' || language === '') ? 'سورة' : 'Surat'}</>}  {song.name}
-          <Link to={`/surah/${song?.number}`}>
+          <Link to={`/ayah/${song?.id}`}>
+            {!song.name.includes('سورة') && <> {(language === 'ar' || language === '') ? 'سورة' : 'Surat'}</>}  {song.name}
           </Link>
         </p>
         <div className='flex flex-row justify-between'>
@@ -50,7 +50,7 @@ const SongCard = ({ song, isPlaying, activeSong, data, i }) => {
             {song.id}
           </p>
           <p className="text-sm truncate text-gray-300 mt-1">
-            <Link to={`/surah/${song?.number}`}>
+            <Link to={`/ayah/${song?.id}`}>
               {(language === 'ar' || language === '') ? song.makkia ? 'مَكٍّيِةٌ' : 'مَدَنِيَةٌ' : song.makkia ? 'Makkia' : 'Madania'}
             </Link>
           </p>

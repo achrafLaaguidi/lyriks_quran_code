@@ -1,11 +1,11 @@
 import React, { useState } from 'react';
-import { HiOutlineClipboardList, HiOutlineHome, HiOutlineMenu, HiOutlinePlay, HiOutlineUserGroup, HiOutlineVideoCamera } from 'react-icons/hi';
+import { HiBookOpen, HiOutlineClipboardList, HiOutlineHome, HiOutlineMenu, HiOutlinePlay, HiOutlineUserGroup, HiOutlineVideoCamera } from 'react-icons/hi';
 import { RiCloseLine } from 'react-icons/ri';
 import { NavLink } from 'react-router-dom';
 
 const links = [
   { name: 'Discover', to: '/', icon: HiOutlineHome },
-  { name: 'Quran', to: '/quran', icon: HiOutlineClipboardList },
+  { name: 'Quran', to: '/quran', icon: HiBookOpen },
   { name: 'Top Artists', to: '/top-artists', icon: HiOutlineUserGroup },
   { name: 'Radio', to: '/radio', icon: HiOutlinePlay },
 ];

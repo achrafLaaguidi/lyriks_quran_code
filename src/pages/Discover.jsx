@@ -59,8 +59,8 @@ const Discover = ({ searchTerm }) => {
     }
 
     return (
-        <div className="flex flex-col  ">
-            <div className="w-full flex  justify-between  items-center sm:flex-row flex-col mt-4 mb-10 h-full overflow-y-scroll hide-scrollbar">
+        <div className="flex flex-col h-[calc(100vh)]  overflow-y-scroll hide-scrollbar">
+            <div className="w-full flex  justify-between  items-center sm:flex-row flex-col mt-4 mb-8 ">
 
                 <h2 className="font-bold text-3xl text-white text-left">Discover</h2>
                 <div className="w-fit flex justify-between items-center sm:flex-row flex-col ">
@@ -109,7 +109,7 @@ const Discover = ({ searchTerm }) => {
                 </div>
             </div>
 
-            <div ref={scrollContainerRef} className={`flex flex-wrap sm:justify-between justify-center gap-8 ${activeSong?.id ? `${suwarsFiltred.length <= 4 ? 'h-[calc(100vh-60vh)]' : 'h-[calc(100vh-40vh)]'}` : 'h-[calc(100vh-20vh)]'} overflow-y-scroll hide-scrollbar`}>
+            <div ref={scrollContainerRef} className={`flex flex-wrap sm:justify-between justify-center gap-8 h-fit  overflow-y-scroll hide-scrollbar`}>
                 {suwarsFiltred?.map((song, i) => (
                     <SongCard
                         key={song.id}
