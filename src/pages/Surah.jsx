@@ -64,7 +64,7 @@ const Surah = () => {
                 <button
                     onClick={handlePrevious}
                     disabled={currentPageIndex === 0}
-                    className={`bg-blue-300 text-white h-fit text-2xl py-2 px-4 rounded-lg ${currentPageIndex === 0 && "opacity-50 cursor-not-allowed"}`}
+                    className={`absolute left-1/4 bg-blue-300 text-white h-fit text-2xl py-2 px-4 rounded-lg ${currentPageIndex === 0 && "opacity-50 cursor-not-allowed"}`}
                 >
                     <HiArrowCircleLeft />
                 </button>
@@ -84,7 +84,7 @@ const Surah = () => {
                 <button
                     onClick={handleNext}
                     disabled={currentPageIndex === quranPages.length - 1}
-                    className={`bg-blue-300 text-white h-fit text-2xl py-2 px-4 rounded-lg ${currentPageIndex === quranPages.length - 1 && "opacity-50 cursor-not-allowed"}`}
+                    className={`absolute right-10 bg-blue-300 text-white h-fit text-2xl py-2 px-4 rounded-lg ${currentPageIndex === quranPages.length - 1 && "opacity-50 cursor-not-allowed"}`}
                 >
                     <HiArrowCircleRight />
                 </button>

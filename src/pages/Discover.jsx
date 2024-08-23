@@ -27,7 +27,7 @@ const Discover = ({ searchTerm }) => {
     const availableReaders = useMemo(() => {
         if (riwaya && readers) {
             return readers.reciters.filter((reciter) =>
-                reciter.moshaf.some((moshaf) => moshaf.moshaf_type === riwaya)
+                reciter.moshaf.some((moshaf) => moshaf.moshaf_type == riwaya)
             );
         }
         return [];
@@ -62,7 +62,7 @@ const Discover = ({ searchTerm }) => {
         >
             <option value="">{placeholder}</option>
             {options.map((option) => (
-                <option key={option.id} value={option.id || option.locale}>
+                <option key={option.id} value={option.locale || option.id}>
                     {option.name || option.native}
                 </option>
             ))}
