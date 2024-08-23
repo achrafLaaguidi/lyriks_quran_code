@@ -7,10 +7,9 @@ import { HiArrowCircleRight, HiArrowCircleLeft } from "react-icons/hi";
 
 const Surah = () => {
     const { surah, id } = useParams();
-    const { reader, language } = useSelector((state) => state.player);
+    const { language } = useSelector((state) => state.player);
     const { data, isFetching, error } = useGetAyatsBySurahAndReaderQuery({
         surahId: id,
-        reader: reader,
     });
 
     const [quranPages, setQuranPages] = useState([]);
@@ -31,7 +30,7 @@ const Surah = () => {
 
             setQuranPages(uniquePages);
             setCurrentAyah(uniquePages[0]);
-            console.log(currentAyah) // Set the first Ayah as current
+            // Set the first Ayah as current
         }
     }, [data]);
 
@@ -55,40 +54,36 @@ const Surah = () => {
     if (error) return <Error language={language} />;
 
     return (
-        <div className="flex flex-col items-center rounded-2xl h-[calc(100vh)]">
-            <h2 className="md:text-3xl text-xl text-white text-center mb-10 p-4 bg-white/5 backdrop-blur-sm animate-slideup rounded-lg">
-                سورة {surah}
-            </h2>
+        <div className="flex flex-row justify-between items-center   ">
+            <button
+                onClick={handlePrevious}
+                disabled={currentPageIndex === 0}
+                className={`md:left-1/4 left-4 absolute bg-blue-300 text-white  h-fit md:text-2xl p-2  rounded-lg ${currentPageIndex === 0 && "opacity-50 cursor-not-allowed"}`}
+            >
+                <HiArrowCircleLeft />
+            </button>
 
-            <div className="flex justify-between items-center mt-6 px-4">
-                <button
-                    onClick={handlePrevious}
-                    disabled={currentPageIndex === 0}
-                    className={`absolute left-1/4 bg-blue-300 text-white h-fit text-2xl py-2 px-4 rounded-lg ${currentPageIndex === 0 && "opacity-50 cursor-not-allowed"}`}
-                >
-                    <HiArrowCircleLeft />
-                </button>
+            <div className="text-center m-auto">
 
-                <div className="p-4 w-full flex justify-center h-full">
-                    {currentAyah?.page && (
-                        <svg
-                            xmlns="http://www.w3.org/2000/svg"
-                            viewBox="0 0 255 255"
-                            className="bg-white w-[calc(100vh)] rounded-2xl"
-                        >
-                            <image href={currentAyah.page} width="100%" height="100%" />
-                        </svg>
-                    )}
-                </div>
-
-                <button
-                    onClick={handleNext}
-                    disabled={currentPageIndex === quranPages.length - 1}
-                    className={`absolute right-10 bg-blue-300 text-white h-fit text-2xl py-2 px-4 rounded-lg ${currentPageIndex === quranPages.length - 1 && "opacity-50 cursor-not-allowed"}`}
-                >
-                    <HiArrowCircleRight />
-                </button>
+                {currentAyah?.page && (
+                    <svg
+                        xmlns="http://www.w3.org/2000/svg"
+                        viewBox="0 0 255 255"
+                        className="bg-white md:w-[calc(100vh)] w-screen   rounded-2xl"
+                    >
+                        <image href={currentAyah.page} width="100%" height="100%" />
+                    </svg>
+                )}
             </div>
+
+
+            <button
+                onClick={handleNext}
+                disabled={currentPageIndex === quranPages.length - 1}
+                className={`md:right-10 right-4 absolute bg-blue-300 text-white h-fit md:text-2xl p-2 rounded-lg ${currentPageIndex === quranPages.length - 1 && "opacity-50 cursor-not-allowed"}`}
+            >
+                <HiArrowCircleRight />
+            </button>
         </div>
     );
 };

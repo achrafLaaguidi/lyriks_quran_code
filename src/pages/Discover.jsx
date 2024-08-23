@@ -70,7 +70,7 @@ const Discover = ({ searchTerm }) => {
     );
 
     return (
-        <div className="flex flex-col h-[calc(100vh)] overflow-y-scroll hide-scrollbar">
+        <div className="px-4 flex flex-col h-[calc(100vh)] overflow-y-scroll hide-scrollbar">
             <div className="w-full flex justify-between items-center sm:flex-row flex-col mt-4 mb-8">
                 <h2 className="font-bold text-3xl text-white text-left">Discover</h2>
                 <div className="w-fit flex sm:flex-row flex-col items-center">

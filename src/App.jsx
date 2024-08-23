@@ -14,13 +14,13 @@ const App = () => {
   };
 
   return (
-    <div className="relative flex">
+    <div className="relative flex h-screen w-screen">
       <Sidebar />
       <div className="flex-1 flex flex-col bg-gradient-to-br from-black to-[#121286]">
         <Searchbar handleChange={handleChange} searchTerm={searchTerm} />
 
-        <div className="px-6 h-[calc(100vh-72px)]  overflow-y-scroll hide-scrollbar flex xl:flex-row flex-col-reverse">
-          <div className="flex-1 h-fit pb-40">
+        <div className=" h-screen   overflow-y-scroll hide-scrollbar flex xl:flex-row flex-col-reverse">
+          <div className=" flex-1 h-fit ">
             <Routes>
               <Route path="/" element={<Discover searchTerm={searchTerm} />} />
               <Route path="/quran" element={<Quran searchTerm={searchTerm} />} />
@@ -33,7 +33,7 @@ const App = () => {
             </Routes>
           </div>
           {surahId &&
-            <div className="xl:sticky relative top-0 h-fit">
+            <div className="xl:sticky relative top-0 h-fit px-4">
               <TopPlay />
             </div>}
         </div>
