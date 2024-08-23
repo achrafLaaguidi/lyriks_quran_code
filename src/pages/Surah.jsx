@@ -2,6 +2,8 @@ import { useSelector } from "react-redux";
 import { useGetAyatsBySurahAndReaderQuery } from "../redux/services/quranApi";
 import { useParams } from "react-router-dom";
 import { Error, Loader } from "../components";
+import { useState, useEffect } from "react";
+import { HiArrowCircleRight, HiArrowCircleLeft } from "react-icons/hi";
 
 const Surah = () => {
     const { surah, id } = useParams();
@@ -11,41 +13,81 @@ const Surah = () => {
         reader: reader,
     });
 
-    if (isFetching) {
-        return <Loader title="Loading Quran..." />;
-    }
-    if (error) {
-        return <Error language={language} />;
-    }
+    const [quranPages, setQuranPages] = useState([]);
+    const [currentPageIndex, setCurrentPageIndex] = useState(0);
+    const [currentAyah, setCurrentAyah] = useState({});
+
+    useEffect(() => {
+        if (data) {
+            const uniquePages = [];
+            const pageSet = new Set();
+
+            data.forEach(item => {
+                if (item.page && !pageSet.has(item.page)) {
+                    pageSet.add(item.page);
+                    uniquePages.push(item);
+                }
+            });
+
+            setQuranPages(uniquePages);
+            setCurrentAyah(uniquePages[0]);
+            console.log(currentAyah) // Set the first Ayah as current
+        }
+    }, [data]);
+
+    useEffect(() => {
+        setCurrentAyah(quranPages[currentPageIndex]);
+    }, [currentPageIndex, quranPages]);
+
+    const handleNext = () => {
+        if (currentPageIndex < quranPages.length - 1) {
+            setCurrentPageIndex(prevIndex => prevIndex + 1);
+        }
+    };
+
+    const handlePrevious = () => {
+        if (currentPageIndex > 0) {
+            setCurrentPageIndex(prevIndex => prevIndex - 1);
+        }
+    };
+
+    if (isFetching) return <Loader title="Loading Quran..." />;
+    if (error) return <Error language={language} />;
 
     return (
-        <div className="flex items-center flex-col h-[calc(100vh-10vh)] rounded-2xl  ">
-            <h2 className="text-3xl text-white text-center mb-10 p-4 bg-white/5 bg-opacity-80 backdrop-blur-sm animate-slideup rounded-lg ">سورة {surah} </h2>
-            <div className=" overflow-y-scroll hide-scrollbar p-4 ">
-                {data?.map((ayah) => (
-                    <div key={ayah.ayah} className="mb-8 flex justify-center">
-                        {/* Render the page background */}
-                        {ayah?.page && (
-                            <svg
-                                xmlns="http://www.w3.org/2000/svg"
-                                viewBox="0 0 255 255" // Ensure this matches the aspect ratio of your SVG content
-                                className="bg-white w-[calc(100vh*1.5)]  rounded-2xl "
-                            >
-                                <image href={ayah.page} width="100%" height="100%" />
+        <div className="flex flex-col items-center rounded-2xl h-[calc(100vh)]">
+            <h2 className="md:text-3xl text-xl text-white text-center mb-10 p-4 bg-white/5 backdrop-blur-sm animate-slideup rounded-lg">
+                سورة {surah}
+            </h2>
 
+            <div className="flex justify-between items-center mt-6 px-4">
+                <button
+                    onClick={handlePrevious}
+                    disabled={currentPageIndex === 0}
+                    className={`bg-blue-300 text-white h-fit text-2xl py-2 px-4 rounded-lg ${currentPageIndex === 0 && "opacity-50 cursor-not-allowed"}`}
+                >
+                    <HiArrowCircleLeft />
+                </button>
 
-                                {/* Render the polygon for each ayah if available */}
-                                {ayah.polygon && (
-                                    <polygon
-                                        points={ayah.polygon}
-                                        fill="rgba(0, 128, 255, 0.5)" // Highlight color
-                                        stroke="blue"
-                                        strokeWidth="1"
-                                    />
-                                )}
-                            </svg>)}
-                    </div>
-                ))}
+                <div className="p-4 w-full flex justify-center h-full">
+                    {currentAyah?.page && (
+                        <svg
+                            xmlns="http://www.w3.org/2000/svg"
+                            viewBox="0 0 255 255"
+                            className="bg-white w-[calc(100vh)] rounded-2xl"
+                        >
+                            <image href={currentAyah.page} width="100%" height="100%" />
+                        </svg>
+                    )}
+                </div>
+
+                <button
+                    onClick={handleNext}
+                    disabled={currentPageIndex === quranPages.length - 1}
+                    className={`bg-blue-300 text-white h-fit text-2xl py-2 px-4 rounded-lg ${currentPageIndex === quranPages.length - 1 && "opacity-50 cursor-not-allowed"}`}
+                >
+                    <HiArrowCircleRight />
+                </button>
             </div>
         </div>
     );

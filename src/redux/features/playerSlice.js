@@ -19,27 +19,30 @@ const playerSlice = createSlice({
   reducers: {
     setActiveSong: (state, action) => {
 
+      if (action.payload) {
 
-      state.activeSong = action.payload.song;
-      state.activeTafsir = {}
+        state.activeSong = action.payload.song;
+        state.activeTafsir = {}
 
-      state.currentSongs = action.payload.data;
+        state.currentSongs = action.payload.data;
 
 
-      state.currentIndex = action.payload.song.id - 1;
+        state.currentIndex = action.payload.song?.id - 1;
 
-      state.isActive = true;
+        state.isActive = true;
+      }
 
     },
     setActiveTafsir: (state, action) => {
+      if (action.payload) {
+        state.activeTafsir = action.payload.song;
+        state.activeSong = {}
 
-      state.activeTafsir = action.payload.song;
-      state.activeSong = {}
+        state.currentSongs = action.payload.data;
 
-      state.currentSongs = action.payload.data;
-
-      state.currentIndex = action.payload.i;
-      state.isActive = true;
+        state.currentIndex = action.payload.i;
+        state.isActive = true;
+      }
     },
 
     nextSong: (state, action) => {

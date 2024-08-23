@@ -5,8 +5,11 @@ const useScrollToTopButton = () => {
     const [showScrollButton, setShowScrollButton] = useState(false);
     const scrollContainerRef = useRef(null);
 
+
     useEffect(() => {
         const refCurrent = scrollContainerRef.current;
+
+
 
         const handleScroll = () => {
             if (refCurrent.scrollTop > 300) {

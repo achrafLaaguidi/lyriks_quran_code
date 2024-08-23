@@ -1,14 +1,15 @@
 import React from 'react';
 import { useSelector } from 'react-redux';
-import { Link } from 'react-router-dom';
+import { Link, useNavigate } from 'react-router-dom';
 
 const QuranCard = ({ quran }) => {
     const { language } = useSelector((state) => state.player);
+    const navigate = useNavigate()
 
 
     return (
         <div className="flex flex-col w-[250px] p-4 bg-white/5 bg-opacity-80 backdrop-blur-sm animate-slideup rounded-lg cursor-pointer ">
-            <div className="mt-4 flex flex-col text-right">
+            <div className="mt-4 flex flex-col text-right" onClick={() => navigate(`/surah/${quran?.name}/${quran?.id}`)}>
                 <p className="font-semibold text-base text-white truncate">
                     <Link to={`/surah/${quran?.name}/${quran?.id}`}>
                         {!quran.name.includes('سورة') && <> {(language === 'ar' || language === '') ? 'سورة' : 'Surat'}</>}  {quran.name}
