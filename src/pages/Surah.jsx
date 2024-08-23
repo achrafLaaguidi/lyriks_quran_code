@@ -6,7 +6,7 @@ import { useState, useEffect } from "react";
 import { HiArrowCircleRight, HiArrowCircleLeft } from "react-icons/hi";
 
 const Surah = () => {
-    const { surah, id } = useParams();
+    const { id } = useParams();
     const { language } = useSelector((state) => state.player);
     const { data, isFetching, error } = useGetAyatsBySurahAndReaderQuery({
         surahId: id,
@@ -55,13 +55,13 @@ const Surah = () => {
 
     return (
         <div className="flex flex-row justify-between items-center   ">
-            <button
+            {currentPageIndex !== 0 && (<button
                 onClick={handlePrevious}
                 disabled={currentPageIndex === 0}
-                className={`md:left-1/4 left-4 absolute bg-blue-300 text-white  h-fit md:text-2xl p-2  rounded-lg ${currentPageIndex === 0 && "opacity-50 cursor-not-allowed"}`}
+                className={`md:left-1/4 left-4 absolute bg-blue-300 text-white  h-fit md:text-2xl p-2  rounded-lg opacity-50 ${currentPageIndex === 0 && "cursor-not-allowed"}`}
             >
                 <HiArrowCircleLeft />
-            </button>
+            </button>)}
 
             <div className="text-center m-auto">
 
@@ -77,13 +77,13 @@ const Surah = () => {
             </div>
 
 
-            <button
+            {currentPageIndex !== quranPages.length - 1 && <button
                 onClick={handleNext}
                 disabled={currentPageIndex === quranPages.length - 1}
-                className={`md:right-10 right-4 absolute bg-blue-300 text-white h-fit md:text-2xl p-2 rounded-lg ${currentPageIndex === quranPages.length - 1 && "opacity-50 cursor-not-allowed"}`}
+                className={`md:right-10 right-4 absolute bg-blue-300 text-white h-fit md:text-2xl p-2 rounded-lg  ${currentPageIndex === quranPages.length - 1 && " cursor-not-allowed"} opacity-50`}
             >
                 <HiArrowCircleRight />
-            </button>
+            </button>}
         </div>
     );
 };

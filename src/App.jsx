@@ -24,7 +24,7 @@ const App = () => {
             <Routes>
               <Route path="/" element={<Discover searchTerm={searchTerm} />} />
               <Route path="/quran" element={<Quran searchTerm={searchTerm} />} />
-              <Route path="/surah/:surah/:id" element={<Surah />} />
+              <Route path="/surah/:id" element={<Surah />} />
               <Route path="/radio" element={<Radio />} />
               <Route path="/around-you" element={<AroundYou />} />
               <Route path="/artists/:id" element={<ArtistDetails />} />

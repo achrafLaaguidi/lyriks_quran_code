@@ -9,9 +9,9 @@ const QuranCard = ({ quran }) => {
 
     return (
         <div className="flex flex-col w-[250px] p-4 bg-white/5 bg-opacity-80 backdrop-blur-sm animate-slideup rounded-lg cursor-pointer ">
-            <div className="mt-4 flex flex-col text-right" onClick={() => navigate(`/surah/${quran?.name}/${quran?.id}`)}>
+            <div className="mt-4 flex flex-col text-right" onClick={() => navigate(`/surah/${quran?.id}`)}>
                 <p className="font-semibold text-base text-white truncate">
-                    <Link to={`/surah/${quran?.name}/${quran?.id}`}>
+                    <Link to={`/surah/${quran?.id}`}>
                         {!quran.name.includes('سورة') && <> {(language === 'ar' || language === '') ? 'سورة' : 'Surat'}</>}  {quran.name}
                     </Link>
                 </p>
@@ -20,7 +20,7 @@ const QuranCard = ({ quran }) => {
                         {quran.id}
                     </p>
                     <p className="text-sm truncate text-gray-300 mt-1">
-                        <Link to={`/surah/${quran?.name}/${quran?.id}`}>
+                        <Link to={`/surah/${quran?.id}`}>
                             {(language === 'ar' || language === '') ? quran.makkia ? 'مَكٍّيِةٌ' : 'مَدَنِيَةٌ' : quran.makkia ? 'Makkia' : 'Madania'}
                         </Link>
                     </p>
