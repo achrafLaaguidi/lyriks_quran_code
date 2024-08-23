@@ -10,6 +10,7 @@ import {
     useGetSuwarByLanguageQuery,
 } from '../redux/services/quranApi';
 import useScrollToTopButton from '../assets/useScrollToTop';
+import { styleSelect } from '../assets/constants';
 
 const Discover = ({ searchTerm }) => {
     const dispatch = useDispatch();
@@ -58,7 +59,7 @@ const Discover = ({ searchTerm }) => {
         <select
             value={value}
             onChange={onChange}
-            className="bg-black text-gray-300 p-3 text-sm rounded-lg outline-none sm:mb-0 mb-4"
+            style={styleSelect}
         >
             <option value="">{placeholder}</option>
             {options.map((option) => (

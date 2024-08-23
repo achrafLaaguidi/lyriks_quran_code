@@ -10,7 +10,8 @@ const initialState = {
   activeTafsir: {},
   language: localStorage.getItem('language') || 'ar',
   reader: localStorage.getItem('reader') || 102,
-  riwaya: localStorage.getItem('riwaya') || 1
+  riwaya: localStorage.getItem('riwaya') || 1,
+  save: localStorage.getItem('save') || 0
 };
 
 const playerSlice = createSlice({
@@ -79,6 +80,10 @@ const playerSlice = createSlice({
     setSurahId: (state, action) => {
       state.surahId = action.payload;
     },
+    setSave: (state, action) => {
+      state.save = action.payload;
+      localStorage.setItem('save', action.payload);
+    },
 
     setLanguage: (state, action) => {
       state.language = action.payload;
@@ -95,6 +100,6 @@ const playerSlice = createSlice({
   },
 });
 
-export const { setActiveSong, nextSong, prevSong, playPause, selectGenreListId, setLanguage, setReader, setRiwaya, setActiveTafsir, setSurahId } = playerSlice.actions;
+export const { setActiveSong, nextSong, prevSong, playPause, selectGenreListId, setLanguage, setReader, setRiwaya, setActiveTafsir, setSurahId, setSave } = playerSlice.actions;
 
 export default playerSlice.reducer;
