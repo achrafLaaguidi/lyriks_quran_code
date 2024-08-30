@@ -42,7 +42,7 @@ const SongCard = ({ song, isPlaying, activeSong, data, i }) => {
 
       <div className={`mt-4 flex flex-col ${language === 'ar' ? 'text-right' : 'text-left'} `}>
         <p className="font-semibold md:text-base text-sm text-white truncate">
-          <Link to={`/ayah/${song?.id}`}>
+          <Link to={`/surah/${song?.id}`}>
             {t('Sourat')}  {song.name}
           </Link>
         </p>
@@ -51,7 +51,7 @@ const SongCard = ({ song, isPlaying, activeSong, data, i }) => {
             {song.id}
           </p>
           <p className="md:text-sm text-xs truncate text-gray-300 mt-1">
-            <Link to={`/ayah/${song?.id}`}>
+            <Link to={`/surah/${song?.id}`}>
               {(language === 'ar' || language === '') ? song.makkia ? 'مَكٍّيِةٌ' : 'مَدَنِيَةٌ' : song.makkia ? 'Makkia' : 'Madania'}
             </Link>
           </p>

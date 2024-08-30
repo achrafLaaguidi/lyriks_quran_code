@@ -8,7 +8,6 @@ i18next
     .use(LanguageDetector)
     .use(backend)
     .init({
-        debug: true,
         fallbackLng: ['ar', 'eng', 'fr'],
 
 
