@@ -35,25 +35,26 @@ const Quran = ({ searchTerm }) => {
     if (error) {
         return <Error language={language} />;
     }
-    return (<div className="px-4 flex flex-col  items-center h-[calc(100vh)]  ">
-        <h2 className="text-white text-right text-3xl mb-10 ">سُوَرُ الْقُرْآنُ الْكَرِيمُ</h2>
-        <div ref={scrollContainerRef} className="flex flex-wrap sm:justify-between justify-center gap-8  overflow-y-scroll hide-scrollbar">
-            {suwarsFiltred?.map((surah) => (
-                <QuranCard
-                    key={surah.id}
-                    quran={surah}
-                />
-            ))}
-            {showScrollButton && (
-                <button
-                    className="absolute left-25   bottom-1/4 text-6xl bg-white rounded-full animate-pulse "
-                    onClick={handleScrollToTop}
-                >
-                    <HiArrowCircleUp />
-                </button>
-            )}
-        </div>
-    </div>)
+    return (
+        <div className="px-4 flex flex-col  items-center h-screen  w-full ">
+            <h2 className="text-white text-right text-3xl mb-10 ">سُوَرُ الْقُرْآنُ الْكَرِيمُ</h2>
+            <div ref={scrollContainerRef} className="flex flex-wrap sm:justify-between justify-center gap-6 overflow-y-scroll hide-scrollbar">
+                {suwarsFiltred?.map((surah) => (
+                    <QuranCard
+                        key={surah.id}
+                        quran={surah}
+                    />
+                ))}
+                {showScrollButton && (
+                    <button
+                        className="absolute left-25   bottom-1/4 text-6xl bg-white rounded-full animate-pulse "
+                        onClick={handleScrollToTop}
+                    >
+                        <HiArrowCircleUp />
+                    </button>
+                )}
+            </div>
+        </div>)
 }
 
 export default Quran;

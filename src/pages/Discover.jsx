@@ -11,8 +11,10 @@ import {
 } from '../redux/services/quranApi';
 import useScrollToTopButton from '../assets/useScrollToTop';
 import { styleSelect } from '../assets/constants';
+import { useTranslation } from 'react-i18next';
 
 const Discover = ({ searchTerm }) => {
+    const { t, i18n } = useTranslation()
     const dispatch = useDispatch();
     const { activeSong, isPlaying, language, reader, riwaya } = useSelector((state) => state.player);
     const [suwarsFiltred, setSuwarsFiltred] = useState([]);
@@ -60,10 +62,11 @@ const Discover = ({ searchTerm }) => {
             value={value}
             onChange={onChange}
             style={styleSelect}
+            className='md:mt-0 mt-5 md:w-[25%] w-[75%]'
         >
             <option value="">{placeholder}</option>
             {options.map((option) => (
-                <option key={option.id} value={option.locale || option.id}>
+                <option key={option.locale || option.id} value={option.locale || option.id}>
                     {option.name || option.native}
                 </option>
             ))}
@@ -71,27 +74,33 @@ const Discover = ({ searchTerm }) => {
     );
 
     return (
-        <div className="px-4 flex flex-col h-[calc(100vh)] overflow-y-scroll hide-scrollbar">
-            <div className="w-full flex justify-between items-center sm:flex-row flex-col mt-4 mb-8">
-                <h2 className="font-bold text-3xl text-white text-left">Discover</h2>
-                <div className="w-fit flex sm:flex-row flex-col items-center">
+        <div className="px-4  flex flex-col h-[calc(100vh)] overflow-y-scroll hide-scrollbar">
+            <div className={`w-full flex justify-between items-center ${language === 'ar' ? 'md:flex-row-reverse ' : 'md:flex-row '} flex-col mt-4 mb-8`}>
+                <h2 className="font-bold text-3xl text-white text-left">{t('Discover')}</h2>
+                <div className={`w-full flex md:flex-row  flex-col items-center ${language === 'ar' ? 'justify-start ' : 'justify-end '}`} >
                     <SelectInput
                         options={riwayat?.riwayat || []}
                         value={riwaya}
                         onChange={(e) => handleRiwayaChange(e.target.value)}
-                        placeholder={language === 'ar' ? 'اختر روايتك' : 'Choose your riwaya'}
+                        placeholder={t('Choose Your Riwaya')}
+
                     />
                     <SelectInput
                         options={availableReaders}
                         value={reader}
                         onChange={(e) => handleReaderChange(e.target.value)}
-                        placeholder={language === 'ar' ? 'اختر قارئك' : 'Choose your reader'}
+                        placeholder={t('Choose Your Reader')}
                     />
                     <SelectInput
-                        options={languages?.language || []}
+                        options={languages?.language.slice(0, 3) || []}
                         value={language}
-                        onChange={(e) => handleLanguageChange(e.target.value)}
-                        placeholder={language === 'ar' ? 'اختر لغتك' : 'Choose your language'}
+                        onChange={(e) => {
+                            let lang = e.target.value
+                            i18n.changeLanguage(lang)
+                            handleLanguageChange(lang)
+                        }
+                        }
+                        placeholder={t('Choose Your Language')}
                     />
                 </div>
             </div>
@@ -109,7 +118,7 @@ const Discover = ({ searchTerm }) => {
                 ))}
                 {showScrollButton && (
                     <button
-                        className="absolute left-25 bottom-1/4 text-6xl bg-white rounded-full animate-pulse"
+                        className="absolute left-25 bottom-1/4 md:text-6xl text-5xl bg-white rounded-full animate-pulse"
                         onClick={handleScrollToTop}
                     >
                         <HiArrowCircleUp />

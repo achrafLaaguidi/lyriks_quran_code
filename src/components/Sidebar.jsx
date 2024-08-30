@@ -1,44 +1,52 @@
 import React, { useState } from 'react';
+import { useTranslation } from 'react-i18next';
 import { HiBookmark, HiBookOpen, HiOutlineHome, HiOutlineMenu, HiOutlinePlay } from 'react-icons/hi';
 import { RiCloseLine } from 'react-icons/ri';
 import { NavLink } from 'react-router-dom';
+import { LogoQuran } from '../assets';
+import { useSelector } from 'react-redux';
 
 const links = [
   { name: 'Discover', to: '/', icon: HiOutlineHome },
   { name: 'Quran', to: '/quran', icon: HiBookOpen },
-  { name: 'Ahadits', to: '/top-artists', icon: HiBookmark },
+  { name: 'Al-Ahadits', to: '/top-artists', icon: HiBookmark },
   { name: 'Radio', to: '/radio', icon: HiOutlinePlay },
 ];
 
-const NavLinks = ({ handleClick }) => (
-  <div className="mt-10">
-    {links.map((item) => (
-      <NavLink
-        key={item.name}
-        to={item.to}
-        className="flex flex-row justify-start items-center my-8 text-sm font-medium text-gray-400 hover:text-cyan-400"
-        onClick={() => handleClick && handleClick()}
-      >
-        <item.icon className="w-6 h-6 mr-2" />
-        {item.name}
-      </NavLink>
-    ))}
-  </div>
-);
+export const NavLinks = ({ handleClick }) => {
+  const { t } = useTranslation()
+  const { language } = useSelector((state) => state.player)
+  return (
+    <div >
+      {links.map((item) => (
+        <NavLink
+          key={item.name}
+          to={item.to}
+          className={`flex ${language === 'ar' ? 'flex-row-reverse' : 'flex-row'} justify-start items-center my-8 text-sm font-medium text-gray-400 hover:text-cyan-400`}
+          onClick={() => handleClick && handleClick()}
+        >
+          <item.icon className="w-6 h-6 mx-2" />
+          {t(item.name)}
+        </NavLink>
+      ))
+      }
+    </div >)
+};
 
 const Sidebar = () => {
   const [mobileMenuOpen, setMobileMenuOpen] = useState(false);
+  const { language } = useSelector((state) => state.player)
 
   return (
     <>
       {/* Desktop Sidebar */}
       <div className="md:flex hidden flex-col w-[240px] py-10 px-4 bg-[#191624]">
-        <h3 className="text-white text-center text-2xl">اَلْقُرْآنُ اُلْكَرِيمُ</h3>
+        <img src={LogoQuran} alt="logo" className="w-full text-center h-28 object-contain" />
         <NavLinks />
       </div>
 
       {/* Mobile Menu Button */}
-      <div className="absolute md:hidden block top-6 right-3">
+      <div className={`absolute md:hidden block top-6 ${language === 'ar' ? 'left-3' : 'right-3'}`}>
         {!mobileMenuOpen ? (
           <HiOutlineMenu className="w-6 h-6 text-white cursor-pointer" onClick={() => setMobileMenuOpen(true)} />
         ) : (
@@ -47,8 +55,8 @@ const Sidebar = () => {
       </div>
 
       {/* Mobile Sidebar */}
-      <div className={`absolute top-0 h-screen w-2/3 bg-gradient-to-tl from-white/10 to-[#483D8B] backdrop-blur-lg z-10 p-6 md:hidden transform transition-transform duration-300 ${mobileMenuOpen ? 'left-0' : '-left-full'}`}>
-        <h3 className="text-white text-center text-2xl">اَلْقُرْآنُ اُلْكَرِيمُ</h3>
+      <div className={`absolute top-0 h-screen w-2/3 bg-[#483D8B]  z-10 p-6 md:hidden transform transition-transform duration-300 ${mobileMenuOpen ? `${language === 'ar' ? 'right-0' : 'left-0'}` : '-left-full'}`}>
+        <img src={LogoQuran} alt="logo" className="w-full text-center h-28 object-contain" />
         <NavLinks handleClick={() => setMobileMenuOpen(false)} />
       </div>
     </>

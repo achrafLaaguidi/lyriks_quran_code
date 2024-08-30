@@ -6,7 +6,7 @@ import Radio from './pages/Radio';
 import { useState } from 'react';
 
 const App = () => {
-  const { activeSong, surahId, activeTafsir } = useSelector((state) => state.player);
+  const { activeSong, surahId, activeTafsir, language } = useSelector((state) => state.player);
   const [searchTerm, setSearchTerm] = useState('');
 
   const handleChange = (event) => {
@@ -14,13 +14,13 @@ const App = () => {
   };
 
   return (
-    <div className="relative flex h-screen w-screen">
+    <div className={`relative flex ${language === 'ar' && 'flex-row-reverse'} h-screen w-screen`}>
       <Sidebar />
-      <div className="flex-1 flex flex-col bg-gradient-to-br from-black to-[#121286]">
+      <div className="flex-1 flex flex-col bg-gradient-to-br from-black to-[#121286] ">
         <Searchbar handleChange={handleChange} searchTerm={searchTerm} />
 
         <div className=" h-screen   overflow-y-scroll hide-scrollbar flex xl:flex-row flex-col-reverse">
-          <div className=" flex-1 h-fit ">
+          <div className=" flex-1 h-fit  ">
             <Routes>
               <Route path="/" element={<Discover searchTerm={searchTerm} />} />
               <Route path="/quran" element={<Quran searchTerm={searchTerm} />} />
