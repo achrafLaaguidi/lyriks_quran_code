@@ -12,7 +12,7 @@ i18next
         fallbackLng: ['ar', 'eng', 'fr'],
         backend: {
             // Path where your locales are stored
-            loadPath: '/src/locales/{{lng}}/translation.json',
+            loadPath: '/locales/{{lng}}/translation.json',
         },
 
     })

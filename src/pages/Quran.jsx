@@ -6,10 +6,12 @@ import QuranCard from "../components/QuranCard";
 import { setActiveSong, setActiveTafsir, setSurahId } from "../redux/features/playerSlice";
 import useScrollToTopButton from "../assets/useScrollToTop";
 import { HiArrowCircleUp } from "react-icons/hi";
+import { useTranslation } from "react-i18next";
 
 const Quran = ({ searchTerm }) => {
     const dispatch = useDispatch()
     const { language } = useSelector((state) => state.player)
+    const { t } = useTranslation()
     const [suwarsFiltred, setSuwarsFiltred] = useState([])
     const { scrollContainerRef, showScrollButton, handleScrollToTop } = useScrollToTopButton();
 
@@ -37,7 +39,7 @@ const Quran = ({ searchTerm }) => {
     }
     return (
         <div className="px-4 flex flex-col  items-center h-screen  w-full ">
-            <h2 className="text-white text-right text-3xl mb-10 ">سُوَرُ الْقُرْآنُ الْكَرِيمُ</h2>
+            <h2 className="text-white text-right text-3xl mb-10 ">{t('Chapter')}</h2>
             <div ref={scrollContainerRef} className="flex flex-wrap sm:justify-between justify-center gap-6 overflow-y-scroll hide-scrollbar">
                 {suwarsFiltred?.map((surah) => (
                     <QuranCard
