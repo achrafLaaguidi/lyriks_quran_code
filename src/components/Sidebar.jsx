@@ -57,7 +57,11 @@ const Sidebar = () => {
 
       {/* Mobile Sidebar */}
       <div className={`absolute top-0 h-screen w-2/3 bg-[#483D8B]  z-10 p-6 md:hidden transform transition-transform duration-300 ${mobileMenuOpen ? `${language === 'ar' ? 'right-0' : 'left-0'}` : '-left-full'}`}>
-        <img src={LogoQuran} alt="logo" className="w-full text-center h-28 object-contain cursor-pointer" onClick={() => navigate('/')} />
+        <img src={LogoQuran} alt="logo" className="w-full text-center h-28 object-contain cursor-pointer"
+          onClick={() => {
+            setMobileMenuOpen(false)
+            navigate('/')
+          }} />
         <NavLinks handleClick={() => setMobileMenuOpen(false)} />
       </div>
     </>

@@ -85,6 +85,7 @@ const Discover = ({ searchTerm }) => {
                         placeholder={t('Choose Your Riwaya')}
 
                     />
+
                     <SelectInput
                         options={availableReaders}
                         value={reader}
