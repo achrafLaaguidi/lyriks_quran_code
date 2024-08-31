@@ -38,9 +38,9 @@ const Quran = ({ searchTerm }) => {
         return <Error />;
     }
     return (
-        <div className="px-4 flex flex-col  items-center h-screen  w-full ">
+        <div className="flex flex-col  items-center h-screen md:pb-6 pb-16 w-full  pt-2">
             <h2 className="text-white text-center md:text-4xl text-2xl mb-10 ">{t('Chapter')}</h2>
-            <div ref={scrollContainerRef} className="flex flex-wrap sm:justify-between justify-center gap-6 overflow-y-scroll hide-scrollbar">
+            <div ref={scrollContainerRef} className="flex flex-wrap justify-center gap-6 overflow-y-scroll hide-scrollbar">
                 {suwarsFiltred?.map((surah) => (
                     <QuranCard
                         key={surah.id}
@@ -49,7 +49,7 @@ const Quran = ({ searchTerm }) => {
                 ))}
                 {showScrollButton && (
                     <button
-                        className="absolute left-25   bottom-1/4 text-6xl bg-white rounded-full animate-pulse "
+                        className="absolute left-25   bottom-1/4 md:text-6xl text-5xl bg-white rounded-full animate-pulse "
                         onClick={handleScrollToTop}
                     >
                         <HiArrowCircleUp />
