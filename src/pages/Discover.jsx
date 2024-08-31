@@ -1,6 +1,9 @@
-import React, { useEffect, useState, useMemo } from 'react';
+import React, { useEffect, useMemo, useState } from 'react';
+import { Select } from 'antd';
+import { useTranslation } from 'react-i18next';
 import { HiArrowCircleUp } from 'react-icons/hi';
 import { useDispatch, useSelector } from 'react-redux';
+import useScrollToTopButton from '../assets/useScrollToTop';
 import { Error, Loader, SongCard } from '../components';
 import { setLanguage, setReader, setRiwaya } from '../redux/features/playerSlice';
 import {
@@ -9,12 +12,9 @@ import {
     useGetRecitersByLanguageQuery,
     useGetSuwarByLanguageQuery,
 } from '../redux/services/quranApi';
-import useScrollToTopButton from '../assets/useScrollToTop';
-import { styleSelect } from '../assets/constants';
-import { useTranslation } from 'react-i18next';
 
 const Discover = ({ searchTerm }) => {
-    const { t, i18n } = useTranslation()
+    const { t, i18n } = useTranslation();
     const dispatch = useDispatch();
     const { activeSong, isPlaying, language, reader, riwaya } = useSelector((state) => state.player);
     const [suwarsFiltred, setSuwarsFiltred] = useState([]);
@@ -35,7 +35,6 @@ const Discover = ({ searchTerm }) => {
         }
         return [];
     }, [riwaya, readers]);
-
     useEffect(() => {
         if (suwars) {
             const filteredSuwars = searchTerm
@@ -45,62 +44,60 @@ const Discover = ({ searchTerm }) => {
         }
     }, [suwars, searchTerm]);
 
-    const handleLanguageChange = (selectedLanguage) => dispatch(setLanguage(selectedLanguage));
-    const handleReaderChange = (selectedReaderId) => dispatch(setReader(selectedReaderId));
-    const handleRiwayaChange = (selectedRiwaya) => dispatch(setRiwaya(selectedRiwaya));
+    const handleLanguageChange = (selectedLanguage) => {
+        i18n.changeLanguage(languages.language.slice(0, 3).find((lng) => lng.native == selectedLanguage).locale);
+        dispatch(setLanguage(languages.language.slice(0, 3).find((lng) => lng.native == selectedLanguage).locale));
+    };
+
+    const handleReaderChange = (selectedReaderId) => dispatch(setReader(availableReaders.find((rd) => rd.name == selectedReaderId).id));
+    const handleRiwayaChange = (selectedRiwaya) => dispatch(setRiwaya(riwayat.riwayat.find((ry) => ry.name == selectedRiwaya).id));
 
     if (suwarIsFetching || languageIsFetching || readersIsFetching || riwayatIsFetching) {
-        return <Loader title="Loading Quran..." />;
+        return <Loader />;
     }
     if (suwarError || languageError || readersError || riwayatError) {
-        return <Error language={language} />;
+        return <Error />;
     }
 
     // Abstracted Select Component
     const SelectInput = ({ options, value, onChange, placeholder }) => (
-        <select
+        <Select
+            showSearch
             value={value}
             onChange={onChange}
-            style={styleSelect}
-            className='md:mt-0 mt-5 md:w-[25%] w-[75%]'
+            className="md:mt-0 mt-5 md:w-[25%] w-[75%]"
+            placeholder={placeholder}
         >
-            <option value="">{placeholder}</option>
+            <Select.Option value="hide">{placeholder}</Select.Option>
             {options.map((option) => (
-                <option key={option.locale || option.id} value={option.locale || option.id}>
-                    {option.name || option.native}
-                </option>
+                <Select.Option key={option.locale || option.id} value={option.native || option.name}>
+                    {option.native || option.name}
+                </Select.Option>
             ))}
-        </select>
+        </Select>
     );
 
     return (
-        <div className="px-4  flex flex-col h-[calc(100vh)] overflow-y-scroll hide-scrollbar">
-            <div className={`w-full flex justify-between items-center ${language === 'ar' ? 'md:flex-row-reverse ' : 'md:flex-row '} flex-col mt-4 mb-8`}>
+        <div className="px-4 flex flex-col h-[calc(100vh)] overflow-y-scroll hide-scrollbar">
+            <div className={`w-full flex justify-between items-center ${language === 'ar' ? 'md:flex-row-reverse' : 'md:flex-row'} flex-col mt-4 mb-8`}>
                 <h2 className="font-bold text-3xl text-white text-left">{t('Discover')}</h2>
-                <div className={`w-full flex md:flex-row  flex-col items-center ${language === 'ar' ? 'justify-start ' : 'justify-end '}`} >
+                <div className={`w-full flex md:flex-row flex-col items-center ${language === 'ar' ? 'justify-start' : 'justify-end'}`}>
                     <SelectInput
                         options={riwayat?.riwayat || []}
-                        value={riwaya}
-                        onChange={(e) => handleRiwayaChange(e.target.value)}
+                        value={riwayat.riwayat.find((ry) => ry.id == riwaya)?.name}
+                        onChange={handleRiwayaChange}
                         placeholder={t('Choose Your Riwaya')}
-
                     />
-
                     <SelectInput
                         options={availableReaders}
-                        value={reader}
-                        onChange={(e) => handleReaderChange(e.target.value)}
+                        value={availableReaders.find((rd) => rd.id == reader)?.name}
+                        onChange={handleReaderChange}
                         placeholder={t('Choose Your Reader')}
                     />
                     <SelectInput
                         options={languages?.language.slice(0, 3) || []}
-                        value={language}
-                        onChange={(e) => {
-                            let lang = e.target.value
-                            i18n.changeLanguage(lang)
-                            handleLanguageChange(lang)
-                        }
-                        }
+                        value={languages.language.slice(0, 3).find((lng) => lng.locale == language)?.native}
+                        onChange={handleLanguageChange}
                         placeholder={t('Choose Your Language')}
                     />
                 </div>
