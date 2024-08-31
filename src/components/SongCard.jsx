@@ -37,7 +37,7 @@ const SongCard = ({ song, isPlaying, activeSong, data, i }) => {
           />
         </div>
 
-        <img alt="song_img" src={quran} className="w-full h-full rounded-lg" />
+        <img alt="Quran" src={quran} className="w-full h-full rounded-lg" />
       </div>
 
       <div className={`mt-4 flex flex-col ${language === 'ar' ? 'text-right' : 'text-left'} `}>

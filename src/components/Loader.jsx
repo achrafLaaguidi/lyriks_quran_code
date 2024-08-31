@@ -1,11 +1,12 @@
 import React from 'react';
 
 import { loader } from '../assets';
+import { t } from 'i18next';
 
-const Loader = ({ title }) => (
+const Loader = () => (
   <div className="w-full flex justify-center items-center flex-col">
     <img src={loader} alt="loader" className="w-32 h-32 object-contain" />
-    {title && <h1 className="font-bold text-2xl text-white mt-2">{title || 'Loading...'}</h1>}
+    <h1 className="font-bold text-2xl text-white mt-2">{t('Loading')}</h1>
   </div>
 );
 

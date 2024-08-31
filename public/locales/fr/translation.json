@@ -13,5 +13,7 @@
     "Choose Your Language": "Choisissez votre langue",
     "Chapter": "Les sourates du Saint Coran",
     "Save": "Sauvgarder",
-    "Saved": "sauvé"
+    "Saved": "sauvé",
+    "Loading": "chargement...",
+    "Error": "Quelque chose a mal tourné. Veuillez réessayer"
 }

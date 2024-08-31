@@ -1,13 +1,13 @@
 import React, { useState } from 'react';
 import { useTranslation } from 'react-i18next';
-import { HiBookmark, HiBookOpen, HiOutlineHome, HiOutlineMenu, HiOutlinePlay } from 'react-icons/hi';
+import { HiBookmark, HiBookOpen, HiHome, HiOutlineMenu, HiOutlinePlay } from 'react-icons/hi';
 import { RiCloseLine } from 'react-icons/ri';
-import { NavLink } from 'react-router-dom';
-import { LogoQuran } from '../assets';
 import { useSelector } from 'react-redux';
+import { NavLink, useNavigate } from 'react-router-dom';
+import { LogoQuran } from '../assets';
 
 const links = [
-  { name: 'Discover', to: '/', icon: HiOutlineHome },
+  { name: 'Discover', to: '/', icon: HiHome },
   { name: 'Quran', to: '/quran', icon: HiBookOpen },
   { name: 'Al-Ahadits', to: '/top-artists', icon: HiBookmark },
   { name: 'Radio', to: '/radio', icon: HiOutlinePlay },
@@ -16,6 +16,7 @@ const links = [
 export const NavLinks = ({ handleClick }) => {
   const { t } = useTranslation()
   const { language } = useSelector((state) => state.player)
+
   return (
     <div >
       {links.map((item) => (
@@ -36,17 +37,17 @@ export const NavLinks = ({ handleClick }) => {
 const Sidebar = () => {
   const [mobileMenuOpen, setMobileMenuOpen] = useState(false);
   const { language } = useSelector((state) => state.player)
-
+  const navigate = useNavigate()
   return (
     <>
       {/* Desktop Sidebar */}
       <div className="md:flex hidden flex-col w-[240px] py-10 px-4 bg-[#191624]">
-        <img src={LogoQuran} alt="logo" className="w-full text-center h-28 object-contain" />
+        <img src={LogoQuran} alt="logo" className="w-full text-center h-28 object-contain cursor-pointer" onClick={() => navigate('/')} />
         <NavLinks />
       </div>
 
       {/* Mobile Menu Button */}
-      <div className={`absolute md:hidden block top-6 ${language === 'ar' ? 'left-3' : 'right-3'}`}>
+      <div className={`absolute md:hidden block top-4 ${language === 'ar' ? 'left-3' : 'right-3'}`}>
         {!mobileMenuOpen ? (
           <HiOutlineMenu className="w-6 h-6 text-white cursor-pointer" onClick={() => setMobileMenuOpen(true)} />
         ) : (
@@ -56,7 +57,7 @@ const Sidebar = () => {
 
       {/* Mobile Sidebar */}
       <div className={`absolute top-0 h-screen w-2/3 bg-[#483D8B]  z-10 p-6 md:hidden transform transition-transform duration-300 ${mobileMenuOpen ? `${language === 'ar' ? 'right-0' : 'left-0'}` : '-left-full'}`}>
-        <img src={LogoQuran} alt="logo" className="w-full text-center h-28 object-contain" />
+        <img src={LogoQuran} alt="logo" className="w-full text-center h-28 object-contain cursor-pointer" onClick={() => navigate('/')} />
         <NavLinks handleClick={() => setMobileMenuOpen(false)} />
       </div>
     </>

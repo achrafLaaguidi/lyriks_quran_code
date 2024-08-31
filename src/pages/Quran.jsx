@@ -32,14 +32,14 @@ const Quran = ({ searchTerm }) => {
 
 
     if (isFetching) {
-        return <Loader title="Loading Quran..." />;
+        return <Loader />;
     }
     if (error) {
-        return <Error language={language} />;
+        return <Error />;
     }
     return (
         <div className="px-4 flex flex-col  items-center h-screen  w-full ">
-            <h2 className="text-white text-right text-3xl mb-10 ">{t('Chapter')}</h2>
+            <h2 className="text-white text-center md:text-4xl text-2xl mb-10 ">{t('Chapter')}</h2>
             <div ref={scrollContainerRef} className="flex flex-wrap sm:justify-between justify-center gap-6 overflow-y-scroll hide-scrollbar">
                 {suwarsFiltred?.map((surah) => (
                     <QuranCard
