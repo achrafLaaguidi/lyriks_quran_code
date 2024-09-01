@@ -7,8 +7,7 @@ import { NavLink, useNavigate } from 'react-router-dom';
 import { LogoQuran } from '../assets';
 
 const links = [
-  { name: 'Discover', to: '/', icon: HiHome },
-  { name: 'Quran', to: '/quran', icon: HiBookOpen },
+  { name: 'Quran', to: '/', icon: HiBookOpen },
   { name: 'Al-Ahadits', to: '/top-artists', icon: HiBookmark },
   { name: 'Radio', to: '/radio', icon: HiOutlinePlay },
 ];
