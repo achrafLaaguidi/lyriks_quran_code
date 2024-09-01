@@ -11,7 +11,7 @@ const initialState = {
   language: localStorage.getItem('language') || 'ar',
   reader: localStorage.getItem('reader') || 102,
   riwaya: localStorage.getItem('riwaya') || 1,
-  save: localStorage.getItem('save') || 0
+  save: localStorage.getItem('save') || '0,0'
 };
 
 const playerSlice = createSlice({
