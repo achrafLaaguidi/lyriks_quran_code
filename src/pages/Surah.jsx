@@ -20,16 +20,16 @@ const Surah = () => {
     const { data, isFetching, error } = useGetAyatsBySurahAndReaderQuery({ surahId: id });
 
     const [quranSurah, setQuranSurah] = useState([]);
-    const [currentPageIndex, setCurrentPageIndex] = useState(0);
+    const [currentPageIndex, setCurrentPageIndex] = useState(1);
     const swiperRef = useRef(null);
     const [page, setPage] = useState([]);
 
     useEffect(() => {
         const parsedSave = save.split(',');
         setPage(parsedSave);
-        const initialPageIndex = (parsedSave[1] == id) ? parseInt(parsedSave[0]) : 0;
+        const initialPageIndex = (parsedSave[1] == id) ? parseInt(parsedSave[0]) : 1;
         setCurrentPageIndex(initialPageIndex);
-    }, [save, id]);
+    }, [save]);
 
     useEffect(() => {
         dispatch(setSurahId(null));
@@ -80,48 +80,52 @@ const Surah = () => {
 
     return (
         <>
-            {quranSurah.length > 0 && (
-                <Swiper
-                    className="md:max-w-xl w-screen h-screen"
-                    grabCursor={true}
-                    slidesPerView={1}
-                    loop={quranSurah.length !== 1}
-                    direction="vertical"
-                    onSlideChange={(swiper) => setCurrentPageIndex(swiper.realIndex + 1)}
-                    initialSlide={currentPageIndex - 1}
-                    onSwiper={(swiper) => (swiperRef.current = swiper)}
-                >
-                    {quranSurah.map((ayah, index) => (
-                        <SwiperSlide
-                            className="flex h-full justify-center items-start bg-white overflow-hidden"
-                            key={index}
-                        >
-                            <div className="flex flex-col justify-center items-center w-full md:h-full h-fit md:py-6 py-1">
-                                <div className="flex justify-center w-full h-fit">
-                                    <SelectInput
-                                        options={quranSurah}
-                                        value={currentPageIndex}
-                                        onChange={handleChange}
-                                        placeholder={t('Choose Page')}
-                                    />
-                                    <button
-                                        disabled={currentPageIndex == parseInt(page[0])}
-                                        className={`bg-orange-600 w-fit p-2 rounded-md text-white ml-2 ${currentPageIndex == parseInt(page[0]) ? 'opacity-50 cursor-not-allowed' : 'hover:bg-orange-700'}`}
-                                        onClick={handleSave}
-                                    >
-                                        {currentPageIndex == parseInt(page[0]) ? `${t('Saved')}` : `${t('Save')}`}
-                                    </button>
-                                </div>
+            <div className="flex flex-col justify-center items-center m-auto w-fit md:h-full h-screen  py-1 bg-white overflow-hidden ">
+                <div className="flex justify-center w-full h-fit">
+                    <SelectInput
+                        options={quranSurah}
+                        value={currentPageIndex}
+                        onChange={handleChange}
+                        placeholder={t('Choose Page')}
+                    />
+                    <button
+                        disabled={currentPageIndex == parseInt(page[0])}
+                        className={`bg-orange-600 w-fit p-2 rounded-md text-white ml-2 ${currentPageIndex == parseInt(page[0]) ? 'opacity-50 cursor-not-allowed' : 'hover:bg-orange-700'}`}
+                        onClick={handleSave}
+                    >
+                        {currentPageIndex == parseInt(page[0]) ? `${t('Saved')}` : `${t('Save')}`}
+                    </button>
+                </div>
+                {quranSurah.length > 0 && (
+                    <Swiper
+                        className="md:max-w-xl w-screen h-screen "
+                        grabCursor={true}
+                        slidesPerView={1}
+                        loop={quranSurah.length !== 1}
+                        direction="vertical"
+                        onSlideChange={(swiper) => setCurrentPageIndex(swiper.realIndex + 1)}
+                        initialSlide={currentPageIndex - 1}
+                        onSwiper={(swiper) => (swiperRef.current = swiper)}
+                    >
+
+                        {quranSurah.map((ayah, index) => (
+                            <SwiperSlide
+
+                                key={index}
+                            >
+
                                 <img
                                     src={ayah.page}
                                     alt={`${t('Page')} ${index + 1}`}
-                                    className="object-contain w-full h-full"
+                                    className="object-contain w-full md:h-full h-fit "
                                 />
-                            </div>
-                        </SwiperSlide>
-                    ))}
-                </Swiper>
-            )}
+
+                            </SwiperSlide>
+                        ))}
+
+                    </Swiper>
+                )}
+            </div>
         </>
     );
 };

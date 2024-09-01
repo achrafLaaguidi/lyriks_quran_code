@@ -17,7 +17,7 @@ const Discover = ({ searchTerm }) => {
     const { t, i18n } = useTranslation();
     const dispatch = useDispatch();
     const { activeSong, isPlaying, language, reader, riwaya } = useSelector((state) => state.player);
-    const [suwarsFiltred, setSuwarsFiltred] = useState([]);
+    const [filteredSuwars, setFilteredSuwars] = useState([]);
     const { scrollContainerRef, showScrollButton, handleScrollToTop } = useScrollToTopButton();
 
     // API Queries
@@ -35,22 +35,38 @@ const Discover = ({ searchTerm }) => {
         }
         return [];
     }, [riwaya, readers]);
+
     useEffect(() => {
         if (suwars) {
-            const filteredSuwars = searchTerm
+            const filtered = searchTerm
                 ? suwars.suwar.filter((surah) => surah.name.includes(searchTerm))
                 : suwars.suwar;
-            setSuwarsFiltred(filteredSuwars);
+            setFilteredSuwars(filtered);
         }
     }, [suwars, searchTerm]);
 
     const handleLanguageChange = (selectedLanguage) => {
-        i18n.changeLanguage(languages.language.slice(0, 3).find((lng) => lng.native == selectedLanguage).locale);
-        dispatch(setLanguage(languages.language.slice(0, 3).find((lng) => lng.native == selectedLanguage).locale));
+        const languageData = languages.language.find((lng) => lng.native == selectedLanguage);
+        if (languageData) {
+            const { locale } = languageData;
+            i18n.changeLanguage(locale);
+            dispatch(setLanguage(locale));
+        }
     };
 
-    const handleReaderChange = (selectedReaderId) => dispatch(setReader(availableReaders.find((rd) => rd.name == selectedReaderId).id));
-    const handleRiwayaChange = (selectedRiwaya) => dispatch(setRiwaya(riwayat.riwayat.find((ry) => ry.name == selectedRiwaya).id));
+    const handleReaderChange = (selectedReaderId) => {
+        const readerData = availableReaders.find((rd) => rd.name == selectedReaderId);
+        if (readerData) {
+            dispatch(setReader(readerData.id));
+        }
+    };
+
+    const handleRiwayaChange = (selectedRiwaya) => {
+        const riwayaData = riwayat.riwayat.find((ry) => ry.name == selectedRiwaya);
+        if (riwayaData) {
+            dispatch(setRiwaya(riwayaData.id));
+        }
+    };
 
     if (suwarIsFetching || languageIsFetching || readersIsFetching || riwayatIsFetching) {
         return <Loader />;
@@ -68,7 +84,6 @@ const Discover = ({ searchTerm }) => {
             className="md:mt-0 mt-4 md:w-[50%] w-[75%]"
             placeholder={placeholder}
         >
-            <Select.Option value="hide">{placeholder}</Select.Option>
             {options.map((option) => (
                 <Select.Option key={option.locale || option.id} value={option.native || option.name}>
                     {option.native || option.name}
@@ -77,11 +92,15 @@ const Discover = ({ searchTerm }) => {
         </Select>
     );
 
+    const languageDirectionClass = language == 'ar' ? 'md:flex-row-reverse' : 'md:flex-row';
+
     return (
-        <div className="px-4 flex flex-col h-[calc(100vh)] overflow-y-scroll hide-scrollbar">
-            <div className={`w-full flex  justify-between items-center ${language === 'ar' ? 'md:flex-row-reverse' : 'md:flex-row'} flex-col mt-4 mb-8`}>
-                <h2 className="font-bold text-2xl text-white  text-center md:w-[50%]  w-fit ">{t('Chapter')}</h2>
-                <div className={`w-full flex md:flex-row flex-col items-center ${language === 'ar' ? 'justify-start' : 'justify-end'}`}>
+        <div className="px-4 flex flex-col h-screen overflow-y-scroll hide-scrollbar">
+            <div className={`w-full flex justify-between items-center ${languageDirectionClass} flex-col mt-4 mb-8`}>
+                <h2 className="font-bold text-2xl text-white text-center md:w-[50%] w-fit">
+                    {t('Chapter')}
+                </h2>
+                <div className={`w-full flex md:flex-row flex-col items-center ${language == 'ar' ? 'justify-start' : 'justify-end'}`}>
                     <SelectInput
                         options={riwayat?.riwayat || []}
                         value={riwayat.riwayat.find((ry) => ry.id == riwaya)?.name}
@@ -96,15 +115,15 @@ const Discover = ({ searchTerm }) => {
                     />
                     <SelectInput
                         options={languages?.language.slice(0, 3) || []}
-                        value={languages.language.slice(0, 3).find((lng) => lng.locale == language)?.native}
+                        value={languages.language.find((lng) => lng.locale == language)?.native}
                         onChange={handleLanguageChange}
                         placeholder={t('Choose Your Language')}
                     />
                 </div>
             </div>
 
-            <div ref={scrollContainerRef} className="flex flex-wrap sm:justify-between justify-center gap-8 h-fit overflow-y-scroll hide-scrollbar">
-                {suwarsFiltred?.map((song, i) => (
+            <div ref={scrollContainerRef} className={`flex ${language == 'ar' && 'flex-row-reverse'} flex-wrap justify-satrt gap-8 h-fit overflow-y-scroll hide-scrollbar md:pb-28 pb-36`}>
+                {filteredSuwars?.map((song, i) => (
                     <SongCard
                         key={song.id}
                         song={song}

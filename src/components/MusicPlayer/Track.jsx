@@ -1,5 +1,7 @@
 import React from 'react';
 import { quran } from '../../assets';
+import { t } from "i18next";
+
 
 const Track = ({ isPlaying, isActive, activeSong, activeTafsir, language, activeSurah }) => (
   <div className="flex-1 flex items-center justify-start">
@@ -9,10 +11,9 @@ const Track = ({ isPlaying, isActive, activeSong, activeTafsir, language, active
 
     <div className="sm:w-[50%] w-[100%]">
       <p className="truncate text-white font-bold sm:text-lg">
-        {language === 'ar' ?
-          `${activeSurah || activeTafsir?.id ? `${!activeTafsir?.id ? `سورة ${activeSong?.name}` : `${activeTafsir.name} `}` : 'لا يوجد تسجيل '} `
-          :
-          `${activeSurah || activeTafsir?.id ? `${!activeTafsir?.id ? `Surah ${activeSong?.name}` : `${activeTafsir.name} `}` : 'Not active surah'} `}
+
+        {activeSurah || activeTafsir?.id ? `${!activeTafsir?.id ? `${t('Sourat')} ${activeSong?.name}` : `${activeTafsir.name} `}` : `${t('NotFound')}`}
+
       </p>
       <p className="truncate text-gray-300">
         {language === 'ar' ?
