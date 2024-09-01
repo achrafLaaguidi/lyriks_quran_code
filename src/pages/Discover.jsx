@@ -122,7 +122,7 @@ const Discover = ({ searchTerm }) => {
                 </div>
             </div>
 
-            <div ref={scrollContainerRef} className={`flex ${language == 'ar' && 'flex-row-reverse'} flex-wrap justify-satrt gap-8 h-fit overflow-y-scroll hide-scrollbar md:pb-28 pb-36`}>
+            <div ref={scrollContainerRef} className={`flex ${language == 'ar' && 'flex-row-reverse'} flex-wrap md:justify-satrt gap-8 h-fit overflow-y-scroll hide-scrollbar md:pb-28 pb-36`}>
                 {filteredSuwars?.map((song, i) => (
                     <SongCard
                         key={song.id}
