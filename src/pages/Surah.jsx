@@ -25,7 +25,7 @@ const Surah = () => {
     const [page, setPage] = useState([]);
 
     useEffect(() => {
-        const parsedSave = save.split(',');
+        const parsedSave = save?.split(',');
         setPage(parsedSave);
         const initialPageIndex = (parsedSave[1] == id) ? parseInt(parsedSave[0]) : 1;
         setCurrentPageIndex(initialPageIndex);
@@ -80,7 +80,7 @@ const Surah = () => {
 
     return (
         <>
-            <div className="flex flex-col justify-center items-center m-auto w-fit md:h-full h-screen  py-1 bg-white overflow-hidden ">
+            <div className="flex flex-col justify-center items-center m-auto w-fit md:h-full h-screen  md:pb-6 pt-2 bg-white overflow-hidden ">
                 <div className="flex justify-center w-full h-fit">
                     <SelectInput
                         options={quranSurah}
