@@ -54,7 +54,7 @@ const Sidebar = () => {
   return (
     <>
       {/* Desktop Sidebar */}
-      <div className='md:flex hidden flex-col justify-between   w-[240px] py-10 px-4 bg-[#191624]'>
+      <div className='md:flex hidden flex-col justify-between   w-[240px] py-8 px-4 bg-[#191624]'>
 
         <div className="flex  flex-col ">
           <img src={LogoQuran} alt="logo" className="w-full text-center h-28 object-contain cursor-pointer" onClick={() => navigate('/')} />

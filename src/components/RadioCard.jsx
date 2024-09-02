@@ -41,7 +41,7 @@ const RadioCard = ({ radio, isPlaying, activeRadio, i }) => {
             onClick={activeRadio.id !== radio.id ? handleChoose : null}
         >
             <div className="relative w-full md:h-48 h-24 group cursor-pointer">
-                {isLoading ? (
+                {isLoading && activeRadio.id == radio.id ? (
                     <div
                         className={`absolute inset-0 flex justify-center items-center bg-black bg-opacity-50 rounded-lg
                         ${activeRadio?.id === radio.id ? 'bg-opacity-70' : ''}`}
