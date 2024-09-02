@@ -2,7 +2,7 @@
     "Discover": "اكتشف",
     "Quran": "القرآن",
     "Al-Ahadits": "الأحاديث",
-    "Radio": "راديو",
+    "Radio": "الإذاعة",
     "Search": "بحث",
     "Sourat": "سورة",
     "Number": "رقم",
@@ -16,5 +16,9 @@
     "Saved": "محفوظ",
     "Loading": "...جاري التحميل",
     "Error": "حدث خطأ ما. يرجى المحاولة مرة أخرى",
-    "NotFound": "لا يوجد تسجيل"
+    "NotFound": "لا يوجد تسجيل",
+    "ChannelRadio": "الإذاعة الرقمية",
+    "DownloadComplete": "تم الانتهاء من التحميل",
+    "DownloadFailed": "فشل التحميل",
+    "font": "font-Arabic"
 }

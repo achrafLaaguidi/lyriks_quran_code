@@ -16,6 +16,7 @@ export const quranApi = createApi({
         getTafsirBySura: builder.query({ query: (sura_id) => `tafsir?sura=${sura_id}` }),
         getMushafByLanguage: builder.query({ query: (lang) => `moshaf?language=${lang}` }),
         getVideoType: builder.query({ query: () => 'viedo_types' }),
+        getRadios: builder.query({ query: (language) => `radios?language=${language}` }),
 
     }),
 });
@@ -30,5 +31,6 @@ export const {
     useGetTafsirBySuraQuery,
     useGetRecitersByLanguageAndIdAndRewayaQuery,
     useGetMushafByLanguageQuery,
-    useGetVideoTypeQuery
+    useGetVideoTypeQuery,
+    useGetRadiosQuery
 } = quranApi;

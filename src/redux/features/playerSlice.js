@@ -8,6 +8,7 @@ const initialState = {
   surahId: null,
   activeSong: {},
   activeTafsir: {},
+  activeRadio: {},
   language: localStorage.getItem('language') || 'ar',
   reader: localStorage.getItem('reader') || 102,
   riwaya: localStorage.getItem('riwaya') || 1,
@@ -18,12 +19,24 @@ const playerSlice = createSlice({
   name: 'player',
   initialState,
   reducers: {
+    setActiveRadio: (state, action) => {
+
+      if (action.payload) {
+
+        state.activeRadio = action.payload.song;
+        state.activeSong = {}
+        state.activeTafsir = {}
+        state.isActive = true;
+      }
+
+    },
     setActiveSong: (state, action) => {
 
       if (action.payload) {
 
         state.activeSong = action.payload.song;
         state.activeTafsir = {}
+        state.activeRadio = {}
 
         state.currentSongs = action.payload.data;
 
@@ -38,7 +51,7 @@ const playerSlice = createSlice({
       if (action.payload) {
         state.activeTafsir = action.payload.song;
         state.activeSong = {}
-
+        state.activeRadio = {}
         state.currentSongs = action.payload.data;
 
         state.currentIndex = action.payload.i;
@@ -100,6 +113,18 @@ const playerSlice = createSlice({
   },
 });
 
-export const { setActiveSong, nextSong, prevSong, playPause, selectGenreListId, setLanguage, setReader, setRiwaya, setActiveTafsir, setSurahId, setSave } = playerSlice.actions;
+export const {
+  setActiveSong,
+  nextSong,
+  prevSong,
+  playPause,
+  selectGenreListId,
+  setLanguage,
+  setReader,
+  setRiwaya,
+  setActiveTafsir,
+  setSurahId,
+  setSave,
+  setActiveRadio } = playerSlice.actions;
 
 export default playerSlice.reducer;

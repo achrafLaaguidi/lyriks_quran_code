@@ -1,16 +1,15 @@
-import React, { useState, useEffect } from 'react';
-import { useSelector, useDispatch } from 'react-redux';
+import React, { useState } from 'react';
+import { useDispatch, useSelector } from 'react-redux';
 
-import { nextSong, prevSong, playPause } from '../../redux/features/playerSlice';
+import { nextSong, playPause, prevSong } from '../../redux/features/playerSlice';
+import { useGetRecitersByLanguageAndIdAndRewayaQuery } from '../../redux/services/quranApi';
+import Error from '../Error';
+import Loader from '../Loader';
 import Controls from './Controls';
 import Player from './Player';
 import Seekbar from './Seekbar';
 import Track from './Track';
 import VolumeBar from './VolumeBar';
-import { useGetRecitersByLanguageAndIdAndRewayaQuery } from '../../redux/services/quranApi';
-import Loader from '../Loader';
-import Error from '../Error';
-import { HiDownload } from 'react-icons/hi'; // Import the download icon
 
 const MusicPlayer = ({ isUp }) => {
   const {

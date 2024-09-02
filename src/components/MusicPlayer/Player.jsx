@@ -1,3 +1,4 @@
+import { t } from 'i18next';
 import React, { useEffect, useRef, useState } from 'react';
 import { HiDownload } from 'react-icons/hi';
 import Swal from 'sweetalert2';
@@ -110,7 +111,7 @@ const Player = ({
         Swal.close();
         Swal.fire({
           icon: 'success',
-          title: language !== 'ar' ? 'Téléchargement terminé' : 'اكتمل التحميل',
+          title: `${t('DownloadComplete')}`,
           showConfirmButton: false,
           timer: 1500,
         });
@@ -120,7 +121,7 @@ const Player = ({
         Swal.fire({
           icon: 'error',
           title: 'Erreur',
-          text: "Le téléchargement a échoué.",
+          text: `${t('DownloadFailed')}`,
         });
       } finally {
         setIsDownloading(false);

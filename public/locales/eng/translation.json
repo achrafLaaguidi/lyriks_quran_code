@@ -16,5 +16,9 @@
     "Saved": "Saved",
     "Loading": "Loading...",
     "Error": "Something went wrong. Please try again",
-    "NotFound": "There is no recording"
+    "NotFound": "There is no recording",
+    "ChannelRadio": "Radio Digital",
+    "DownloadComplete": "Download complete",
+    "DownloadFailed": "The download failed",
+    "font": "font-Foreigner"
 }

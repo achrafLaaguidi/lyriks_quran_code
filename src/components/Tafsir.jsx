@@ -25,7 +25,7 @@ const TafsirCard = ({ tafsir, i, t, isPlaying, activeTafsir, handlePauseClick, h
     </div>
     <PlayPause
       isPlaying={isPlaying}
-      activeTafsir={activeTafsir}
+      activeSong={activeTafsir}
       song={tafsir}
       handlePause={handlePauseClick}
       handlePlay={handlePlayClick}
@@ -60,7 +60,7 @@ const Tafasir = () => {
   if (error) return <Error language={language} />;
 
   return (
-    <div className="xl:ml-6 ml-0 xl:mb-0 mb-6 flex-1 xl:max-w-[500px] max-w-full flex flex-col">
+    <div className="xl:ml-6 ml-0 xl:mb-0 mb-6 flex-1 xl:max-w-[500px] max-w-full flex flex-col h-full overflow-y-scroll hide-scrollbar">
       <div className="flex flex-row justify-center items-center">
         <h2 className="text-white font-bold text-xl">{data?.tafasir?.name}</h2>
       </div>

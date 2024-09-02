@@ -1,8 +1,13 @@
-/** @type {import('tailwindcss').Config} */
+/** @type {import('tailwindcss').Config } */
+
 module.exports = {
   content: ['./index.html', './src/**/*.{vue,js,ts,jsx,tsx}'],
   theme: {
     extend: {
+      fontFamily: {
+        Arabic: ['Amiri'],
+        Foreigner: ['SUSE'],
+      },
       colors: {
         black: '#191624',
       },

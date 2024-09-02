@@ -9,6 +9,7 @@ import { Error, Loader } from "../components";
 import { setSave, setSurahId } from "../redux/features/playerSlice";
 import { useGetAyatsBySurahAndReaderQuery } from "../redux/services/quranApi";
 import { Select } from 'antd';
+import { HiLockClosed, HiLockOpen, HiSave, HiSaveAs } from "react-icons/hi";
 
 // Initialize Swiper with the Pagination module
 SwiperCore.use([Pagination]);
@@ -93,7 +94,7 @@ const Surah = () => {
                         className={`bg-orange-600 w-fit p-2 rounded-md text-white ml-2 ${currentPageIndex == parseInt(page[0]) ? 'opacity-50 cursor-not-allowed' : 'hover:bg-orange-700'}`}
                         onClick={handleSave}
                     >
-                        {currentPageIndex == parseInt(page[0]) ? `${t('Saved')}` : `${t('Save')}`}
+                        {currentPageIndex == parseInt(page[0]) ? <HiLockClosed title={t('Saved')} /> : <HiLockOpen title={t('Save')} />}
                     </button>
                 </div>
                 {quranSurah.length > 0 && (

@@ -2,7 +2,7 @@ import { useDispatch, useSelector } from "react-redux";
 import { useGetSuwarByLanguageQuery } from "../redux/services/quranApi";
 import { Error, Loader } from "../components";
 import { useEffect, useState } from "react";
-import QuranCard from "../components/QuranCard";
+import QuranCard from "../components/RadioCard";
 import { setActiveSong, setActiveTafsir, setSurahId } from "../redux/features/playerSlice";
 import useScrollToTopButton from "../assets/useScrollToTop";
 import { HiArrowCircleUp } from "react-icons/hi";

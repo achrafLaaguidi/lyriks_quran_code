@@ -8,9 +8,9 @@ import { useTranslation } from 'react-i18next';
 
 const SongCard = ({ song, isPlaying, activeSong, data, i }) => {
   const dispatch = useDispatch();
-  const { language } = useSelector((state) => state.player);
+  const { language, save } = useSelector((state) => state.player);
   const { t } = useTranslation()
-
+  const surahSaved = save.split(',')
 
   const handlePauseClick = () => {
     dispatch(playPause(false));
@@ -23,7 +23,7 @@ const SongCard = ({ song, isPlaying, activeSong, data, i }) => {
   };
 
   return (
-    <div className="flex flex-col md:w-[200px] w-[125px] p-4 bg-white/5 bg-opacity-80 backdrop-blur-sm animate-slideup rounded-lg cursor-pointer ">
+    <div className={`flex flex-col md:w-[200px] w-[125px] p-4 bg-white/5 bg-opacity-80 backdrop-blur-sm animate-slideup rounded-lg cursor-pointer  ${surahSaved[1] == song.id && 'bg-orange-600 bg-opacity-70'}  `}>
       <div className="relative w-full md:h-48 h-24 group" onClick={() => dispatch(setSurahId(song.id))} >
         <div className={`absolute inset-0 justify-center items-center bg-black bg-opacity-50 group-hover:flex 
           ${activeSong?.name === song.name ? 'flex bg-black bg-opacity-70' : 'hidden'}`}
@@ -40,19 +40,19 @@ const SongCard = ({ song, isPlaying, activeSong, data, i }) => {
         <img alt="Quran" src={quran} className="w-full h-full rounded-lg" />
       </div>
 
-      <div className={`mt-4 flex flex-col ${language === 'ar' ? 'text-right' : 'text-left'} `}>
-        <p className="font-semibold md:text-base text-sm text-white truncate">
+      <div className={`mt-4 flex flex-col justify-between items-center h-full  `}>
+        <p className={`font-semibold md:text-lg text-sm text-white   truncate ${t('font')}`}>
           <Link to={`/surah/${song?.id}`}>
             {t('Sourat')}  {song.name}
           </Link>
         </p>
-        <div className='flex flex-row justify-between'>
-          <p className='md:text-sm text-xs truncate text-white  border border-white rounded-full  p-1 ' >
+        <div className='flex flex-row justify-between items-center w-full p-1'>
+          <p className='md:text-sm text-xs truncate text-white  border border-white  rounded-lg  p-1 ' >
             {song.id}
           </p>
-          <p className="md:text-sm text-xs truncate text-gray-300 mt-1">
+          <p className={`md:text-sm text-xs truncate text-gray-300 py-1  ${t('font')}`}>
             <Link to={`/surah/${song?.id}`}>
-              {(language === 'ar' || language === '') ? song.makkia ? 'مَكٍّيِةٌ' : 'مَدَنِيَةٌ' : song.makkia ? 'Makkia' : 'Madania'}
+              {(language === 'ar' || language === '') ? song.makkia ? 'مَكِّيَةٌ' : 'مَدَنِيَةٌ' : song.makkia ? 'Makkia' : 'Madania'}
             </Link>
           </p>
 

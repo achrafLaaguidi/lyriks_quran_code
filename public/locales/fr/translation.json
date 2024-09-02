@@ -16,5 +16,9 @@
     "Saved": "Sauvé",
     "Loading": "Chargement...",
     "Error": "Quelque chose a mal tourné. Veuillez réessayer",
-    "NotFound": "Il n'y a pas d'enregistrement"
+    "NotFound": "Il n'y a pas d'enregistrement",
+    "ChannelRadio": "Radio numérique",
+    "DownloadComplete": "Téléchargement terminé",
+    "DownloadFailed": "Le téléchargement a échoué",
+    "font": "font-Foreigner"
 }
