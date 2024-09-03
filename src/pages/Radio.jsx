@@ -1,5 +1,5 @@
 import { t } from 'i18next';
-import React, { useEffect, useRef, useState } from 'react';
+import React, { useEffect, useMemo, useRef, useState } from 'react';
 import { FaPauseCircle, FaPlayCircle } from 'react-icons/fa';
 import { HiArrowCircleUp, HiRefresh } from 'react-icons/hi';
 import { useDispatch, useSelector } from 'react-redux';
@@ -7,7 +7,7 @@ import { radioLogo } from '../assets';
 import useScrollToTopButton from '../assets/useScrollToTop';
 import { Error, Loader } from '../components';
 import RadioCard from '../components/RadioCard';
-import { playPause, setSurahId } from '../redux/features/playerSlice';
+import { playPause } from '../redux/features/playerSlice';
 import { useGetRadiosQuery } from '../redux/services/quranApi';
 
 
@@ -17,23 +17,18 @@ const Radio = ({ searchTerm }) => {
     const [isLoading, setIsLoading] = useState(false);
     const { activeRadio, isPlaying, language, isActive } = useSelector((state) => state.player);
     const { data, isFetching, error } = useGetRadiosQuery(language);
-    const [filteredRadios, setFiltredRadios] = useState([]);
     const { scrollContainerRef, showScrollButton, handleScrollToTop } = useScrollToTopButton();
 
-    useEffect(() => {
+    const filteredRadios = useMemo(() => {
+        if (!data) return [];
 
-        dispatch(setSurahId(null))
+        return searchTerm
+            ? data.radios.filter((radio) =>
+                radio.name.toLowerCase().includes(searchTerm.toLowerCase())
+            )
+            : data.radios;
+    }, [data, searchTerm]);
 
-        if (data) {
-            const filtered = searchTerm
-                ? data?.radios?.filter((radio) =>
-                    radio.name.toLowerCase().includes(searchTerm.toLowerCase())
-                )
-                : data?.radios;
-
-            setFiltredRadios(filtered);
-        }
-    }, [data, searchTerm, dispatch]);
     useEffect(() => {
         if (activeRadio?.id && !isPlaying) {
             setIsLoading(false);
@@ -57,13 +52,17 @@ const Radio = ({ searchTerm }) => {
         setIsLoading(false);
         handlePlayClick();
     };
-
+    const handleAudioError = () => {
+        console.error('Error loading audio stream');
+        setIsLoading(false);
+        dispatch(playPause(false));
+    };
     if (isFetching) return <Loader />;
 
     if (error) return <Error />;
 
     return (
-        <div className="px-4 flex flex-col h-screen overflow-y-scroll hide-scrollbar">
+        <div className=" flex flex-col h-screen overflow-y-scroll hide-scrollbar">
             <h2 className={`font-bold text-3xl my-4 text-white text-center  ${t('font')}`}>
                 {t('ChannelRadio')}
             </h2>
@@ -128,6 +127,7 @@ const Radio = ({ searchTerm }) => {
                         ref={ref}
                         src={activeRadio?.url}
                         onCanPlayThrough={handleLoadedData}
+                        onError={handleAudioError}
                         autoPlay
                     />
 

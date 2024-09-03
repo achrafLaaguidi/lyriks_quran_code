@@ -1,12 +1,12 @@
 import { t } from 'i18next';
-import React, { useCallback, useRef, useState } from 'react';
+import React, { memo, useCallback, useRef, useState } from 'react';
 import { HiRefresh } from 'react-icons/hi';
 import { useDispatch } from 'react-redux';
 import { radioLogo } from '../assets';
 import { setActiveRadio } from '../redux/features/playerSlice';
 import PlayPause from './PlayPause';
 
-const RadioCard = ({ radio, isPlaying, activeRadio, i, handlePauseClick, handlePlayClick, isLoading, setIsLoading }) => {
+const RadioCard = memo(({ radio, isPlaying, activeRadio, i, handlePauseClick, handlePlayClick, isLoading, setIsLoading }) => {
     const dispatch = useDispatch();
 
 
@@ -58,6 +58,6 @@ const RadioCard = ({ radio, isPlaying, activeRadio, i, handlePauseClick, handleP
 
         </div>
     );
-};
+});
 
 export default RadioCard;

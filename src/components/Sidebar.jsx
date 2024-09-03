@@ -1,6 +1,6 @@
 import React, { useState } from 'react';
 import { useTranslation } from 'react-i18next';
-import { HiBookmark, HiBookOpen, HiOutlineMenu, HiOutlinePlay } from 'react-icons/hi';
+import { HiArrowsExpand, HiBookmark, HiBookmarkAlt, HiBookOpen, HiOutlineBookOpen, HiOutlineMenu, HiOutlinePlay } from 'react-icons/hi';
 import { RiCloseLine } from 'react-icons/ri';
 import { useDispatch, useSelector } from 'react-redux';
 import { NavLink, useNavigate } from 'react-router-dom';
@@ -10,8 +10,9 @@ import { setLanguage } from '../redux/features/playerSlice';
 
 const links = [
   { name: 'Quran', to: '/', icon: HiBookOpen },
+  { name: 'Tafsir', to: '/tafsir', icon: HiOutlineBookOpen },
   { name: 'Al-Ahadits', to: '/hadiths', icon: HiBookmark },
-  { name: 'Radio', to: '/radio', icon: HiOutlinePlay },
+  { name: 'Radio', to: '/radio', icon: HiOutlinePlay }
 ];
 
 export const NavLinks = ({ handleClick }) => {

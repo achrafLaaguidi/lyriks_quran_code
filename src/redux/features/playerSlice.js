@@ -1,11 +1,21 @@
 import { createSlice } from '@reduxjs/toolkit';
+const updateSong = (state, action) => {
+  if (state.activeSong?.id) {
+    state.activeSong = state.currentSongs[action.payload];
+    state.surahId = action.payload + 1;
+  } else {
+    state.activeTafsir = state.currentSongs[action.payload];
+  }
+  state.currentIndex = action.payload;
+  state.isActive = true;
+};
 
 const initialState = {
   currentSongs: [],
   currentIndex: 0,
   isActive: false,
   isPlaying: false,
-  surahId: null,
+  surahId: localStorage.getItem('surahId') || 2,
   activeSong: {},
   activeTafsir: {},
   activeRadio: {},
@@ -60,31 +70,11 @@ const playerSlice = createSlice({
     },
 
     nextSong: (state, action) => {
-      if (state.activeSong?.id) {
-        state.activeSong = state.currentSongs[action.payload];
-        state.currentIndex = action.payload;
-        state.surahId = action.payload + 1;
-      }
-      else {
-        state.activeTafsir = state.currentSongs[action.payload]
-        state.currentIndex = action.payload;
-      }
-
-      state.isActive = true;
+      updateSong(state, action);
     },
 
     prevSong: (state, action) => {
-      if (state.activeSong?.id) {
-        state.activeSong = state.currentSongs[action.payload];
-        state.currentIndex = action.payload;
-        state.surahId = action.payload + 1;
-
-      }
-      else {
-        state.activeTafsir = state.currentSongs[action.payload]
-        state.currentIndex = action.payload;
-      }
-      state.isActive = true;
+      updateSong(state, action);
     },
 
     playPause: (state, action) => {
@@ -92,6 +82,7 @@ const playerSlice = createSlice({
     },
     setSurahId: (state, action) => {
       state.surahId = action.payload;
+      localStorage.setItem('surahId', action.payload);
     },
     setSave: (state, action) => {
       state.save = action.payload;

@@ -1,6 +1,7 @@
 {
     "Discover": "اكتشف",
-    "Quran": "القرآن",
+    "Quran": "القرآن الكريم",
+    "Tafsir": "تفسير الطبري",
     "Al-Ahadits": "الأحاديث",
     "Radio": "الإذاعة",
     "Search": "بحث",
@@ -10,6 +11,7 @@
     "Choose Page": "اختر الصفحة",
     "Page": "الصفحة",
     "Choose Your Reader": "اختر قارئك",
+    "Choose Your Surah": "اختر سورة",
     "Choose Your Language": "اختر لغتك",
     "Chapter": "سُوَرُ الْقُرْآنُ الْكَرِيمُ",
     "Save": "احفظ",

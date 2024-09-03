@@ -1,6 +1,7 @@
 {
     "Discover": "Discover",
     "Quran": "Quran",
+    "Tafsir": "Al-Tabari's Interpretation",
     "Al-Ahadits": "Al-Ahadits",
     "Radio": "Radio",
     "Search": "Search",
@@ -10,6 +11,7 @@
     "Choose Page": "Choose Page",
     "Page": "The Page",
     "Choose Your Reader": "Choose Your Reader",
+    "Choose Your Surah": "Choose A Surah",
     "Choose Your Language": "Choose Your Language",
     "Chapter": "The chapters of the Holy Quran",
     "Save": "Save",

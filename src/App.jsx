@@ -4,9 +4,10 @@ import { HiChevronDown, HiChevronUp } from 'react-icons/hi';
 import { useSelector } from 'react-redux';
 import { Route, Routes, useLocation } from 'react-router-dom';
 import { paths } from './assets/constants';
-import { MusicPlayer, Searchbar, Sidebar, TopPlay } from './components';
+import { MusicPlayer, Searchbar, Sidebar, } from './components';
 import { Discover, Hadith, Surah } from './pages';
 import Radio from './pages/Radio';
+import Tafasir from './components/Tafasir';
 
 const App = () => {
   const { activeSong, surahId, activeTafsir, language } = useSelector((state) => state.player);
@@ -35,20 +36,17 @@ const App = () => {
       <div className="flex-1 flex flex-col bg-gradient-to-br from-black to-[#121286] ">
         {isInclude && <Searchbar handleChange={handleChange} searchTerm={searchTerm} />}
 
-        <div className=" overflow-y-scroll hide-scrollbar flex xl:flex-row flex-col-reverse">
-          <div className=" flex-1 h-fit  ">
-            <Routes>
-              <Route path="/" element={<Discover searchTerm={searchTerm} />} />
-              <Route path="/surah/:id" element={<Surah />} />
-              <Route path="/radio" element={<Radio searchTerm={searchTerm} />} />
-              <Route path="/hadiths" element={<Hadith />} />
-            </Routes>
-          </div>
-          {surahId &&
-            <div className="xl:sticky  relative top-0 h-fit px-4">
-              <TopPlay />
-            </div>}
+
+        <div className=" flex-1 h-fit ">
+          <Routes>
+            <Route path="/" element={<Discover searchTerm={searchTerm} />} />
+            <Route path="/surah/:id" element={<Surah />} />
+            <Route path="/tafsir" element={<Tafasir />} />
+            <Route path="/radio" element={<Radio searchTerm={searchTerm} />} />
+            <Route path="/hadiths" element={<Hadith />} />
+          </Routes>
         </div>
+
       </div>
 
       {(activeSong?.id || activeTafsir?.id) && (
