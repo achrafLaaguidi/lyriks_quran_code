@@ -48,7 +48,7 @@ const App = () => {
             </Routes>
           </div>
           {surahId &&
-            <div className="xl:sticky relative top-0 h-fit px-4">
+            <div className="xl:sticky  relative top-0 h-fit px-4">
               <TopPlay />
             </div>}
         </div>

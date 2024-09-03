@@ -18,8 +18,8 @@ const TafsirCard = ({ tafsir, i, t, isPlaying, activeTafsir, handlePauseClick, h
     <h3 className="font-bold text-base text-white mr-3">{i + 1}.</h3>
     <div className="flex-1 flex flex-row justify-between items-center">
       <img className="md:w-16 w-14 md:h-16 h-14 rounded-lg " src={Tafsir} alt={tafsir?.name} />
-      <div className="flex-1 flex flex-col justify-center md:mx-2  ">
-        <p className="md:text-lg text-xs font-bold text-white text-center ">{tafsir?.name}</p>
+      <div className="flex-1 flex flex-col justify-center  mx-2  ">
+        <p className="md:text-lg text-xs font-bold text-white   ">{tafsir?.name}</p>
         <p className="md:text-base text-xs text-gray-300 mt-1">{t('Sourat') + ' ' + t('Number')} {tafsir?.sura_id}</p>
       </div>
     </div>
@@ -60,12 +60,12 @@ const Tafasir = () => {
   if (error) return <Error language={language} />;
 
   return (
-    <div className="xl:ml-6 ml-0 xl:mb-0 mb-6 flex-1 xl:max-w-[500px] max-w-full flex flex-col h-full overflow-y-scroll hide-scrollbar">
-      <div className="flex flex-row justify-center items-center">
+    <div className="xl:ml-4  ml-0 xl:mb-0 mb-6 flex-1 xl:max-w-[500px] max-w-full flex flex-col h-full overflow-y-scroll hide-scrollbar">
+      <div className="flex flex-row justify-center items-center mt-4 mb-8">
         <h2 className="text-white font-bold text-xl">{data?.tafasir?.name}</h2>
       </div>
 
-      <div className={`mt-4 flex flex-col gap-1 ${data?.tafasir?.soar[surahId || activeTafsir?.sura_id]?.length > 4 ? ' h-[calc(100vh-25vh)]' : 'h-fit'} overflow-y-scroll hide-scrollbar`}>
+      <div className={` flex flex-col gap-1 ${data?.tafasir?.soar[surahId || activeTafsir?.sura_id]?.length > 4 ? ' h-[calc(100vh-25vh)]' : 'h-fit'} overflow-y-scroll hide-scrollbar`}>
 
         {data?.tafasir?.soar[surahId || activeTafsir?.sura_id]?.map((tafsir, i) =>
 

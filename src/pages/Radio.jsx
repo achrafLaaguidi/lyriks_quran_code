@@ -70,7 +70,7 @@ const Radio = ({ searchTerm }) => {
 
             <div
                 ref={scrollContainerRef}
-                className={`flex ${language === 'ar' ? 'flex-row-reverse' : ''} flex-wrap  justify-center gap-8 h-fit overflow-y-scroll hide-scrollbar md:pb-28 pb-36`}
+                className={`flex ${language === 'ar' ? 'flex-row-reverse' : ''} flex-wrap  justify-center gap-8 h-fit   overflow-y-scroll hide-scrollbar md:pb-28 pb-36`}
             >
                 {filteredRadios?.map((radio, i) => (
                     <RadioCard
@@ -86,24 +86,24 @@ const Radio = ({ searchTerm }) => {
                     />
                 ))}
                 {activeRadio?.id &&
-                    (<div className='absolute flex justify-between items-center animate-slideup bg-gradient-to-br from-white/10 to-[#010119] w-fit p-4 backdrop-blur-lg rounded-lg'>
+                    (<div className='absolute top-28 flex justify-between items-center animate-slideup bg-gradient-to-br from-white/10 to-[#010119] w-fit p-4 backdrop-blur-lg rounded-lg'>
                         <div className={`${isPlaying && isActive ? 'animate-[spin_3s_linear_infinite]' : ''}  md:h-20 h-full md:w-20 w-16 md:mr-6 mr-4`}>
                             <img src={radioLogo} alt={activeRadio.name} className=" rounded-full" />
                         </div>
                         <div className='flex flex-col-reverse justify-center items-center  '>
-                            <div className=' text-gray-300 cursor-pointer '>
+                            <div className=' text-gray-300  '>
                                 {isLoading
                                     ? <HiRefresh className="md:text-4xl text-2xl  animate-spin" />
                                     : isPlaying
                                         ? <FaPauseCircle
                                             size={35}
-                                            className="text-gray-300"
+                                            className="text-gray-300 cursor-pointer"
                                             onClick={handlePauseClick}
                                         />
                                         :
                                         <FaPlayCircle
                                             size={35}
-                                            className="text-gray-300"
+                                            className="text-gray-300 cursor-pointer"
                                             onClick={handlePlayClick}
                                         />
                                 }

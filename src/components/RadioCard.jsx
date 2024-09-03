@@ -22,10 +22,10 @@ const RadioCard = ({ radio, isPlaying, activeRadio, i, handlePauseClick, handleP
 
     return (
         <div
-            className={`flex flex-col md:w-[200px] w-[125px] p-4 bg-white/5 bg-opacity-80 backdrop-blur-sm animate-slideup rounded-lg`}
+            className={`flex flex-col md:w-[200px] w-[125px] p-4 bg-white/5 bg-opacity-80 backdrop-blur-sm animate-slideup rounded-lg cursor-pointer`}
             onClick={activeRadio.id !== radio.id ? handleChoose : null}
         >
-            <div className="relative w-full md:h-48 h-24 group cursor-pointer">
+            <div className="relative w-full md:h-48 h-24 group ">
                 {isLoading && activeRadio.id == radio.id ? (
                     <div className={`absolute inset-0 flex justify-center items-center bg-black bg-opacity-50 rounded-lg`}>
                         <HiRefresh className="text-gray-300 text-3xl animate-spin" />
