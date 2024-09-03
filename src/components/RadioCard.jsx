@@ -1,39 +1,24 @@
-import React, { useRef, useState } from 'react';
-import { useDispatch } from 'react-redux';
-import { Radio } from '../assets';
-import { playPause, setActiveRadio } from '../redux/features/playerSlice';
-import PlayPause from './PlayPause';
-import { HiRefresh } from 'react-icons/hi';
 import { t } from 'i18next';
+import React, { useCallback, useRef, useState } from 'react';
+import { HiRefresh } from 'react-icons/hi';
+import { useDispatch } from 'react-redux';
+import { radioLogo } from '../assets';
+import { setActiveRadio } from '../redux/features/playerSlice';
+import PlayPause from './PlayPause';
 
-const RadioCard = ({ radio, isPlaying, activeRadio, i }) => {
+const RadioCard = ({ radio, isPlaying, activeRadio, i, handlePauseClick, handlePlayClick, isLoading, setIsLoading }) => {
     const dispatch = useDispatch();
-    const ref = useRef(null);
-    const [isLoading, setIsLoading] = useState(false);
 
-    const handlePauseClick = () => {
-        if (ref.current) {
-            ref.current.pause();
-        }
-        dispatch(playPause(false));
-    };
 
-    const handlePlayClick = () => {
-        if (ref.current) {
-            ref.current.play();
-        }
-        dispatch(playPause(true));
-    };
 
-    const handleChoose = () => {
+
+    const handleChoose = useCallback(() => {
         dispatch(setActiveRadio({ song: radio }));
         setIsLoading(true);
-    };
+    }, [dispatch, radio]);
 
-    const handleLoadedData = () => {
-        setIsLoading(false);
-        handlePlayClick();
-    };
+
+
 
     return (
         <div
@@ -42,17 +27,11 @@ const RadioCard = ({ radio, isPlaying, activeRadio, i }) => {
         >
             <div className="relative w-full md:h-48 h-24 group cursor-pointer">
                 {isLoading && activeRadio.id == radio.id ? (
-                    <div
-                        className={`absolute inset-0 flex justify-center items-center bg-black bg-opacity-50 rounded-lg
-                        ${activeRadio?.id === radio.id ? 'bg-opacity-70' : ''}`}
-                    >
+                    <div className={`absolute inset-0 flex justify-center items-center bg-black bg-opacity-50 rounded-lg`}>
                         <HiRefresh className="text-gray-300 text-3xl animate-spin" />
                     </div>
                 ) : (
-                    <div
-                        className={`absolute inset-0 flex justify-center items-center bg-black bg-opacity-50 rounded-lg group-hover:flex 
-                        ${activeRadio?.id === radio.id ? 'bg-opacity-70' : 'hidden'}`}
-                    >
+                    <div className={`absolute inset-0 flex justify-center items-center bg-black bg-opacity-50 rounded-lg group-hover:flex ${activeRadio?.id === radio.id ? 'bg-opacity-70' : 'hidden'}`}>
                         <PlayPause
                             isPlaying={isPlaying && activeRadio?.id == radio.id}
                             activeSong={activeRadio}
@@ -63,7 +42,8 @@ const RadioCard = ({ radio, isPlaying, activeRadio, i }) => {
                     </div>
                 )}
 
-                <img alt="Radio" src={Radio} className="w-full h-full rounded-lg" />
+
+                <img alt="Radio" src={radioLogo} className="w-full h-full rounded-lg" />
             </div>
 
             <div className="mt-4 flex flex-col justify-between items-center h-full">
@@ -75,14 +55,7 @@ const RadioCard = ({ radio, isPlaying, activeRadio, i }) => {
                 </p>
             </div>
 
-            {activeRadio && activeRadio.id === radio.id && (
-                <audio
-                    ref={ref}
-                    src={activeRadio?.url}
-                    onCanPlayThrough={handleLoadedData}
-                    autoPlay
-                />
-            )}
+
         </div>
     );
 };
