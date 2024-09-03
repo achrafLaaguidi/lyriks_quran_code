@@ -72,7 +72,7 @@ const Tafasir = () => {
 
   return (
     <div className=" flex-1 px-4 flex flex-col h-screen overflow-y-scroll hide-scrollbar">
-      <div className="flex flex-col justify-center items-center mt-4 mb-8 gap-2 ">
+      <div className="flex flex-col justify-center items-center mt-8 mb-8 gap-2 ">
         <h2 className={`text-white font-bold text-2xl ${t('font')}`}>{tafasir?.tafasir?.name}</h2>
         <SelectInput
           showSearch={true}

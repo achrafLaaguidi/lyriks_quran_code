@@ -141,7 +141,7 @@ const Player = ({
         aria-label="Audio player"
       />
       <button
-        className="bg-white p-2 rounded-md md:text-3xl text-2xl bottom-4 sm:right-4 right-2 absolute"
+        className="bg-white p-2 rounded-md md:text-3xl text-xl md:bottom-4 bottom-3 sm:right-4 right-1 absolute"
         onClick={handleDownload}
         disabled={!audio || isDownloading}
         aria-label="Download audio"
