@@ -31,7 +31,8 @@
             "writerName": "Imam Bukhari",
             "writerDeath": "256 ھ",
             "bookSlug": "sahih-bukhari",
-            "hadiths_count": "7433 Hadith",
+            "hadiths": "Hadith",
+            "hadiths_count": "7433",
             "chapters_count": "99"
         },
         {
@@ -40,7 +41,8 @@
             "writerName": "Imam Muslim",
             "writerDeath": "261 ھ",
             "bookSlug": "sahih-muslim",
-            "hadiths_count": "7561 Hadith",
+            "hadiths": "Hadith",
+            "hadiths_count": "7561",
             "chapters_count": "56"
         },
         {
@@ -49,7 +51,8 @@
             "writerName": "Abu `Isa Muhammad at-Tirmidhi",
             "writerDeath": "279",
             "bookSlug": "al-tirmidhi",
-            "hadiths_count": "3956 Hadith",
+            "hadiths": "Hadith",
+            "hadiths_count": "3956",
             "chapters_count": "50"
         },
         {
@@ -58,7 +61,8 @@
             "writerName": "Imam Abu Dawud Sulayman ibn al-Ash'ath as-Sijistani",
             "writerDeath": "275",
             "bookSlug": "abu-dawood",
-            "hadiths_count": "5274 Hadith",
+            "hadiths": "Hadith",
+            "hadiths_count": "5274",
             "chapters_count": "43"
         },
         {
@@ -67,7 +71,8 @@
             "writerName": "Imam Muhammad bin Yazid Ibn Majah al-Qazvini",
             "writerDeath": "273",
             "bookSlug": "ibn-e-majah",
-            "hadiths_count": "4341 Hadith",
+            "hadiths": "Hadith",
+            "hadiths_count": "4341",
             "chapters_count": "39"
         },
         {
@@ -76,7 +81,8 @@
             "writerName": "Imam Ahmad an-Nasa`i",
             "writerDeath": "303",
             "bookSlug": "sunan-nasai",
-            "hadiths_count": "5761 Hadith",
+            "hadiths": "Hadith",
+            "hadiths_count": "5761",
             "chapters_count": "52"
         },
         {
@@ -85,7 +91,8 @@
             "writerName": "Imam Khatib at-Tabrizi",
             "writerDeath": "741",
             "bookSlug": "mishkat",
-            "hadiths_count": "6293 Hadith",
+            "hadiths": "Hadith",
+            "hadiths_count": "6293",
             "chapters_count": "29"
         }
     ]

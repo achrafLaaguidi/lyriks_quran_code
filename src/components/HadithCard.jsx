@@ -8,7 +8,7 @@ const HadithCard = ({ book, language }) =>
     <div className={`w-full flex  flex-col justify-center gap-y-1 `}>
         <div className={`${language == 'ar' ? 'text-right' : 'text-left'} bg-[#508C9B]  p-2 rounded-lg `}>
             <p className={`mb-3 bg-[#134B70]  rounded-lg p-2`}>{book.bookName}</p>
-            <p className="bg-[#EEEEEE] rounded-lg p-2 text-black font-bold">{book.hadiths_count}</p>
+            <p className="bg-[#EEEEEE] rounded-lg p-2 text-black  font-bold">{book.hadiths_count}  {book.hadiths}</p>
         </div>
         <div className="bg-[#201E43] text-center  p-2 rounded-lg">
             <p>{book.writerName}</p>

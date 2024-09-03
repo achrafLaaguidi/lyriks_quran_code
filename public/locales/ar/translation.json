@@ -31,7 +31,8 @@
             "writerName": "اَلْإِمَامُ اُلْبُخَارِي",
             "writerDeath": "256 ھ",
             "bookSlug": "sahih-bukhari",
-            "hadiths_count": "7433 حديث",
+            "hadiths": "حديث",
+            "hadiths_count": "٧٣٤٤",
             "chapters_count": "99"
         },
         {
@@ -40,7 +41,8 @@
             "writerName": "اَلْإِمَامُ مُسْلِم",
             "writerDeath": "261 ھ",
             "bookSlug": "sahih-muslim",
-            "hadiths_count": "7561 حديث",
+            "hadiths": "حديث",
+            "hadiths_count": "٧٥٦١",
             "chapters_count": "56"
         },
         {
@@ -49,7 +51,8 @@
             "writerName": "أَبُو عِيسَى مُحَمَّد اُلتِّرْمِذِي",
             "writerDeath": "279 ھ",
             "bookSlug": "al-tirmidhi",
-            "hadiths_count": "3956 حديث",
+            "hadiths": "حديث",
+            "hadiths_count": "٣٩٥٦",
             "chapters_count": "50"
         },
         {
@@ -58,7 +61,8 @@
             "writerName": "اَلْإِمَامُ أَبُو دَاوُد سُلَيْمَان بْنِ اُلْأَشْعَث السجستاني",
             "writerDeath": "275 ھ",
             "bookSlug": "abu-dawood",
-            "hadiths_count": "5274 حديث",
+            "hadiths": "حديث",
+            "hadiths_count": "٥٢٧٤",
             "chapters_count": "43"
         },
         {
@@ -67,7 +71,8 @@
             "writerName": "اَلْإِمَامُ مُحَمَّد بْنِ يَزِيد بْنِ مَاجَه القزويني",
             "writerDeath": "273 ھ",
             "bookSlug": "ibn-e-majah",
-            "hadiths_count": "4341 حديث",
+            "hadiths": "حديث",
+            "hadiths_count": "٤٣٤١",
             "chapters_count": "39"
         },
         {
@@ -76,7 +81,8 @@
             "writerName": "اَلْإِمَامُ أَحْمَد اُلنِّسَائِي",
             "writerDeath": "303 ھ",
             "bookSlug": "sunan-nasai",
-            "hadiths_count": "5761 حديث",
+            "hadiths": "حديث",
+            "hadiths_count": "٥٧٦١",
             "chapters_count": "52"
         },
         {
@@ -85,7 +91,8 @@
             "writerName": "اَلْإِمَامُ خَطِيب اُلتَّبْرِيزِي",
             "writerDeath": "741 ھ",
             "bookSlug": "mishkat",
-            "hadiths_count": "6293 حديث",
+            "hadiths": "حديث",
+            "hadiths_count": "٦٢٩٣",
             "chapters_count": "29"
         }
     ]
