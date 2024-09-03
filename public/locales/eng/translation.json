@@ -20,5 +20,71 @@
     "ChannelRadio": "Radio Digital",
     "DownloadComplete": "Download complete",
     "DownloadFailed": "The download failed",
-    "font": "font-Foreigner"
+    "font": "font-Foreigner",
+    "booksName": "Books of the Prophetic Hadith",
+    "books": [
+        {
+            "id": 1,
+            "bookName": "Sahih Bukhari",
+            "writerName": "Imam Bukhari",
+            "writerDeath": "256 ھ",
+            "bookSlug": "sahih-bukhari",
+            "hadiths_count": "7433 Hadith",
+            "chapters_count": "99"
+        },
+        {
+            "id": 2,
+            "bookName": "Sahih Muslim",
+            "writerName": "Imam Muslim",
+            "writerDeath": "261 ھ",
+            "bookSlug": "sahih-muslim",
+            "hadiths_count": "7561 Hadith",
+            "chapters_count": "56"
+        },
+        {
+            "id": 4,
+            "bookName": "Jami' Al-Tirmidhi",
+            "writerName": "Abu `Isa Muhammad at-Tirmidhi",
+            "writerDeath": "279",
+            "bookSlug": "al-tirmidhi",
+            "hadiths_count": "3956 Hadith",
+            "chapters_count": "50"
+        },
+        {
+            "id": 5,
+            "bookName": "Sunan Abu Dawood",
+            "writerName": "Imam Abu Dawud Sulayman ibn al-Ash'ath as-Sijistani",
+            "writerDeath": "275",
+            "bookSlug": "abu-dawood",
+            "hadiths_count": "5274 Hadith",
+            "chapters_count": "43"
+        },
+        {
+            "id": 6,
+            "bookName": "Sunan Ibn-e-Majah",
+            "writerName": "Imam Muhammad bin Yazid Ibn Majah al-Qazvini",
+            "writerDeath": "273",
+            "bookSlug": "ibn-e-majah",
+            "hadiths_count": "4341 Hadith",
+            "chapters_count": "39"
+        },
+        {
+            "id": 7,
+            "bookName": "Sunan An-Nasa`i",
+            "writerName": "Imam Ahmad an-Nasa`i",
+            "writerDeath": "303",
+            "bookSlug": "sunan-nasai",
+            "hadiths_count": "5761 Hadith",
+            "chapters_count": "52"
+        },
+        {
+            "id": 8,
+            "bookName": "Mishkat Al-Masabih",
+            "writerName": "Imam Khatib at-Tabrizi",
+            "writerDeath": "741",
+            "bookSlug": "mishkat",
+            "hadiths_count": "6293 Hadith",
+            "chapters_count": "29"
+        }
+    ]
 }

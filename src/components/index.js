@@ -1,25 +1,14 @@
-import Sidebar from './Sidebar';
+import Error from './Error';
+import Loader from './Loader';
+import MusicPlayer from './MusicPlayer';
 import Searchbar from './Searchbar';
+import Sidebar from './Sidebar';
 import SongCard from './SongCard';
 import TopPlay from './Tafsir';
-import ArtistCard from './ArtistCard';
-import DetailsHeader from './DetailsHeader';
-import SongBar from './SongBar';
-import RelatedSongs from './RelatedSongs';
-import MusicPlayer from './MusicPlayer';
-import Loader from './Loader';
-import Error from './Error';
+import HadithCard from './HadithCard';
 
 export {
-  TopPlay,
-  Sidebar,
-  SongCard,
-  Searchbar,
-  ArtistCard,
-  DetailsHeader,
-  SongBar,
-  RelatedSongs,
-  MusicPlayer,
-  Loader,
-  Error,
+  Error, Loader, MusicPlayer, Searchbar, Sidebar,
+  SongCard, TopPlay, HadithCard
 };
+

@@ -20,5 +20,71 @@
     "ChannelRadio": "الإذاعة الرقمية",
     "DownloadComplete": "تم الانتهاء من التحميل",
     "DownloadFailed": "فشل التحميل",
-    "font": "font-Arabic"
+    "font": "font-Arabic",
+    "booksName": "كتب الأحاديث النبوية",
+    "books": [
+        {
+            "id": 1,
+            "bookName": "صَحِيحُ اُلْبُخَارِي",
+            "writerName": "اَلْإِمَامُ اُلْبُخَارِي",
+            "writerDeath": "256 ھ",
+            "bookSlug": "sahih-bukhari",
+            "hadiths_count": "7433 حديث",
+            "chapters_count": "99"
+        },
+        {
+            "id": 2,
+            "bookName": "صَحِيحُ مُسْلِم",
+            "writerName": "اَلْإِمَامُ مُسْلِم",
+            "writerDeath": "261 ھ",
+            "bookSlug": "sahih-muslim",
+            "hadiths_count": "7561 حديث",
+            "chapters_count": "56"
+        },
+        {
+            "id": 4,
+            "bookName": "جَامِعُ اُلتِّرْمِذِي",
+            "writerName": "أَبُو عِيسَى مُحَمَّد اُلتِّرْمِذِي",
+            "writerDeath": "279 ھ",
+            "bookSlug": "al-tirmidhi",
+            "hadiths_count": "3956 حديث",
+            "chapters_count": "50"
+        },
+        {
+            "id": 5,
+            "bookName": "سُنَنُ أَبِي دَاوُد",
+            "writerName": "اَلْإِمَامُ أَبُو دَاوُد سُلَيْمَان بْنِ اُلْأَشْعَث السجستاني",
+            "writerDeath": "275 ھ",
+            "bookSlug": "abu-dawood",
+            "hadiths_count": "5274 حديث",
+            "chapters_count": "43"
+        },
+        {
+            "id": 6,
+            "bookName": "سُنَنُ اِبْنُ مَاجَه",
+            "writerName": "اَلْإِمَامُ مُحَمَّد بْنِ يَزِيد بْنِ مَاجَه القزويني",
+            "writerDeath": "273 ھ",
+            "bookSlug": "ibn-e-majah",
+            "hadiths_count": "4341 حديث",
+            "chapters_count": "39"
+        },
+        {
+            "id": 7,
+            "bookName": "سُنَنُ اُلنِّسَائِي",
+            "writerName": "اَلْإِمَامُ أَحْمَد اُلنِّسَائِي",
+            "writerDeath": "303 ھ",
+            "bookSlug": "sunan-nasai",
+            "hadiths_count": "5761 حديث",
+            "chapters_count": "52"
+        },
+        {
+            "id": 8,
+            "bookName": "مِشْكَات اُلْمَصَابِيح",
+            "writerName": "اَلْإِمَامُ خَطِيب اُلتَّبْرِيزِي",
+            "writerDeath": "741 ھ",
+            "bookSlug": "mishkat",
+            "hadiths_count": "6293 حديث",
+            "chapters_count": "29"
+        }
+    ]
 }

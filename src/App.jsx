@@ -1,12 +1,12 @@
 import { useEffect, useState } from 'react';
+import { useTranslation } from 'react-i18next';
 import { HiChevronDown, HiChevronUp } from 'react-icons/hi';
 import { useSelector } from 'react-redux';
 import { Route, Routes, useLocation } from 'react-router-dom';
 import { paths } from './assets/constants';
 import { MusicPlayer, Searchbar, Sidebar, TopPlay } from './components';
-import { AroundYou, ArtistDetails, Discover, Search, SongDetails, Surah } from './pages';
+import { Discover, Hadith, Surah } from './pages';
 import Radio from './pages/Radio';
-import { useTranslation } from 'react-i18next';
 
 const App = () => {
   const { activeSong, surahId, activeTafsir, language } = useSelector((state) => state.player);
@@ -41,10 +41,7 @@ const App = () => {
               <Route path="/" element={<Discover searchTerm={searchTerm} />} />
               <Route path="/surah/:id" element={<Surah />} />
               <Route path="/radio" element={<Radio searchTerm={searchTerm} />} />
-              <Route path="/around-you" element={<AroundYou />} />
-              <Route path="/artists/:id" element={<ArtistDetails />} />
-              <Route path="/surah/:number" element={<SongDetails />} />
-              <Route path="/search/:searchTerm" element={<Search />} />
+              <Route path="/hadiths" element={<Hadith />} />
             </Routes>
           </div>
           {surahId &&

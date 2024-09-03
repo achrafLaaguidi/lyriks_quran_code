@@ -23,7 +23,7 @@ const SongCard = ({ song, isPlaying, activeSong, data, i }) => {
   };
 
   return (
-    <div className={`flex flex-col md:w-[200px] w-[125px] p-4 bg-white/5 bg-opacity-80 backdrop-blur-sm animate-slideup rounded-lg cursor-pointer  ${surahSaved[1] == song.id && 'bg-orange-600 bg-opacity-70'}  `}>
+    <div className={`flex flex-col md:w-[200px] w-[125px] p-4 bg-white/5 bg-opacity-80 backdrop-blur-sm animate-slideup rounded-lg cursor-pointer  ${surahSaved[1] == song.id && 'border-l-4 border-orange-700'}  `}>
       <div className="relative w-full md:h-48 h-24 group" onClick={() => dispatch(setSurahId(song.id))} >
         <div className={`absolute inset-0 justify-center items-center bg-black bg-opacity-50 group-hover:flex 
           ${activeSong?.name === song.name ? 'flex bg-black bg-opacity-70' : 'hidden'} rounded-lg`}

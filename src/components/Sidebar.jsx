@@ -10,7 +10,7 @@ import { setLanguage } from '../redux/features/playerSlice';
 
 const links = [
   { name: 'Quran', to: '/', icon: HiBookOpen },
-  { name: 'Al-Ahadits', to: '/top-artists', icon: HiBookmark },
+  { name: 'Al-Ahadits', to: '/hadiths', icon: HiBookmark },
   { name: 'Radio', to: '/radio', icon: HiOutlinePlay },
 ];
 

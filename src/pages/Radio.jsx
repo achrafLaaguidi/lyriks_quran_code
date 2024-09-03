@@ -1,14 +1,14 @@
 import { t } from 'i18next';
 import React, { useEffect, useRef, useState } from 'react';
-import { HiArrowCircleUp, HiPause, HiPlay, HiRefresh } from 'react-icons/hi';
+import { FaPauseCircle, FaPlayCircle } from 'react-icons/fa';
+import { HiArrowCircleUp, HiRefresh } from 'react-icons/hi';
 import { useDispatch, useSelector } from 'react-redux';
 import { radioLogo } from '../assets';
 import useScrollToTopButton from '../assets/useScrollToTop';
 import { Error, Loader } from '../components';
 import RadioCard from '../components/RadioCard';
-import { playPause, setActiveSong, setActiveTafsir, setSurahId } from '../redux/features/playerSlice';
+import { playPause, setSurahId } from '../redux/features/playerSlice';
 import { useGetRadiosQuery } from '../redux/services/quranApi';
-import { FaPauseCircle, FaPlayCircle } from 'react-icons/fa';
 
 
 const Radio = ({ searchTerm }) => {
