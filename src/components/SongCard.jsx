@@ -1,12 +1,13 @@
 import React from 'react';
+import { useTranslation } from 'react-i18next';
 import { useDispatch, useSelector } from 'react-redux';
 import { Link } from 'react-router-dom';
 import quran from '../assets/quran.jpg';
-import { playPause, setActiveSong, setSurahId } from '../redux/features/playerSlice';
+import { playPause, setActiveSong } from '../redux/features/playerSlice';
+import DownloadSong from './DownloadSong';
 import PlayPause from './PlayPause';
-import { useTranslation } from 'react-i18next';
 
-const SongCard = ({ song, isPlaying, activeSong, data, i }) => {
+const SongCard = ({ song, isPlaying, activeSong, data, i, url }) => {
   const dispatch = useDispatch();
   const { language, save } = useSelector((state) => state.player);
   const { t } = useTranslation()
@@ -55,9 +56,8 @@ const SongCard = ({ song, isPlaying, activeSong, data, i }) => {
               {(language === 'ar' || language === '') ? song.makkia ? 'مَكِّيَةٌ' : 'مَدَنِيَةٌ' : song.makkia ? 'Makkia' : 'Madania'}
             </Link>
           </p>
-
         </div>
-
+        <DownloadSong size={25} audio={url} name={song?.name} />
       </div>
 
 

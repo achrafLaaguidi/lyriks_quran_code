@@ -10,10 +10,11 @@ import Loader from './Loader';
 import PlayPause from './PlayPause';
 import { SelectInput } from '../assets/constants';
 import React, { memo } from 'react';
+import DownloadSong from './DownloadSong';
 
 const TafsirCard = memo(({ tafsir, i, t, isPlaying, activeTafsir, handlePauseClick, handlePlayClick }) => (
   <div
-    className={`w-full flex flex-row items-center hover:bg-[#4c426e] ${activeTafsir?.id === tafsir?.id ? 'bg-[#4c426e]' : 'bg-transparent'} py-2 p-2 rounded-lg cursor-pointer mb-2`}
+    className={`w-full flex flex-row items-center hover:bg-[#4c426e] ${activeTafsir?.id === tafsir?.id ? 'bg-[#4c426e]' : 'bg-transparent'} py-2 p-2 rounded-lg  mb-2`}
   >
     <h3 className="font-bold text-base text-white mr-3">{i + 1}.</h3>
     <div className="flex-1 flex flex-row justify-between items-center">
@@ -23,13 +24,16 @@ const TafsirCard = memo(({ tafsir, i, t, isPlaying, activeTafsir, handlePauseCli
         <p className="md:text-base text-xs text-gray-300 mt-1">{t('Sourat') + ' ' + t('Number')} {tafsir?.sura_id}</p>
       </div>
     </div>
-    <PlayPause
-      isPlaying={isPlaying}
-      activeSong={activeTafsir}
-      song={tafsir}
-      handlePause={handlePauseClick}
-      handlePlay={handlePlayClick}
-    />
+    <div className='flex gap-2 cursor-pointer'>
+      <DownloadSong size={30} audio={tafsir?.url} name={tafsir?.name} />
+      <PlayPause
+        isPlaying={isPlaying}
+        activeSong={activeTafsir}
+        song={tafsir}
+        handlePause={handlePauseClick}
+        handlePlay={handlePlayClick}
+      />
+    </div>
   </div>
 ));
 
@@ -71,8 +75,8 @@ const Tafasir = () => {
   if (tafasirError || quranError) return <Error />;
 
   return (
-    <div className=" flex-1 px-4 flex flex-col h-screen overflow-y-scroll hide-scrollbar">
-      <div className="flex flex-col justify-center items-center mt-8 mb-8 gap-2 ">
+    <div className=" flex-1 px-4 flex flex-col h-screen md:pb-0 pb-16  overflow-y-scroll hide-scrollbar">
+      <div className="flex flex-col justify-center items-center mt-8 mb-4 gap-2 ">
         <h2 className={`text-white font-bold text-2xl ${t('font')}`}>{tafasir?.tafasir?.name}</h2>
         <SelectInput
           showSearch={true}

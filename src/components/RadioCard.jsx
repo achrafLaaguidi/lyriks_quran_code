@@ -6,14 +6,14 @@ import { radioLogo } from '../assets';
 import { setActiveRadio } from '../redux/features/playerSlice';
 import PlayPause from './PlayPause';
 
-const RadioCard = memo(({ radio, isPlaying, activeRadio, i, handlePauseClick, handlePlayClick, isLoading, setIsLoading }) => {
+const RadioCard = memo(({ radio, isPlaying, activeRadio, i, currentRadios, handlePauseClick, handlePlayClick, isLoading, setIsLoading }) => {
     const dispatch = useDispatch();
 
 
 
 
     const handleChoose = useCallback(() => {
-        dispatch(setActiveRadio({ song: radio }));
+        dispatch(setActiveRadio({ song: radio, data: currentRadios, i }));
         setIsLoading(true);
     }, [dispatch, radio]);
 

@@ -3,8 +3,11 @@ const updateSong = (state, action) => {
   if (state.activeSong?.id) {
     state.activeSong = state.currentSongs[action.payload];
     state.surahId = action.payload + 1;
-  } else {
+  } else if (state.activeTafsir?.id) {
     state.activeTafsir = state.currentSongs[action.payload];
+  }
+  else {
+    state.activeRadio = state.currentSongs[action.payload];
   }
   state.currentIndex = action.payload;
   state.isActive = true;
@@ -36,6 +39,9 @@ const playerSlice = createSlice({
         state.activeRadio = action.payload.song;
         state.activeSong = {}
         state.activeTafsir = {}
+
+        state.currentSongs = action.payload.data;
+        state.currentIndex = action.payload.i;
         state.isActive = true;
       }
 

@@ -95,5 +95,9 @@
             "hadiths_count": "6293",
             "chapters_count": "29"
         }
-    ]
+    ],
+    "Sure": "Are you sure?",
+    "FileMessage": "You want to download this file!",
+    "Yes": "Yes",
+    "Cancel": "Cancel"
 }

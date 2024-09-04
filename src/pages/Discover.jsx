@@ -8,9 +8,11 @@ import { Error, Loader, SongCard } from '../components';
 import { setReader, setRiwaya } from '../redux/features/playerSlice';
 import {
     useGetMushafByLanguageQuery,
+    useGetRecitersByLanguageAndIdAndRewayaQuery,
     useGetRecitersByLanguageQuery,
     useGetSuwarByLanguageQuery
 } from '../redux/services/quranApi';
+import useGetUrl from '../assets/useGetUrl';
 const Discover = ({ searchTerm }) => {
     const { t } = useTranslation();
     const dispatch = useDispatch();
@@ -23,7 +25,11 @@ const Discover = ({ searchTerm }) => {
 
     const { data: readers, isFetching: readersIsFetching, error: readersError } = useGetRecitersByLanguageQuery(language);
     const { data: riwayat, isFetching: riwayatIsFetching, error: riwayatError } = useGetMushafByLanguageQuery(language);
-
+    const { data: currentSurah, isFetching: currentSurahIsFetching, error: currentSurahError } = useGetRecitersByLanguageAndIdAndRewayaQuery({
+        lang: language,
+        id: reader,
+        riwaya: riwaya / 10,
+    });
     // Memoized derived state
     const availableReaders = useMemo(() => {
         if (riwaya && readers) {
@@ -35,8 +41,6 @@ const Discover = ({ searchTerm }) => {
     }, [riwaya, readers]);
 
     useEffect(() => {
-
-
         if (suwars) {
             const filtered = searchTerm
                 ? suwars.suwar.filter((surah) => surah.name.includes(searchTerm))
@@ -62,25 +66,24 @@ const Discover = ({ searchTerm }) => {
         }
     };
 
-    if (suwarIsFetching || readersIsFetching || riwayatIsFetching) {
+    if (suwarIsFetching || readersIsFetching || riwayatIsFetching || currentSurahIsFetching) {
         return <Loader />;
     }
-    if (suwarError || readersError || riwayatError) {
+    if (suwarError || readersError || riwayatError || currentSurahError) {
         return <Error />;
     }
 
-    // Abstracted Select Component
 
 
     const languageDirectionClass = language == 'ar' ? 'md:flex-row-reverse' : 'md:flex-row';
 
     return (
         <div className="px-4 flex flex-col h-screen overflow-y-scroll hide-scrollbar">
-            <div className={`w-full flex justify-between items-center ${languageDirectionClass} flex-col mt-4 mb-8`}>
-                <h2 className={`font-bold text-2xl text-white text-center md:w-[50%] w-fit  ${t('font')}`}>
+            <div className={`w-full flex justify-between items-center ${languageDirectionClass} flex-col my-8`}>
+                <h2 className={`font-bold text-2xl text-white text-center  w-fit  ${t('font')}`}>
                     {t('Chapter')}
                 </h2>
-                <div className={`w-full flex md:flex-row flex-col items-center ${language == 'ar' ? 'justify-start' : 'justify-end'}`}>
+                <div className={`w-[75%] flex md:flex-row flex-col items-center ${language == 'ar' ? 'justify-start' : 'justify-end'}`}>
                     <SelectInput
                         showSearch={true}
                         options={riwayat?.riwayat || []}
@@ -108,6 +111,7 @@ const Discover = ({ searchTerm }) => {
                         song={song}
                         isPlaying={isPlaying}
                         activeSong={activeSong}
+                        url={useGetUrl({ id: song.id, currentSurah: currentSurah })}
                         data={suwars}
                         i={i}
                     />
