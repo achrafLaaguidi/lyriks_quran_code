@@ -122,7 +122,7 @@ const Radio = ({ searchTerm }) => {
                     />
                 ))}
                 {activeRadio?.id && (
-                    <div className='absolute flex-col mx-auto items-center md:w-3/4  md:pb-2 pb-4 md:bottom-0 bottom-14 left-0 right-0 flex animate-slideup bg-gradient-to-br from-white/10 to-[#2a2a80] backdrop-blur-lg rounded-3xl z-50'>
+                    <div className='absolute flex-col mx-auto items-center md:w-3/4 px-2 md:pb-2 pb-4 md:bottom-0 bottom-14 left-0 right-0 flex animate-slideup bg-gradient-to-br from-white/10 to-[#2a2a80] backdrop-blur-lg rounded-3xl z-50'>
                         <div
                             className='animate-slideup bg-gradient-to-br from-black/10 h-fit to-[#03033f] backdrop-blur-lg rounded-lg w-fit px-4 cursor-pointer'
                             onClick={handleUpDown}>
