@@ -12,6 +12,7 @@ const Chapters = ({ searchTerm }) => {
     const { bookSlug } = useParams()
     const { data, isFetching, error } = useGetChaptersQuery({ bookSlug })
     const { language } = useSelector((state) => state.player)
+    const { scrollContainerRef, showScrollButton, handleScrollToTop } = useScrollToTopButton();
 
     const filteredChapters = useMemo(() => {
         if (!data) return [];
@@ -24,7 +25,6 @@ const Chapters = ({ searchTerm }) => {
 
     if (isFetching) return <Loader />;
     if (error) return <Error />;
-    const { scrollContainerRef, showScrollButton, handleScrollToTop } = useScrollToTopButton();
 
     return (
         <div className={`flex  flex-col  h-screen  items-center md:pb-0 pb-20 mt-2  w-full  ${t('font')}`}>
