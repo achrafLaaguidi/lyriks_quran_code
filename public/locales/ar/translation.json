@@ -99,5 +99,7 @@
     "Sure": "هل أنت متأكد؟",
     "FileMessage": "تريد تحميل هذا الملف!",
     "Yes": "نعم",
-    "Cancel": "إلغاء"
+    "Cancel": "إلغاء",
+    "BookChapters": "فصول الكتاب",
+    "lang": "Arabic"
 }

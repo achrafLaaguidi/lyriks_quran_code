@@ -1,7 +1,9 @@
 import { bookLogo } from "../assets"
 
-const HadithCard = ({ book, language }) =>
-(<div className={`flex flex-col gap-y-1 w-[200px]   justify-between items-center text-white  p-4 bg-white/10 bg-opacity-80 backdrop-blur-sm animate-slideup rounded-lg cursor-pointer `}  >
+const HadithCard = ({ book, language, navigate }) =>
+(<div
+    onClick={() => navigate(`/chapters/${book.bookSlug}`)}
+    className={`flex flex-col gap-y-1 w-[200px]   justify-between items-center text-white  p-4 bg-white/10 bg-opacity-80 backdrop-blur-sm animate-slideup rounded-lg cursor-pointer `}  >
     <div className="w-full md:h-40 h-36 flex items-center ">
         <img src={bookLogo} className="h-full w-full  rounded-lg" />
     </div>

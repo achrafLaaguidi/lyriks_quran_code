@@ -99,5 +99,7 @@
     "Sure": "Are you sure?",
     "FileMessage": "You want to download this file!",
     "Yes": "Yes",
-    "Cancel": "Cancel"
+    "Cancel": "Cancel",
+    "BookChapters": "Book Chapters",
+    "lang": "English"
 }

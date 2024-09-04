@@ -98,7 +98,7 @@ const Sidebar = () => {
           options={languages}
           value={languages.find((lng) => lng.locale == language)?.native}
           onChange={handleLanguageChange}
-          className={'w-full mb-16  text-center'}
+          className={'w-full mb-20  text-center'}
 
           placeholder={t('Choose Your Language')}
         />

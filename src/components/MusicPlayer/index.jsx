@@ -72,7 +72,7 @@ const MusicPlayer = ({ isUp }) => {
 
 
   return (
-    <div className={`${!isUp && 'hidden'} relative sm:px-12 px-8 w-full flex items-center justify-between`}>
+    <div className={`${!isUp && 'hidden'} relative sm:px-12 px-4 w-full flex items-center justify-between`}>
       <Track
         activeTafsir={activeTafsir}
         activeSurah={activeSurah}

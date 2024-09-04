@@ -8,18 +8,18 @@ import { MusicPlayer, Searchbar, Sidebar, } from './components';
 import { Discover, Hadith, Surah } from './pages';
 import Radio from './pages/Radio';
 import Tafasir from './components/Tafasir';
+import Chapters from './pages/Chapters';
 
 const App = () => {
-  const { activeSong, activeRadio, activeTafsir, language } = useSelector((state) => state.player);
+  const { activeSong, activeTafsir, language } = useSelector((state) => state.player);
   const { i18n } = useTranslation()
   const [searchTerm, setSearchTerm] = useState('');
   const location = useLocation();
   const [isInclude, setIncludes] = useState(false);
   const [isUp, setIsUp] = useState(true)
   useEffect(() => {
-
     i18n.changeLanguage(language);
-    setIncludes(paths.some((path) => path === location.pathname));
+    setIncludes(paths.some((path) => path === (location.pathname.split('/')[1])));
   }, [location.pathname]);
 
   const handleChange = (event) => {
@@ -44,6 +44,7 @@ const App = () => {
             <Route path="/tafsir" element={<Tafasir />} />
             <Route path="/radio" element={<Radio searchTerm={searchTerm} />} />
             <Route path="/hadiths" element={<Hadith />} />
+            <Route path="/chapters/:bookSlug" element={<Chapters searchTerm={searchTerm} />} />
           </Routes>
         </div>
 
