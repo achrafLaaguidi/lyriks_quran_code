@@ -9,8 +9,8 @@ import useScrollToTopButton from "../assets/useScrollToTop";
 import { HiArrowCircleUp } from "react-icons/hi";
 
 const Chapters = ({ searchTerm }) => {
-    const bookSlug = useParams()
-    const { data, isFetching, error } = useGetChaptersQuery(bookSlug)
+    const { bookSlug } = useParams()
+    const { data, isFetching, error } = useGetChaptersQuery({ bookSlug })
     const { language } = useSelector((state) => state.player)
 
     const filteredChapters = useMemo(() => {
