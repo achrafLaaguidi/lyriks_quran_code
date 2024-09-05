@@ -1,21 +1,11 @@
-import { bookLogo } from "../assets"
+import { t } from "i18next";
 
-const HadithCard = ({ book, language, navigate }) =>
-(<div
-    onClick={() => navigate(`/chapters/${book.bookSlug}`)}
-    className={`flex flex-col gap-y-1 w-[200px]   justify-between items-center text-white  p-4 bg-white/10 bg-opacity-80 backdrop-blur-sm animate-slideup rounded-lg cursor-pointer `}  >
-    <div className="w-full md:h-40 h-36 flex items-center ">
-        <img src={bookLogo} className="h-full w-full  rounded-lg" />
+const HadithCard = ({ hadith, language, status }) =>
+(<div className={`flex flex-col w-full gap-2  ${t('font')} ${language == 'ar' && 'text-right'} justify-center items-center text-white  p-4 bg-white/10 bg-opacity-80 backdrop-blur-sm animate-slideup rounded-lg  `}  >
+    <div className={`w-full flex ${language !== 'ar' && 'flex-row-reverse'} items-center justify-between rounded-lg bg-[#96C9F4] p-2`}>
+        <p className={`${hadith.status.toUpperCase() == 'SAHIH' ? 'bg-green-600' : hadith.status.toUpperCase() == 'HASAN' ? 'bg-orange-600' : hadith.status.toUpperCase() == 'DA`EEF' && 'bg-red-600'}  rounded-lg md:text-xl text-base p-2`}>{status}</p>
+        <p className={`   w-fit md:text-xl text-base bg-[#1A2130] rounded-lg p-2`}> {t('Hadith')} {t('Number')} {hadith.hadithNumber}</p>
     </div>
-    <div className={`w-full flex  flex-col justify-center gap-y-1 `}>
-        <div className={`${language == 'ar' ? 'text-right' : 'text-left'} bg-[#508C9B]  p-2 rounded-lg `}>
-            <p className={`mb-3 bg-[#134B70]  rounded-lg p-2`}>{book.bookName}</p>
-            <p className="bg-[#EEEEEE] rounded-lg p-2 text-black  font-bold">{book.hadiths_count}  {book.hadiths}</p>
-        </div>
-        <div className="bg-[#201E43] text-center  p-2 rounded-lg">
-            <p>{book.writerName}</p>
-
-        </div>
-    </div>
-</div>)
-export default HadithCard
+    <p className="bg-[#F5EDED] rounded-lg p-4 text-black w-full md:text-2xl text-xl md:leading-loose leading-relaxed">{hadith['hadith' + t('lang')]}</p>
+</div >)
+export default HadithCard;

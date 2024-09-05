@@ -1,6 +1,6 @@
 import { createApi, fetchBaseQuery } from '@reduxjs/toolkit/query/react';
-const HADITH_API_KEY = "$2y$10$BJYFPtBe2ir8GdJLWR6O7KKIKeDl7A5iPSuKSN9TXeHtgQYQai";
-
+import { t } from 'i18next';
+const HADITH_API_KEY = import.meta.env.VITE_HADITH_API_KEY;
 export const booksApi = createApi({
     reducerPath: 'booksApi',
     baseQuery: fetchBaseQuery({
@@ -8,12 +8,13 @@ export const booksApi = createApi({
     }),
     endpoints: (builder) => ({
         getChapters: builder.query({ query: ({ bookSlug }) => `${bookSlug}/chapters?apiKey=${HADITH_API_KEY}` }),
-
+        getHadiths: builder.query({ query: ({ book, chapter, words, page }) => `hadiths?apiKey=${HADITH_API_KEY}&book=${book}&chapter=${chapter}&page=${page}&hadith${t('lang')}=${words}` }),
 
     }),
 });
 
 export const {
-    useGetChaptersQuery
+    useGetChaptersQuery,
+    useGetHadithsQuery
 
 } = booksApi;

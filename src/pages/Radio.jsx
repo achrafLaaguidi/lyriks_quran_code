@@ -111,7 +111,7 @@ const Radio = ({ searchTerm }) => {
                     <RadioCard
                         key={radio.id}
                         radio={radio}
-                        currentRadios={filteredRadios}
+                        currentRadios={data.radios}
                         isPlaying={isPlaying}
                         activeRadio={activeRadio}
                         handlePauseClick={handlePauseClick}

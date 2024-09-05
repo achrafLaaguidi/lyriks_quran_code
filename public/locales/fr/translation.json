@@ -100,6 +100,12 @@
     "FileMessage": "Vous voulez télécharger ce fichier !",
     "Yes": "Oui",
     "Cancel": "Annuler",
-    "BookChapters": "chapitres de livre",
-    "lang": "English"
+    "BookChapters": "Chapitres du",
+    "lang": "English",
+    "Hadith": "Hadith",
+    "Status": {
+        "SAHIH": "Sahih",
+        "HASAN": "Hassan",
+        "DA`EEF": "Da`eef"
+    }
 }

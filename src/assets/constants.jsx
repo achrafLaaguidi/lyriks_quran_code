@@ -1,7 +1,7 @@
 import { Select } from "antd";
 import { t } from "i18next";
 
-const paths = ['', 'radio', 'chapters']
+const paths = ['', 'radio', 'chapters', 'hadiths']
 const languages = [
     {
         id: "1",

@@ -1,9 +1,9 @@
 import { useTranslation } from "react-i18next";
-import { HadithCard } from "../components";
 import { useSelector } from "react-redux";
 import { useNavigate } from "react-router-dom";
+import { BooksCard } from "../components";
 
-const Hadith = () => {
+const Books = () => {
 
     const { t } = useTranslation()
     const books = t('books', { returnObjects: true })
@@ -11,11 +11,11 @@ const Hadith = () => {
     const navigate = useNavigate()
 
     return (
-        <div className={`flex  flex-col  h-screen  items-center md:pb-0 pb-14 mt-8  w-full  ${t('font')}`}>
-            <h2 className={`text-white text-center  md:text-4xl text-2xl mb-8`}>{t('booksName')}</h2>
-            <div className="flex flex-wrap justify-center gap-6  mb-20 overflow-y-scroll hide-scrollbar ">
+        <div className={`flex px-4 flex-col h-screen  items-center  w-full pb-28 md:pb-8 md:mt-2 mt-12 ${t('font')}`}>
+            <h2 className={`text-white w-full bg-[#191624] border-x-2 border-x-[#EEEEEE] rounded-lg py-4 text-center  md:text-4xl text-2xl mb-2 `}>{t('booksName')}</h2>
+            <div className="flex flex-wrap overflow-y-scroll hide-scrollbar  justify-center gap-4    ">
                 {books.map((book) => (
-                    <HadithCard
+                    <BooksCard
                         navigate={navigate}
                         language={language}
                         key={book.id}
@@ -24,7 +24,8 @@ const Hadith = () => {
                 ))}
             </div>
 
+
         </div>)
 }
 
-export default Hadith;
+export default Books;

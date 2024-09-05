@@ -5,10 +5,10 @@ import { useSelector } from 'react-redux';
 import { Route, Routes, useLocation } from 'react-router-dom';
 import { paths } from './assets/constants';
 import { MusicPlayer, Searchbar, Sidebar, } from './components';
-import { Discover, Hadith, Surah } from './pages';
-import Radio from './pages/Radio';
 import Tafasir from './components/Tafasir';
+import { Books, Discover, Hadiths, Surah } from './pages';
 import Chapters from './pages/Chapters';
+import Radio from './pages/Radio';
 
 const App = () => {
   const { activeSong, activeTafsir, language } = useSelector((state) => state.player);
@@ -43,8 +43,9 @@ const App = () => {
             <Route path="/surah/:id" element={<Surah />} />
             <Route path="/tafsir" element={<Tafasir />} />
             <Route path="/radio" element={<Radio searchTerm={searchTerm} />} />
-            <Route path="/hadiths" element={<Hadith />} />
+            <Route path="/books" element={<Books />} />
             <Route path="/chapters/:bookSlug" element={<Chapters searchTerm={searchTerm} />} />
+            <Route path="/hadiths/:bookSlug/:chapter" element={<Hadiths searchTerm={searchTerm} />} />
           </Routes>
         </div>
 
