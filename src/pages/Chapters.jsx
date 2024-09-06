@@ -30,7 +30,7 @@ const Chapters = ({ searchTerm }) => {
     if (error) return <Error />;
 
     return (
-        <div className={`flex px-4 flex-col h-screen  items-center  w-full  md:pb-24  pb-32 ${t('font')}`}>
+        <div className={`flex px-4 flex-col h-screen  items-center  w-full  md:pb-24  pb-36 ${t('font')}`}>
             <h2 className={`text-white w-full bg-[#191624] border-x-2 border-x-[#EEEEEE] rounded-lg py-4 text-center  md:text-4xl text-2xl mb-1`}>{t('BookChapters')} {bookName}</h2>
             <div ref={scrollContainerRef} className={`flex ${language === 'ar' && 'flex-row-reverse'} overflow-y-scroll hide-scrollbar  flex-wrap justify-center gap-4  `} >
                 {filteredChapters.map((chapter) => (

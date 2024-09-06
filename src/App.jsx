@@ -31,7 +31,7 @@ const App = () => {
   }
 
   return (
-    <div className={`relative flex ${language === 'ar' && 'flex-row-reverse'} h-screen  `}>
+    <div className={`relative flex ${language === 'ar' && 'flex-row-reverse'} h-screen `}>
       <Sidebar />
       <div className="flex-1 flex flex-col bg-gradient-to-br from-black to-[#121286] ">
         {isInclude && <Searchbar handleChange={handleChange} searchTerm={searchTerm} />}

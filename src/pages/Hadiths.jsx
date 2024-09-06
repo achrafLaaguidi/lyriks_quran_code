@@ -36,7 +36,7 @@ const Hadiths = ({ searchTerm }) => {
     if (error) return <Error message="Failed to fetch data" />;
 
     return (
-        <div className={`flex px-4 flex-col  h-screen items-center w-full md:pb-16 pb-32 ${t('font')}`}>
+        <div className={`flex px-4 flex-col  h-screen items-center w-full md:pb-16 pb-36 ${t('font')}`}>
             <div className={`text-white w-full border-x-2 border-x-[#EEEEEE]  flex ${language !== 'ar' && 'flex-row-reverse'} justify-between items-center bg-[#191624] rounded-lg p-4 text-center  mb-1`}>
                 <h4 className="md:text-lg text-xs text-black bg-white rounded-lg p-1">{t('Page') + " " + t('Number') + " " + page}</h4>
                 <h2 className="md:text-2xl text-lg" >

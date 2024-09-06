@@ -14,8 +14,8 @@ const Searchbar = ({ handleChange, searchTerm }) => {
       <label htmlFor="search-field" className="sr-only">
         {t('Search')}
       </label>
-      <div className={`flex ${language === 'ar' ? 'flex-row-reverse' : 'flex-row'} h-fit justify-start  items-center md:w-1/2 w-3/2   rounded-xl`} style={{ border: '1px solid white' }}>
-        <FiSearch aria-hidden="true" className={`w-fit h-fit ${language === 'ar' ? 'mr-4' : 'ml-4'}`} />
+      <div className={`flex ${language === 'ar' ? 'flex-row-reverse' : 'flex-row'} h-fit  justify-start  items-center md:w-1/2 w-3/2   rounded-xl`} style={{ border: '1px solid white' }}>
+        <FiSearch aria-hidden="true" className={` h-auto ${language === 'ar' ? 'mr-4' : 'ml-4'}`} />
         <input
           name="search-field"
           autoComplete="off"
