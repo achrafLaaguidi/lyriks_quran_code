@@ -6,7 +6,7 @@ import useScrollToTopButton from "../assets/useScrollToTop";
 import { Error, HadithCard, Loader } from "../components";
 import { useGetHadithsQuery } from "../redux/services/booksApi";
 import { useState } from "react";
-import { FaHandPointLeft, FaHandPointRight, FaRegHandPointLeft } from "react-icons/fa";
+import { FaArrowCircleLeft, FaChevronLeft, FaChevronRight, FaHandPointLeft, FaHandPointRight, FaQuoteLeft, FaRegHandPointLeft } from "react-icons/fa";
 
 const Hadiths = ({ searchTerm }) => {
     const { chapter, bookSlug } = useParams();
@@ -36,7 +36,7 @@ const Hadiths = ({ searchTerm }) => {
     if (error) return <Error message="Failed to fetch data" />;
 
     return (
-        <div className={`flex px-4 flex-col  h-screen items-center w-full md:pb-24 pb-40 ${t('font')}`}>
+        <div className={`flex px-4 flex-col  h-screen items-center  md:pb-24 pb-40 ${t('font')}`}>
             <div className={`text-white w-full border-x-2 border-x-[#EEEEEE]  flex ${language !== 'ar' && 'flex-row-reverse'} justify-between items-center bg-[#191624] rounded-lg p-4 text-center  mb-1`}>
                 <h4 className="md:text-lg text-xs text-black bg-white rounded-lg p-1">{t('Page') + " " + t('Number') + " " + page}</h4>
                 <h2 className="md:text-2xl text-lg" >
@@ -58,24 +58,24 @@ const Hadiths = ({ searchTerm }) => {
             </div>
 
             {/* Pagination Section */}
-            <div className="flex gap-x-2 w-fit bg-white justify-center rounded-lg p-2">
+            {(data?.hadiths?.prev_page_url || data?.hadiths?.next_page_url) && <div className="flex gap-2 w-fit bg-white flex-wrap justify-center rounded-lg p-1">
                 {data?.hadiths?.links.map((link, i) => (
                     (!link.active && link.url) && (
                         <button
                             key={i}
                             onClick={() => setPage(link.url.split('=')[1])}
-                            className="px-2 py-1 border rounded hover:bg-gray-200"
+                            className="px-2 py-1 border rounded md:text-xl text-xs hover:bg-gray-200"
 
                         >
                             {link.label == '&laquo; Previous'
-                                ? <FaHandPointLeft />
+                                ? <FaChevronLeft />
                                 : link.label == 'Next &raquo;'
-                                    ? < FaHandPointRight />
+                                    ? < FaChevronRight />
                                     : link.label}
                         </button>
                     )
                 ))}
-            </div>
+            </div>}
 
             {/* Scroll to top button */}
             {showScrollButton && (
