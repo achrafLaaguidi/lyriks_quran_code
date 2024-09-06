@@ -79,17 +79,17 @@ const Discover = ({ searchTerm }) => {
 
     return (
         <div className="px-4 flex flex-col h-screen overflow-y-scroll hide-scrollbar">
-            <div className={`w-full flex justify-between items-center ${languageDirectionClass} flex-col my-8`}>
+            <div className={`w-full flex justify-between items-center ${languageDirectionClass} gap-2 bg-[#191624] border-x-2 border-x-[#EEEEEE] rounded-lg p-4  flex-col my-2`}>
                 <h2 className={`font-bold text-2xl text-white text-center  w-fit  ${t('font')}`}>
                     {t('Chapter')}
                 </h2>
-                <div className={`w-[75%] flex md:flex-row flex-col items-center ${language == 'ar' ? 'justify-start' : 'justify-end'}`}>
+                <div className={`w-[75%] flex md:flex-row flex-col gap-2 items-center ${language == 'ar' ? 'justify-start' : 'justify-end'}`}>
                     <SelectInput
                         showSearch={true}
                         options={riwayat?.riwayat || []}
                         value={riwayat.riwayat.find((ry) => ry.id == riwaya)?.name}
                         onChange={handleRiwayaChange}
-                        className={'md:mt-0 mt-4 md:w-[50%] w-[75%]'}
+                        className={' md:w-[50%] w-[75%]'}
                         placeholder={t('Choose Your Riwaya')}
                     />
                     <SelectInput
@@ -97,7 +97,7 @@ const Discover = ({ searchTerm }) => {
                         options={availableReaders}
                         value={availableReaders.find((rd) => rd.id == reader)?.name}
                         onChange={handleReaderChange}
-                        className={'md:mt-0 mt-4 md:w-[50%] w-[75%]'}
+                        className={' md:w-[50%] w-[75%]'}
 
                         placeholder={t('Choose Your Reader')}
                     />

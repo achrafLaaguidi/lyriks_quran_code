@@ -76,14 +76,14 @@ const Tafasir = () => {
 
   return (
     <div className=" flex-1 px-4 flex flex-col h-screen md:pb-0 pb-16  overflow-y-scroll hide-scrollbar">
-      <div className="flex flex-col justify-center items-center mt-8 mb-4 gap-2 ">
-        <h2 className={`text-white font-bold text-2xl ${t('font')}`}>{tafasir?.tafasir?.name}</h2>
+      <div className="flex flex-col justify-center items-center md:mt-2 mt-12 mb-4 gap-2 bg-[#191624] border-x-2 border-x-[#EEEEEE] rounded-lg p-4">
+        <h2 className={`text-white font-bold md:text-2xl text-lg ${t('font')}`}>{tafasir?.tafasir?.name}</h2>
         <SelectInput
           showSearch={true}
           options={quran?.suwar}
           value={quran?.suwar.find((ry) => ry.id == surahId)?.name}
           onChange={handleSurahChange}
-          className={'w-1/3 '}
+          className={'md:w-1/3 w-1/2'}
           placeholder={t('Choose Your Surah')}
         />
       </div>

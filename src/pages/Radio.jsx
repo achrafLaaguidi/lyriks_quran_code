@@ -98,8 +98,8 @@ const Radio = ({ searchTerm }) => {
     if (error) return <Error />;
 
     return (
-        <div className="flex flex-col h-screen md:pb-0 pb-4 overflow-y-scroll hide-scrollbar">
-            <h2 className={`font-bold text-3xl my-4 text-white text-center ${t('font')}`}>
+        <div className="flex flex-col h-screen px-4 md:pb-0 pb-4 overflow-y-scroll hide-scrollbar">
+            <h2 className={`font-bold text-3xl my-2 bg-[#191624] border-x-2 border-x-[#EEEEEE] rounded-lg py-4 text-white text-center ${t('font')}`}>
                 {t('ChannelRadio')}
             </h2>
 
