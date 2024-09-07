@@ -1,5 +1,5 @@
 import { t } from 'i18next';
-import React, { memo, useCallback, useRef, useState } from 'react';
+import React, { memo, useCallback } from 'react';
 import { HiRefresh } from 'react-icons/hi';
 import { useDispatch } from 'react-redux';
 import { radioLogo } from '../assets';
@@ -8,7 +8,6 @@ import PlayPause from './PlayPause';
 
 const RadioCard = memo(({ radio, isPlaying, activeRadio, i, currentRadios, handlePauseClick, handlePlayClick, isLoading, setIsLoading }) => {
     const dispatch = useDispatch();
-
 
 
 

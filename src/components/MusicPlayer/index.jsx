@@ -67,7 +67,7 @@ const MusicPlayer = ({ isUp }) => {
     }
   };
 
-  if (isFetching) return <Loader />;
+  if (isFetching) return <Loader height='h-full' />;
   if (error) return <Error language={language} />;
 
 

@@ -1,6 +1,7 @@
+import { memo } from "react"
 import { bookLogo } from "../assets"
 
-const BooksCard = ({ book, language, navigate }) =>
+const BooksCard = memo(({ book, language, navigate }) =>
 (<div
     onClick={() => navigate(`/chapters/${book.bookSlug}`, { state: { bookName: book.bookName } })}
     className={`flex flex-col gap-y-1 w-[200px]   justify-between items-center text-white  p-4 bg-white/10 bg-opacity-80 backdrop-blur-sm animate-slideup rounded-lg cursor-pointer `}  >
@@ -17,5 +18,5 @@ const BooksCard = ({ book, language, navigate }) =>
 
         </div>
     </div>
-</div>)
+</div>))
 export default BooksCard

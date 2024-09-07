@@ -1,7 +1,8 @@
 import { t } from "i18next";
+import { memo } from "react";
 
 
-const ChapterCard = ({ chapter, language, navigate, bookName }) => (
+const ChapterCard = memo(({ chapter, language, navigate, bookName }) => (
     <div
         onClick={() => navigate(`/hadiths/${chapter.bookSlug}/${chapter.chapterNumber}`, {
             state: {
@@ -14,5 +15,5 @@ const ChapterCard = ({ chapter, language, navigate, bookName }) => (
         <p className="bg-[#EEEEEE] rounded-lg p-2 text-black  font-bold">{chapter.chapterNumber}</p>
 
     </div>
-)
+))
 export default ChapterCard;

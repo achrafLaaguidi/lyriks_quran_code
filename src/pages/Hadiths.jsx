@@ -60,11 +60,12 @@ const Hadiths = ({ searchTerm }) => {
             {/* Pagination Section */}
             {(data?.hadiths?.prev_page_url || data?.hadiths?.next_page_url) && <div className="flex gap-2 w-fit bg-white flex-wrap justify-center rounded-lg p-1">
                 {data?.hadiths?.links.map((link, i) => (
-                    (!link.active && link.url) && (
+                    (!link.active && (link.url || link.label == '...')) && (
                         <button
+                            disabled={!link.url}
                             key={i}
                             onClick={() => setPage(link.url.split('=')[1])}
-                            className="px-2 py-1 border rounded md:text-xl text-xs hover:bg-gray-200"
+                            className={`px-2 py-1 border rounded md:text-xl text-xs ${link.url && 'hover:bg-gray-200'}`}
 
                         >
                             {link.label == '&laquo; Previous'
