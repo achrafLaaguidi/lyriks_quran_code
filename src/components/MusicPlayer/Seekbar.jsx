@@ -22,7 +22,7 @@ const Seekbar = ({ value, min, max, onInput, setSeekTime, appTime }) => {
         className="slider"
       />
       <p className="text-white">{max === 0 ? '0:00' : getTime(max)}</p>
-      <button type="button" onClick={() => setSeekTime(appTime + 5)} className="hidden lg:ml-4 lg:block text-white">
+      <button type="button" onClick={() => setSeekTime(appTime + 5)} className="hidden lg:mr-4 lg:block text-white">
         +
       </button>
     </div>
