@@ -27,7 +27,7 @@ const MusicPlayer = ({ isUp }) => {
   const { data, isFetching, error } = useGetRecitersByLanguageAndIdAndRewayaQuery({
     lang: language,
     id: reader,
-    riwaya: riwaya / 10,
+    riwaya: (riwaya /10).toFixed(0),
   });
 
   const [duration, setDuration] = useState(0);

@@ -55,3 +55,4 @@
 .slider::-webkit-slider-thumb {
   @apply appearance-none w-4 h-4 active:w-5 active:h-5 active:ring-8 ring-cyan-600/30 rounded-full bg-cyan-600 cursor-pointer transition-all duration-150
 }
+

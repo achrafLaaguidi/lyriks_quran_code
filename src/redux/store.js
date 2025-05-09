@@ -10,8 +10,12 @@ export const store = configureStore({
     [booksApi.reducerPath]: booksApi.reducer,
     player: playerReducer,
   },
-  middleware: (getDefaultMiddleware) => getDefaultMiddleware()
+  middleware: (getDefaultMiddleware) => getDefaultMiddleware(
+    {
+      serializableCheck: false
+    })
     .concat(quranApi.middleware)
     .concat(booksApi.middleware),
+    
 
 });

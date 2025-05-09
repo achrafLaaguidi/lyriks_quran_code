@@ -12,7 +12,6 @@ import {
     useGetRecitersByLanguageQuery,
     useGetSuwarByLanguageQuery
 } from '../redux/services/quranApi';
-import useGetUrl from '../assets/useGetUrl';
 const Discover = ({ searchTerm }) => {
     const { t } = useTranslation();
     const dispatch = useDispatch();
@@ -28,7 +27,7 @@ const Discover = ({ searchTerm }) => {
     const { data: currentSurah, isFetching: currentSurahIsFetching, error: currentSurahError } = useGetRecitersByLanguageAndIdAndRewayaQuery({
         lang: language,
         id: reader,
-        riwaya: riwaya / 10,
+        riwaya: (riwaya /10).toFixed(0)
     });
     // Memoized derived state
     const availableReaders = useMemo(() => {
@@ -50,7 +49,8 @@ const Discover = ({ searchTerm }) => {
 
     }, [suwars, searchTerm]);
 
-
+    
+ 
 
     const handleReaderChange = (selectedReaderId) => {
         const readerData = availableReaders.find((rd) => rd.name == selectedReaderId);
@@ -111,7 +111,7 @@ const Discover = ({ searchTerm }) => {
                         song={song}
                         isPlaying={isPlaying}
                         activeSong={activeSong}
-                        url={useGetUrl({ id: song.id, currentSurah: currentSurah })}
+                        urlParm={{ id: song.id, currentSurah: currentSurah }}
                         data={suwars}
                         i={i}
                     />

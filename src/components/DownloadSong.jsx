@@ -14,8 +14,8 @@ const DownloadSong = ({ audio, name, size }) => {
             text: `${t('FileMessage')}`,
             icon: "warning",
             showCancelButton: true,
-            confirmButtonColor: "#3085d6",
             cancelButtonColor: "#d33",
+            confirmButtonColor: "#3085d6",
             cancelButtonText: `${t('Cancel')}`,
             confirmButtonText: `${t('Yes')}`
         }).then((result) => {
