@@ -1,4 +1,4 @@
-import React, { memo } from 'react';
+import React, { memo, useEffect, useState } from 'react';
 import { useTranslation } from 'react-i18next';
 import { useDispatch, useSelector } from 'react-redux';
 import { Link } from 'react-router-dom';
@@ -6,12 +6,29 @@ import quran from '../assets/quran.jpg';
 import { playPause, setActiveSong } from '../redux/features/playerSlice';
 import DownloadSong from './DownloadSong';
 import PlayPause from './PlayPause';
+import useGetUrl from '../assets/useGetUrl';
 
-const SongCard = memo(({ song, isPlaying, activeSong, data, i, url }) => {
+const SongCard = memo(({ song, isPlaying, activeSong, data, i, urlParm }) => {
   const dispatch = useDispatch();
   const { language, save } = useSelector((state) => state.player);
   const { t } = useTranslation()
   const surahSaved = save.split(',')
+
+  const [url, setUrl] = useState(null);
+
+  useEffect(() => {
+    const fetchUrl = async () => {
+      try {
+        const fetchedUrl = await useGetUrl({id:urlParm.id, currentSurah: urlParm.currentSurah});
+        setUrl(fetchedUrl);
+      } catch (error) {
+        console.error('Error fetching URL:', error);
+      }
+    };
+
+    fetchUrl();
+  }, [urlParm]);
+
 
   const handlePauseClick = () => {
     dispatch(playPause(false));
