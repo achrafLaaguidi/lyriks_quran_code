@@ -1,0 +1,111 @@
+{
+    "Discover": "Découvrir",
+    "Quran": "Coran",
+    "Tafsir": "Interprétation de Tabari",
+    "Al-Ahadits": "Les Hadiths",
+    "Radio": "Radio",
+    "Search": "Cherche",
+    "Sourat": "Sourate",
+    "Number": "Numéro",
+    "Choose Your Riwaya": "Choisissez votre Riwaya",
+    "Choose Page": "Choisissez Une Page.",
+    "Page": "La Page",
+    "Choose Your Reader": "Choisissez votre lecteur",
+    "Choose Your Language": "Choisissez votre langue",
+    "Choose Your Surah": "Choisissez une Surah",
+    "Chapter": "Les sourates du Saint Coran",
+    "Save": "Sauvgarder",
+    "Saved": "Sauvé",
+    "Loading": "Chargement...",
+    "Error": "Quelque chose a mal tourné. Veuillez réessayer",
+    "NotFound": "Il n'y a pas d'enregistrement",
+    "ChannelRadio": "Radio numérique",
+    "DownloadComplete": "Téléchargement terminé",
+    "DownloadFailed": "Le téléchargement a échoué",
+    "font": "font-Foreigner",
+    "booksName": "Livres des hadiths prophétiques",
+    "books": [
+        {
+            "id": 1,
+            "bookName": "Sahih Bukhari",
+            "writerName": "Imam Bukhari",
+            "writerDeath": "256 ھ",
+            "bookSlug": "sahih-bukhari",
+            "hadiths": "Hadith",
+            "hadiths_count": "7433",
+            "chapters_count": "99"
+        },
+        {
+            "id": 2,
+            "bookName": "Sahih Muslim",
+            "writerName": "Imam Muslim",
+            "writerDeath": "261 ھ",
+            "bookSlug": "sahih-muslim",
+            "hadiths": "Hadith",
+            "hadiths_count": "7561",
+            "chapters_count": "56"
+        },
+        {
+            "id": 4,
+            "bookName": "Jami' Al-Tirmidhi",
+            "writerName": "Abu `Isa Muhammad at-Tirmidhi",
+            "writerDeath": "279",
+            "bookSlug": "al-tirmidhi",
+            "hadiths": "Hadith",
+            "hadiths_count": "3956",
+            "chapters_count": "50"
+        },
+        {
+            "id": 5,
+            "bookName": "Sunan Abu Dawood",
+            "writerName": "Imam Abu Dawud Sulayman ibn al-Ash'ath as-Sijistani",
+            "writerDeath": "275",
+            "bookSlug": "abu-dawood",
+            "hadiths": "Hadith",
+            "hadiths_count": "5274",
+            "chapters_count": "43"
+        },
+        {
+            "id": 6,
+            "bookName": "Sunan Ibn-e-Majah",
+            "writerName": "Imam Muhammad bin Yazid Ibn Majah al-Qazvini",
+            "writerDeath": "273",
+            "bookSlug": "ibn-e-majah",
+            "hadiths": "Hadith",
+            "hadiths_count": "4341",
+            "chapters_count": "39"
+        },
+        {
+            "id": 7,
+            "bookName": "Sunan An-Nasa`i",
+            "writerName": "Imam Ahmad an-Nasa`i",
+            "writerDeath": "303",
+            "bookSlug": "sunan-nasai",
+            "hadiths": "Hadith",
+            "hadiths_count": "5761",
+            "chapters_count": "52"
+        },
+        {
+            "id": 8,
+            "bookName": "Mishkat Al-Masabih",
+            "writerName": "Imam Khatib at-Tabrizi",
+            "writerDeath": "741",
+            "bookSlug": "mishkat",
+            "hadiths": "Hadith",
+            "hadiths_count": "6293",
+            "chapters_count": "29"
+        }
+    ],
+    "Sure": "Es-tu sûr ?",
+    "FileMessage": "Vous voulez télécharger ce fichier !",
+    "Yes": "Oui",
+    "Cancel": "Annuler",
+    "BookChapters": "Chapitres du",
+    "lang": "English",
+    "Hadith": "Hadith",
+    "Status": {
+        "SAHIH": "Sahih",
+        "HASAN": "Hassan",
+        "DA`EEF": "Da`eef"
+    }
+}

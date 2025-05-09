@@ -1,0 +1,112 @@
+{
+    "Discover": "اكتشف",
+    "Quran": "القرآن الكريم",
+    "Tafsir": "تفسير الطبري",
+    "Al-Ahadits": "الأحاديث",
+    "Radio": "الإذاعة",
+    "Search": "بحث",
+    "Sourat": "سورة",
+    "Number": "رقم",
+    "Choose Your Riwaya": "اختر روايتك",
+    "Choose Page": "اختر الصفحة",
+    "Page": "الصفحة",
+    "Choose Your Reader": "اختر قارئك",
+    "Choose Your Surah": "اختر سورة",
+    "Choose Your Language": "اختر لغتك",
+    "Chapter": "سُوَرُ الْقُرْآنُ الْكَرِيمُ",
+    "Save": "احفظ",
+    "Saved": "محفوظ",
+    "Loading": "...جاري التحميل",
+    "Error": "حدث خطأ ما. يرجى المحاولة مرة أخرى",
+    "NotFound": "لا يوجد تسجيل",
+    "ChannelRadio": "الإذاعة الرقمية",
+    "DownloadComplete": "تم الانتهاء من التحميل",
+    "DownloadFailed": "فشل التحميل",
+    "font": "font-Arabic",
+    "booksName": "كتب الأحاديث النبوية",
+    "books": [
+        {
+            "id": 1,
+            "bookName": "صَحِيحُ اُلْبُخَارِي",
+            "writerName": "اَلْإِمَامُ اُلْبُخَارِي",
+            "writerDeath": "256 ھ",
+            "bookSlug": "sahih-bukhari",
+            "hadiths": "حديث",
+            "hadiths_count": "٧٣٤٤",
+            "chapters_count": "99"
+        },
+        {
+            "id": 2,
+            "bookName": "صَحِيحُ مُسْلِم",
+            "writerName": "اَلْإِمَامُ مُسْلِم",
+            "writerDeath": "261 ھ",
+            "bookSlug": "sahih-muslim",
+            "hadiths": "حديث",
+            "hadiths_count": "٧٥٦١",
+            "chapters_count": "56"
+        },
+        {
+            "id": 4,
+            "bookName": "جَامِعُ اُلتِّرْمِذِي",
+            "writerName": "أَبُو عِيسَى مُحَمَّد اُلتِّرْمِذِي",
+            "writerDeath": "279 ھ",
+            "bookSlug": "al-tirmidhi",
+            "hadiths": "حديث",
+            "hadiths_count": "٣٩٥٦",
+            "chapters_count": "50"
+        },
+        {
+            "id": 5,
+            "bookName": "سُنَنُ أَبِي دَاوُد",
+            "writerName": "اَلْإِمَامُ أَبُو دَاوُد سُلَيْمَان بْنِ اُلْأَشْعَث السجستاني",
+            "writerDeath": "275 ھ",
+            "bookSlug": "abu-dawood",
+            "hadiths": "حديث",
+            "hadiths_count": "٥٢٧٤",
+            "chapters_count": "43"
+        },
+        {
+            "id": 6,
+            "bookName": "سُنَنُ اِبْنُ مَاجَه",
+            "writerName": "اَلْإِمَامُ مُحَمَّد بْنِ يَزِيد بْنِ مَاجَه القزويني",
+            "writerDeath": "273 ھ",
+            "bookSlug": "ibn-e-majah",
+            "hadiths": "حديث",
+            "hadiths_count": "٤٣٤١",
+            "chapters_count": "39"
+        },
+        {
+            "id": 7,
+            "bookName": "سُنَنُ اُلنِّسَائِي",
+            "writerName": "اَلْإِمَامُ أَحْمَد اُلنِّسَائِي",
+            "writerDeath": "303 ھ",
+            "bookSlug": "sunan-nasai",
+            "hadiths": "حديث",
+            "hadiths_count": "٥٧٦١",
+            "chapters_count": "52"
+        },
+        {
+            "id": 8,
+            "bookName": "مِشْكَات اُلْمَصَابِيح",
+            "writerName": "اَلْإِمَامُ خَطِيب اُلتَّبْرِيزِي",
+            "writerDeath": "741 ھ",
+            "bookSlug": "mishkat",
+            "hadiths": "حديث",
+            "hadiths_count": "٦٢٩٣",
+            "chapters_count": "29"
+        }
+    ],
+    "Sure": "هل أنت متأكد؟",
+    "FileMessage": "تريد تحميل هذا الملف!",
+    "Yes": "نعم",
+    "Cancel": "إلغاء",
+    "BookChapters": "فصول كتاب",
+    "lang": "Arabic",
+    "hadithLang": "hadithArabic",
+    "Hadith": "حديث",
+    "Status": {
+        "SAHIH": "صحيح",
+        "HASAN": "حسن",
+        "DA`EEF": "ضعيف"
+    }
+}
