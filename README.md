@@ -26,7 +26,9 @@ To get started with development, you need to install few tools
 
 2. node 
    
-   `node` version 16.15.1 or higher. Download [node](https://nodejs.org/en/download/) if you don't have it already.
+   `node` version 26.13.1 (pinned in `.nvmrc`). Download [node](https://nodejs.org/en/download/) if you don't have it already.
+
+   With nvm, run `nvm install` and `nvm use` from the project directory.
 
    To check your version of node, run:
 
