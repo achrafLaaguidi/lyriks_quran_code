@@ -1,12 +1,15 @@
 import { createSlice } from '@reduxjs/toolkit';
+
+const getStored = (key) => { try { return localStorage.getItem(key); } catch { return null; } };
+const persist = (key, value) => { try { localStorage.setItem(key, value); } catch { /* Persistence is optional. */ } };
+
 const updateSong = (state, action) => {
   if (state.activeSong?.id) {
     state.activeSong = state.currentSongs[action.payload];
     state.surahId = action.payload + 1;
   } else if (state.activeTafsir?.id) {
     state.activeTafsir = state.currentSongs[action.payload];
-  }
-  else {
+  } else {
     state.activeRadio = state.currentSongs[action.payload];
   }
   state.currentIndex = action.payload;
@@ -18,14 +21,14 @@ const initialState = {
   currentIndex: 0,
   isActive: false,
   isPlaying: false,
-  surahId: localStorage.getItem('surahId') || 2,
+  surahId: getStored('surahId') || 2,
   activeSong: {},
   activeTafsir: {},
   activeRadio: {},
-  language: localStorage.getItem('language') || 'ar',
-  reader: localStorage.getItem('reader') || 102,
-  riwaya: localStorage.getItem('riwaya') || 1,
-  save: localStorage.getItem('save') || '0,0'
+  language: getStored('language') || 'ar',
+  reader: getStored('reader') || 102,
+  riwaya: !getStored('riwaya') || getStored('riwaya') === '1' ? 11 : getStored('riwaya'),
+  save: getStored('save') || '0,0',
 };
 
 const playerSlice = createSlice({
@@ -33,41 +36,34 @@ const playerSlice = createSlice({
   initialState,
   reducers: {
     setActiveRadio: (state, action) => {
-
       if (action.payload) {
-
         state.activeRadio = action.payload.song;
-        state.activeSong = {}
-        state.activeTafsir = {}
+        state.activeSong = {};
+        state.activeTafsir = {};
 
         state.currentSongs = action.payload.data;
         state.currentIndex = action.payload.i;
         state.isActive = true;
       }
-
     },
     setActiveSong: (state, action) => {
-
       if (action.payload) {
-
         state.activeSong = action.payload.song;
-        state.activeTafsir = {}
-        state.activeRadio = {}
+        state.activeTafsir = {};
+        state.activeRadio = {};
 
         state.currentSongs = action.payload.data;
 
-
-        state.currentIndex = action.payload.song?.id - 1;
+        state.currentIndex = action.payload.i ?? Math.max(0, Number(action.payload.song?.id ?? 1) - 1);
 
         state.isActive = true;
       }
-
     },
     setActiveTafsir: (state, action) => {
       if (action.payload) {
         state.activeTafsir = action.payload.song;
-        state.activeSong = {}
-        state.activeRadio = {}
+        state.activeSong = {};
+        state.activeRadio = {};
         state.currentSongs = action.payload.data;
 
         state.currentIndex = action.payload.i;
@@ -88,24 +84,24 @@ const playerSlice = createSlice({
     },
     setSurahId: (state, action) => {
       state.surahId = action.payload;
-      localStorage.setItem('surahId', action.payload);
+      persist('surahId', action.payload);
     },
     setSave: (state, action) => {
       state.save = action.payload;
-      localStorage.setItem('save', action.payload);
+      persist('save', action.payload);
     },
 
     setLanguage: (state, action) => {
       state.language = action.payload;
-      localStorage.setItem('language', action.payload);
+      persist('language', action.payload);
     },
     setReader: (state, action) => {
       state.reader = action.payload;
-      localStorage.setItem('reader', action.payload);
+      persist('reader', action.payload);
     },
     setRiwaya: (state, action) => {
       state.riwaya = action.payload;
-      localStorage.setItem('riwaya', action.payload);
+      persist('riwaya', action.payload);
     },
   },
 });

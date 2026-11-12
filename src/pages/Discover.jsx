@@ -1,132 +1,176 @@
-import React, { useEffect, useMemo, useState } from 'react';
-import { useTranslation } from 'react-i18next';
-import { HiArrowCircleUp } from 'react-icons/hi';
+/* eslint-disable no-nested-ternary -- Conditional rendering keeps loading, error, and content states together. */
+import { useMemo, useState } from 'react';
 import { useDispatch, useSelector } from 'react-redux';
-import { SelectInput } from '../assets/constants';
-import useScrollToTopButton from '../assets/useScrollToTop';
-import { Error, Loader, SongCard } from '../components';
-import { setReader, setRiwaya } from '../redux/features/playerSlice';
+import { Link, useSearchParams } from 'react-router-dom';
 import {
-    useGetMushafByLanguageQuery,
-    useGetRecitersByLanguageAndIdAndRewayaQuery,
-    useGetRecitersByLanguageQuery,
-    useGetSuwarByLanguageQuery
+  HiOutlinePlay,
+  HiOutlinePause,
+  HiOutlineBookOpen,
+} from 'react-icons/hi';
+import { selectMoshaf, recitationUrl, normalizeSearch } from '../utils/quran.mjs';
+import {
+  useGetSuwarByLanguageQuery,
+  useGetRecitersByLanguageQuery,
+  useGetMushafByLanguageQuery,
 } from '../redux/services/quranApi';
-const Discover = ({ searchTerm }) => {
-    const { t } = useTranslation();
-    const dispatch = useDispatch();
-    const { activeSong, isPlaying, language, reader, riwaya } = useSelector((state) => state.player);
-    const [filteredSuwars, setFilteredSuwars] = useState([]);
-    const { scrollContainerRef, showScrollButton, handleScrollToTop } = useScrollToTopButton();
+import {
+  setReader,
+  setRiwaya,
+  setActiveSong,
+  playPause,
+} from '../redux/features/playerSlice';
+import {
+  PageHeading,
+  SearchInput,
+  LoadingState,
+  ErrorState,
+} from '../components/common/UI';
+import DownloadSong from '../components/DownloadSong';
 
-    // API Queries
-    const { data: suwars, isFetching: suwarIsFetching, error: suwarError } = useGetSuwarByLanguageQuery(language);
-
-    const { data: readers, isFetching: readersIsFetching, error: readersError } = useGetRecitersByLanguageQuery(language);
-    const { data: riwayat, isFetching: riwayatIsFetching, error: riwayatError } = useGetMushafByLanguageQuery(language);
-    const { data: currentSurah, isFetching: currentSurahIsFetching, error: currentSurahError } = useGetRecitersByLanguageAndIdAndRewayaQuery({
-        lang: language,
-        id: reader,
-        riwaya: (riwaya /10).toFixed(0)
-    });
-    // Memoized derived state
-    const availableReaders = useMemo(() => {
-        if (riwaya && readers) {
-            return readers.reciters.filter((reciter) =>
-                reciter.moshaf.some((moshaf) => moshaf.moshaf_type == riwaya)
-            );
-        }
-        return [];
-    }, [riwaya, readers]);
-
-    useEffect(() => {
-        if (suwars) {
-            const filtered = searchTerm
-                ? suwars.suwar.filter((surah) => surah.name.includes(searchTerm))
-                : suwars.suwar;
-            setFilteredSuwars(filtered);
-        }
-
-    }, [suwars, searchTerm]);
-
-    
- 
-
-    const handleReaderChange = (selectedReaderId) => {
-        const readerData = availableReaders.find((rd) => rd.name == selectedReaderId);
-        if (readerData) {
-            dispatch(setReader(readerData.id));
-        }
-    };
-
-    const handleRiwayaChange = (selectedRiwaya) => {
-        const riwayaData = riwayat.riwayat.find((ry) => ry.name == selectedRiwaya);
-        if (riwayaData) {
-            dispatch(setRiwaya(riwayaData.id));
-        }
-    };
-
-    if (suwarIsFetching || readersIsFetching || riwayatIsFetching || currentSurahIsFetching) {
-        return <Loader />;
+export default function Discover() {
+  const dispatch = useDispatch();
+  const { language, reader, riwaya, activeSong, isPlaying } = useSelector(
+    (s) => s.player,
+  );
+  const [search, setSearch] = useState('');
+  const [params] = useSearchParams();
+  const quran = useGetSuwarByLanguageQuery(language);
+  const reciters = useGetRecitersByLanguageQuery(language);
+  const mushaf = useGetMushafByLanguageQuery(language);
+  const readers = useMemo(
+    () => reciters.data?.reciters?.filter((r) => r.moshaf.some((m) => Number(m.moshaf_type) === Number(riwaya))) || [],
+    [reciters.data, riwaya],
+  );
+  const list = quran.data?.suwar?.filter(
+    (s) => normalizeSearch(s.name).includes(normalizeSearch(search))
+        || String(s.id) === search.trim(),
+  ) || [];
+  const moshaf = selectMoshaf(reciters.data, reader, riwaya);
+  const play = (song) => {
+    if (activeSong.id === song.id) dispatch(playPause(!isPlaying));
+    else {
+      dispatch(setActiveSong({ song, data: quran.data.suwar, i: song.id - 1 }));
+      dispatch(playPause(true));
     }
-    if (suwarError || readersError || riwayatError || currentSurahError) {
-        return <Error />;
-    }
-
-
-
-    const languageDirectionClass = language == 'ar' ? 'md:flex-row-reverse' : 'md:flex-row';
-
-    return (
-        <div className="px-4 flex flex-col h-screen overflow-y-scroll hide-scrollbar">
-            <div className={`w-full flex justify-between items-center ${languageDirectionClass} gap-2 bg-[#191624] border-x-2 border-x-[#EEEEEE] rounded-lg p-4  flex-col my-2`}>
-                <h2 className={`font-bold text-2xl text-white text-center  w-fit  ${t('font')}`}>
-                    {t('Chapter')}
-                </h2>
-                <div className={`w-[75%] flex md:flex-row flex-col gap-2 items-center ${language == 'ar' ? 'justify-start' : 'justify-end'}`}>
-                    <SelectInput
-                        showSearch={true}
-                        options={riwayat?.riwayat || []}
-                        value={riwayat.riwayat.find((ry) => ry.id == riwaya)?.name}
-                        onChange={handleRiwayaChange}
-                        className={' md:w-[50%] w-[75%]'}
-                        placeholder={t('Choose Your Riwaya')}
-                    />
-                    <SelectInput
-                        showSearch={true}
-                        options={availableReaders}
-                        value={availableReaders.find((rd) => rd.id == reader)?.name}
-                        onChange={handleReaderChange}
-                        className={' md:w-[50%] w-[75%]'}
-
-                        placeholder={t('Choose Your Reader')}
-                    />
-                </div>
-            </div>
-
-            <div ref={scrollContainerRef} className={`flex ${language == 'ar' && 'flex-row-reverse'} flex-wrap md:justify-satrt justify-center gap-8 h-fit overflow-y-scroll hide-scrollbar md:pb-28 pb-36`}>
-                {filteredSuwars?.map((song, i) => (
-                    <SongCard
-                        key={song.id}
-                        song={song}
-                        isPlaying={isPlaying}
-                        activeSong={activeSong}
-                        urlParm={{ id: song.id, currentSurah: currentSurah }}
-                        data={suwars}
-                        i={i}
-                    />
-                ))}
-                {showScrollButton && (
+  };
+  return (
+    <>
+      <PageHeading eyebrow="اقرأ واستمع" title="القرآن الكريم">
+        تصفّح السور، واختر تلاوتك، وخذ وقتك مع كتاب الله.
+      </PageHeading>
+      <div className="toolbar">
+        <SearchInput
+          value={search}
+          onChange={setSearch}
+          placeholder="اسم السورة أو رقمها…"
+        />
+        <label>
+          الرواية
+          <select
+            value={riwaya}
+            onChange={(e) => {
+              const next = reciters.data?.reciters?.find((r) => r.moshaf.some(
+                (m) => Number(m.moshaf_type) === Number(e.target.value),
+              ));
+              dispatch(setRiwaya(e.target.value));
+              if (next) dispatch(setReader(next.id));
+            }}
+          >
+            {mushaf.data?.riwayat?.map((r) => (
+              <option key={r.id} value={r.id}>
+                {r.name}
+              </option>
+            ))}
+          </select>
+        </label>
+        <label>
+          القارئ
+          <select
+            value={
+              readers.some((r) => Number(r.id) === Number(reader)) ? reader : ''
+            }
+            onChange={(e) => dispatch(setReader(e.target.value))}
+          >
+            <option value="" disabled>
+              اختر القارئ
+            </option>
+            {readers.map((r) => (
+              <option key={r.id} value={r.id}>
+                {r.name}
+              </option>
+            ))}
+          </select>
+        </label>
+      </div>
+      {params.has('search') && (
+        <p className="muted">ابحث باسم السورة أو رقمها في حقل البحث أعلاه.</p>
+      )}
+      {quran.isLoading ? (
+        <LoadingState />
+      ) : quran.isError ? (
+        <ErrorState retry={quran.refetch} />
+      ) : (
+        <>
+          <div className="list-meta">
+            <span>فهرس السور</span>
+            <span>{list.length} سورة</span>
+          </div>
+          {!list.length && <p className="state">لا توجد سورة مطابقة لبحثك.</p>}
+          <div className="surah-grid">
+            {list.map((s) => {
+              const url = recitationUrl(moshaf, s.id);
+              const available = !!url;
+              return (
+                <article
+                  className={`surah-card ${activeSong.id === s.id ? 'is-active' : ''}`}
+                  key={s.id}
+                >
+                  <Link className="surah-link" to={`/surah/${s.id}`}>
+                    <span className="number-badge">{s.id}</span>
+                    <span>
+                      <h2>{s.name}</h2>
+                      <small>
+                        {s.makkia ? 'مكية' : 'مدنية'} · قراءة السورة
+                      </small>
+                    </span>
+                    <HiOutlineBookOpen />
+                  </Link>
+                  <div className="surah-actions">
                     <button
-                        className="absolute left-25 bottom-1/4 md:text-6xl text-5xl bg-white rounded-full animate-pulse"
-                        onClick={handleScrollToTop}
+                      className="text-button"
+                      type="button"
+                      disabled={!available}
+                      onClick={() => play(s)}
                     >
-                        <HiArrowCircleUp />
+                      {activeSong.id === s.id && isPlaying ? (
+                        <HiOutlinePause />
+                      ) : (
+                        <HiOutlinePlay />
+                      )}
+                      {activeSong.id === s.id && isPlaying
+                        ? 'إيقاف مؤقت'
+                        : 'استماع'}
                     </button>
-                )}
-            </div>
-        </div>
-    );
-};
-
-export default Discover;
+                    {url && (
+                      <DownloadSong audio={url} name={s.name} size={17} />
+                    )}
+                  </div>
+                </article>
+              );
+            })}
+          </div>
+        </>
+      )}
+      {(reciters.isError || mushaf.isError) && (
+        <ErrorState
+          retry={() => {
+            reciters.refetch();
+            mushaf.refetch();
+          }}
+        >
+          تعذّر تحميل خيارات التلاوة. يمكنك متابعة القراءة.
+        </ErrorState>
+      )}
+    </>
+  );
+}

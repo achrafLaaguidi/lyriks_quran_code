@@ -1,134 +1,208 @@
-import { t } from "i18next";
-import { useEffect, useRef, useState } from "react";
-import { useDispatch, useSelector } from "react-redux";
-import { useParams } from "react-router-dom";
-import SwiperCore, { Pagination } from 'swiper/core';
-import { Swiper, SwiperSlide } from 'swiper/react';
-import 'swiper/swiper-bundle.min.css';
-import { Error, Loader } from "../components";
-import { setSave, setSurahId } from "../redux/features/playerSlice";
-import { useGetAyatsBySurahAndReaderQuery } from "../redux/services/quranApi";
-import { Select } from 'antd';
-import { HiLockClosed, HiLockOpen, HiSave, HiSaveAs } from "react-icons/hi";
+/* eslint-disable no-nested-ternary -- Conditional rendering keeps loading, error, and content states together. */
+import { useEffect, useMemo, useState } from 'react';
+import { Link, useParams } from 'react-router-dom';
+import { useDispatch, useSelector } from 'react-redux';
+import {
+  HiOutlineBookmark,
+  HiOutlineChevronLeft,
+  HiOutlineChevronRight,
+} from 'react-icons/hi';
+import {
+  useGetAyatsBySurahAndReaderQuery,
+  useGetSuwarByLanguageQuery,
+} from '../redux/services/quranApi';
+import { setSave } from '../redux/features/playerSlice';
+import { PageHeading, ErrorState, LoadingState } from '../components/common/UI';
+import useStoredState from '../hooks/useStoredState';
 
-// Initialize Swiper with the Pagination module
-SwiperCore.use([Pagination]);
-
-const Surah = () => {
-    const dispatch = useDispatch();
-    const { save } = useSelector((state) => state.player);
-    const { id } = useParams();
-    const { data, isFetching, error } = useGetAyatsBySurahAndReaderQuery({ surahId: id });
-
-    const [quranSurah, setQuranSurah] = useState([]);
-    const [currentPageIndex, setCurrentPageIndex] = useState(1);
-    const swiperRef = useRef(null);
-    const [page, setPage] = useState([]);
-
-    useEffect(() => {
-        const parsedSave = save?.split(',');
-        setPage(parsedSave);
-        const initialPageIndex = (parsedSave[1] == id) ? parseInt(parsedSave[0]) : 1;
-        setCurrentPageIndex(initialPageIndex);
-    }, [save]);
-
-    useEffect(() => {
-        dispatch(setSurahId(null));
-        if (data) {
-            const uniquePages = [];
-            const pageSet = new Set();
-
-            data.forEach(item => {
-                if (item.page && !pageSet.has(item.page)) {
-                    pageSet.add(item.page);
-                    uniquePages.push(item);
-                }
-            });
-
-            setQuranSurah(uniquePages);
-        }
-    }, [data, dispatch]);
-
-    const handleSave = () => {
-        dispatch(setSave(`${currentPageIndex},${id}`));
-    };
-
-    const handleChange = (selectedPage) => {
-        const selectedIndex = parseInt(selectedPage);
-        setCurrentPageIndex(selectedIndex);
-        swiperRef.current.slideTo(selectedIndex);
-    };
-
-    const SelectInput = ({ options, value, onChange, placeholder }) => (
-        <Select
-            showSearch
-            value={value}
-            onChange={onChange}
-            className="w-[50%]"
-            placeholder={placeholder}
-        >
-            <Select.Option value="">{placeholder}</Select.Option>
-            {options.map((_, i) => (
-                <Select.Option key={i} value={i + 1}>
-                    {t('Page')} {i + 1}
-                </Select.Option>
-            ))}
-        </Select>
+export default function Surah() {
+  const { id } = useParams();
+  const valid = /^\d+$/.test(id) && Number(id) >= 1 && Number(id) <= 114;
+  const dispatch = useDispatch();
+  const { language, save } = useSelector((s) => s.player);
+  const result = useGetAyatsBySurahAndReaderQuery(
+    { surahId: id },
+    { skip: !valid },
+  );
+  const { data: metadata } = useGetSuwarByLanguageQuery(language);
+  const pages = useMemo(
+    () => [
+      ...new Set(
+        (Array.isArray(result.currentData) ? result.currentData : [])
+          .map((a) => a.page)
+          .filter(Boolean),
+      ),
+    ],
+    [result.currentData],
+  );
+  const [page, setPage] = useState(() => (save?.split(',')[1] === id
+    ? Math.max(1, Number(save.split(',')[0]) || 1)
+    : 1));
+  const [zoom, setZoom] = useState(100);
+  const [imageError, setImageError] = useState(false);
+  const [, setRecent] = useStoredState('basair-reading', null);
+  const name = metadata?.suwar?.find((s) => s.id === Number(id))?.name;
+  useEffect(() => {
+    setPage(
+      save?.split(',')[1] === id
+        ? Math.max(1, Number(save.split(',')[0]) || 1)
+        : 1,
     );
-
-    if (isFetching) return <Loader />;
-    if (error) return <Error />;
-
+  }, [id, save]);
+  useEffect(() => {
+    setImageError(false);
+  }, [id, page]);
+  useEffect(() => {
+    if (pages.length && page > pages.length) setPage(pages.length);
+  }, [pages.length, page]);
+  useEffect(() => {
+    if (valid && name) setRecent({ id, name, page });
+  }, [id, name, page, setRecent, valid]);
+  if (!valid) {
     return (
-        <>
-            <div className="flex flex-col justify-center items-center m-auto w-fit md:h-full h-screen  md:pb-6 pt-2 bg-white overflow-hidden ">
-                <div className="flex justify-center w-full h-fit">
-                    <SelectInput
-                        options={quranSurah}
-                        value={currentPageIndex}
-                        onChange={handleChange}
-                        placeholder={t('Choose Page')}
-                    />
-                    <button
-                        disabled={currentPageIndex == parseInt(page[0])}
-                        className={`bg-orange-600 w-fit p-2 rounded-md text-white ml-2 ${currentPageIndex == parseInt(page[0]) ? 'opacity-50 cursor-not-allowed' : 'hover:bg-orange-700'}`}
-                        onClick={handleSave}
-                    >
-                        {currentPageIndex == parseInt(page[0]) ? <HiLockClosed title={t('Saved')} /> : <HiLockOpen title={t('Save')} />}
-                    </button>
-                </div>
-                {quranSurah.length > 0 && (
-                    <Swiper
-                        className="md:max-w-xl w-screen h-screen "
-                        grabCursor={true}
-                        slidesPerView={1}
-                        loop={quranSurah.length !== 1}
-                        direction="vertical"
-                        onSlideChange={(swiper) => setCurrentPageIndex(swiper.realIndex + 1)}
-                        initialSlide={currentPageIndex - 1}
-                        onSwiper={(swiper) => (swiperRef.current = swiper)}
-                    >
-
-                        {quranSurah.map((ayah, index) => (
-                            <SwiperSlide
-
-                                key={index}
-                            >
-
-                                <img
-                                    src={ayah.page}
-                                    alt={`${t('Page')} ${index + 1}`}
-                                    className="object-contain w-full md:h-full h-fit "
-                                />
-
-                            </SwiperSlide>
-                        ))}
-
-                    </Swiper>
-                )}
-            </div>
-        </>
+      <ErrorState>
+        رقم السورة غير صالح. <Link to="/quran">العودة لفهرس السور</Link>
+      </ErrorState>
     );
-};
-
-export default Surah;
+  }
+  const bookmarked = save === `${page},${id}`;
+  return (
+    <>
+      <PageHeading
+        eyebrow="القرآن الكريم"
+        title={name ? `سورة ${name}` : `السورة ${id}`}
+      >
+        صفحات المصحف من المصدر الأصلي، دون تعديل النص القرآني.
+      </PageHeading>
+      <div className="reader-layout">
+        <aside className="reader-aside">
+          <details open>
+            <summary>فهرس السور</summary>
+            <nav aria-label="اختر السورة" className="surah-navigation">
+              {metadata?.suwar?.map((s) => (
+                <Link
+                  key={s.id}
+                  to={`/surah/${s.id}`}
+                  aria-current={s.id === Number(id) ? 'page' : undefined}
+                >
+                  <span>{s.id}</span>
+                  {s.name}
+                </Link>
+              ))}
+            </nav>
+          </details>
+          <Link className="button" to="/quran">
+            خيارات التلاوة والاستماع
+          </Link>
+        </aside>
+        <section className="reader-panel" aria-label="قارئ المصحف">
+          <div className="reader-toolbar">
+            <label>
+              الصفحة
+              <select
+                value={Math.min(page, pages.length || 1)}
+                onChange={(e) => setPage(Number(e.target.value))}
+              >
+                {pages.map((url, i) => (
+                  <option key={url} value={i + 1}>
+                    {i + 1} / {pages.length}
+                  </option>
+                ))}
+              </select>
+            </label>
+            <div className="button-group">
+              <button
+                type="button"
+                disabled={zoom <= 80}
+                onClick={() => setZoom(zoom - 10)}
+                aria-label="تصغير صفحة المصحف"
+              >
+                −
+              </button>
+              <span>{zoom}%</span>
+              <button
+                type="button"
+                disabled={zoom >= 160}
+                onClick={() => setZoom(zoom + 10)}
+                aria-label="تكبير صفحة المصحف"
+              >
+                +
+              </button>
+            </div>
+            <button
+              type="button"
+              aria-pressed={bookmarked}
+              onClick={() => dispatch(setSave(`${page},${id}`))}
+            >
+              <HiOutlineBookmark />
+              {bookmarked ? 'تم حفظ الصفحة' : 'حفظ الصفحة'}
+            </button>
+          </div>
+          {result.isFetching ? (
+            <LoadingState />
+          ) : result.isError ? (
+            <ErrorState retry={result.refetch} />
+          ) : !pages.length ? (
+            <p className="state">
+              لا تتوفر صفحات لهذه السورة من المصدر الحالي.
+            </p>
+          ) : (
+            <>
+              <div className="mushaf-viewport">
+                {imageError ? (
+                  <ErrorState retry={() => setImageError(false)}>
+                    تعذّر عرض صورة المصحف.
+                  </ErrorState>
+                ) : (
+                  <img
+                    key={`${id}-${page}`}
+                    className="mushaf-image"
+                    style={{ width: `${zoom}%`, maxWidth: 'none' }}
+                    src={pages[page - 1]}
+                    alt={`صفحة ${page} من سورة ${name || id} من المصحف المصوّر`}
+                    onError={() => setImageError(true)}
+                  />
+                )}
+              </div>
+              <div className="reader-pagination">
+                <button
+                  type="button"
+                  disabled={page <= 1}
+                  onClick={() => setPage(page - 1)}
+                >
+                  <HiOutlineChevronRight />
+                  الصفحة السابقة
+                </button>
+                <span role="status">
+                  {page} / {pages.length}
+                </span>
+                <button
+                  type="button"
+                  disabled={page >= pages.length}
+                  onClick={() => setPage(page + 1)}
+                >
+                  الصفحة التالية
+                  <HiOutlineChevronLeft />
+                </button>
+              </div>
+            </>
+          )}
+          <p className="reader-note">
+            المصدر الحالي يوفّر صفحات مصوّرة؛ تحديد الآيات ونسخها وقراءتها بقارئ
+            الشاشة يتطلب مصدراً نصياً موثوقاً.
+          </p>
+          <div className="reader-pagination">
+            {Number(id) > 1 ? (
+              <Link to={`/surah/${Number(id) - 1}`}>السورة السابقة</Link>
+            ) : (
+              <span />
+            )}
+            {Number(id) < 114 && (
+              <Link to={`/surah/${Number(id) + 1}`}>السورة التالية</Link>
+            )}
+          </div>
+        </section>
+      </div>
+    </>
+  );
+}
